@@ -10,38 +10,93 @@
       background: url('https://wallpapercave.com/wp/wp2757874.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      text-align: center;
     }
+
     .overlay {
       background-color: rgba(0, 0, 0, 0.6);
-      padding: 100px 20px;
+      padding: 50px 20px;
+      text-align: center;
     }
+
     h1 {
       font-size: 64px;
       color: #00ff00;
-      text-shadow: 2px 2px #000;
+      text-shadow: 3px 3px #000;
+      margin-bottom: 40px;
     }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
     a.button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background-color: #228B22;
-      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      width: 180px;
       text-decoration: none;
+      background-color: rgba(34, 139, 34, 0.9);
+      border: 3px solid #ffffff;
+      border-radius: 15px;
+      box-shadow: 4px 4px #000;
+      color: white;
       font-size: 20px;
-      border-radius: 10px;
-      border: 2px solid #fff;
-      box-shadow: 3px 3px #000;
+      transition: transform 0.2s, background-color 0.2s;
     }
+
     a.button:hover {
-      background-color: #32CD32;
+      background-color: rgba(50, 205, 50, 0.95);
+      transform: scale(1.05);
+    }
+
+    .button img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 10px;
+    }
+
+    .blocks {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .blocks img {
+      width: 64px;
+      height: 64px;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
   <div class="overlay">
     <h1>Tade Survival</h1>
-    <a class="button" href="hraci.html">Hráči</a>
+
+    <div class="menu">
+      <a class="button" href="hraci.html">
+        <img src="https://minotar.net/avatar/Notch/64" alt="hráči">
+        Hráči
+      </a>
+      <a class="button" href="dynmapa.html">
+        <img src="https://cdn-icons-png.flaticon.com/512/535/535137.png" alt="mapa">
+        DynMapa
+      </a>
+    </div>
+
+    <div class="blocks">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/2/28/Grass_Block_JE6_BE6.png" alt="Grass Block">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c7/Stone_JE5_BE5.png" alt="Stone">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/e2/Oak_Log_JE5_BE5.png" alt="Log">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/47/Diamond_Ore_JE5_BE5.png" alt="Diamond Ore">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a9/Crafting_Table_JE4_BE4.png" alt="Crafting Table">
+    </div>
   </div>
 </body>
 </html>
