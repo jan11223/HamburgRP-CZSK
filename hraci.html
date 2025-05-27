@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hráči – Tade Survival</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #1e1e1e;
+      font-family: 'Verdana', sans-serif;
+      color: white;
+      background-image: url('https://wallpapercave.com/wp/wp2757874.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      color: #00ff00;
+      text-shadow: 2px 2px #000;
+    }
+
+    .players {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .player-card {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00ff00;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .player-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .player-card p {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hráči na serveru</h1>
+
+  <div class="players">
+    <!-- Vloženo 12 hráčů s náhodnými Minecraft skiny (z minotar.net) -->
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Notch/100" alt="skin">
+      <p>Amizar</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Dream/100" alt="skin">
+      <p>jan444</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Technoblade/100" alt="skin">
+      <p>Tademade11</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Herobrine/100" alt="skin">
+      <p>Da_rak123</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Steve/100" alt="skin">
+      <p>Mavik123</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Alex/100" alt="skin">
+      <p>Mildak</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Skeppy/100" alt="skin">
+      <p>Honzig3000</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/TommyInnit/100" alt="skin">
+      <p>Jméno 8</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/BadBoyHalo/100" alt="skin">
+      <p>Jméno 9</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Jeb_/100" alt="skin">
+      <p>Jméno 10</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/CaptainSparklez/100" alt="skin">
+      <p>Jméno 11</p>
+    </div>
+    <div class="player-card">
+      <img src="https://minotar.net/avatar/Xx_endman_xX/100" alt="skin">
+      <p>Jméno 12</p>
+    </div>
+  </div>
+</body>
+</html>
