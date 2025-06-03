@@ -51,6 +51,46 @@
       font-weight: bold;
       color: #ffffff;
     }
+
+    /* Styl pro animované tlačítko BACK vlevo dole */
+    .back-button {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      background-color: #00ff00;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ff00;
+      transition: all 0.3s ease;
+      font-family: 'Verdana', sans-serif;
+      user-select: none;
+      text-transform: uppercase;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-button:hover {
+      background-color: #00cc00;
+      box-shadow: 0 0 14px #00cc00;
+      transform: translateY(-4px);
+    }
+
+    .back-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 0 7px #009900;
+    }
+
+    /* Šipka v tlačítku */
+    .back-button .arrow {
+      font-size: 24px;
+      line-height: 1;
+    }
   </style>
 </head>
 <body>
@@ -61,58 +101,64 @@
     <div class="player-card">
       <img src="https://minotar.net/avatar/Notch/100" alt="skin">
       <p>Amizar</p>
-      <text> Hráč
+      <text> Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Dream/100" alt="skin">
       <p>jan444</p>
-      <text> Spolumajitel
+      <text> Spolumajitel</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Technoblade/100" alt="skin">
       <p>Tademade11</p>
-      <text> Majitel
+      <text> Majitel</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Herobrine/100" alt="skin">
       <p>Da_rak123</p>
-      <text> Hráč
+      <text> Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Steve/100" alt="skin">
       <p>Mavik123</p>
-      <text> Hráč
+      <text> Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Alex/100" alt="skin">
       <p>Mildak</p>
-      <text> Developer
+      <text> Developer</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Skeppy/100" alt="skin">
       <p>Honzig3000</p>
-      <text> Zabanovaný Hráč
+      <text> Zabanovaný Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/TommyInnit/100" alt="skin">
       <p>david115156</p>
-      <text> Hráč
+      <text> Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/BadBoyHalo/100" alt="skin">
       <p>DocaCZ</p>
-      <text> Hráč
+      <text> Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/Jeb_/100" alt="skin">
       <p>Susenka64</p>
-      <text> Zabanovaný Hráč
+      <text> Zabanovaný Hráč</text>
     </div>
     <div class="player-card">
       <img src="https://minotar.net/avatar/CaptainSparklez/100" alt="skin">
       <p>Figegs</p>
-      <text> Hráč
+      <text> Hráč</text>
     </div>
   </div>
+
+  <!-- Animované tlačítko BACK s šipkou -->
+  <button class="back-button" onclick="window.location.href='https://jan11223.github.io/TadeSurvival/'">
+    <span class="arrow">←</span> BACK
+  </button>
+
 </body>
 </html>
