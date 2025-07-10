@@ -2,101 +2,112 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8" />
-  <title>Tade Survival</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roblox Komunita</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Verdana', sans-serif;
-      background: url('https://wallpapercave.com/wp/wp2757874.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 50px 20px;
+    body {
+      height: 100vh;
+      background: url('https://wallpapercave.com/wp/wp7462433.jpg') no-repeat center center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .background-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 0;
+    }
+
+    header {
       text-align: center;
+      padding: 40px 20px;
+      color: #fff;
+      z-index: 1;
+      position: relative;
     }
 
-    h1 {
-      font-size: 64px;
-      color: #00ff00;
-      text-shadow: 3px 3px #000;
-      margin-bottom: 40px;
+    header h1 {
+      font-size: 2.8em;
+      text-shadow: 2px 2px 10px #000;
     }
 
     .menu {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin-bottom: 50px;
-    }
-
-    a.button {
-      display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
-      width: 180px;
-      text-decoration: none;
-      background-color: rgba(34, 139, 34, 0.9);
-      border: 3px solid #ffffff;
-      border-radius: 15px;
-      box-shadow: 4px 4px #000;
+      gap: 20px;
+      margin-top: 30px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .button {
+      padding: 15px 30px;
+      font-size: 1.3em;
       color: white;
-      font-size: 20px;
-      transition: transform 0.2s, background-color 0.2s;
+      background: linear-gradient(45deg, #00aaff, #004466);
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
-    a.button:hover {
-      background-color: rgba(50, 205, 50, 0.95);
-      transform: scale(1.05);
+    .button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #00ffaa, #006644);
     }
 
-    .button img {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 10px;
-    }
-
-    .blocks {
+    .gallery {
+      margin-top: 50px;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 30px;
+      gap: 30px;
+      z-index: 1;
+      position: relative;
     }
 
-    .blocks img {
-      width: 64px;
-      height: 64px;
-      border-radius: 4px;
+    .gallery img {
+      width: 150px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <h1>Tade Survival</h1>
+  <div class="background-overlay"></div>
+  <header>
+    <h1>Vítej na Roblox komunitní stránce</h1>
+  </header>
 
-    <div class="menu">
-      <a class="button" href="hraci.html">
-        <img src="https://minotar.net/avatar/Notch/64" alt="Hráči">
-        Hráči
-      </a>
-      <a class="button" href="warpy.html">
-        <img src="data:image/png;base64,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" alt="Warpy">
-        Warpy
-      </a>
-    </div>
+  <main class="menu">
+    <a href="#informace" class="button">📘 Informace</a>
+    <a href="#pravidla" class="button">📜 Pravidla</a>
+    <a href="#ateam" class="button">👥 A-Team</a>
+    <a href="#nabor" class="button">📝 Nábor do A-Teamu</a>
+    <a href="#reporty" class="button">🚨 Reports</a>
+  </main>
 
-    <div class="blocks">
-      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/2/28/Grass_Block_JE6_BE6.png" alt="Grass Block">
-      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c7/Stone_JE5_BE5.png" alt="Stone">
-      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/e/e2/Oak_Log_JE5_BE5.png" alt="Log">
-      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/47/Diamond_Ore_JE5_BE5.png" alt="Diamond Ore">
-      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/a9/Crafting_Table_JE4_BE4.png" alt="Crafting Table">
-    </div>
-  </div>
+  <section class="gallery">
+    <img src="https://tr.rbxcdn.com/7e6d85762ef48b23a5e875e5a36596a9/420/420/Hat/Png" alt="Roblox skin 1" />
+    <img src="https://tr.rbxcdn.com/84485a826780df963c0a0db440a1a9b6/420/420/Hat/Png" alt="Roblox skin 2" />
+  </section>
 </body>
 </html>
