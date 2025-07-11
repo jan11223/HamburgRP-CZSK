@@ -1,176 +1,114 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hráči – Tade Survival</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informace | HamburgRP</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 20px;
-      background-color: #1e1e1e;
-      font-family: 'Verdana', sans-serif;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e1e2f, #2b2b4f);
       color: white;
-      background-image: url('https://wallpapercave.com/wp/wp2757874.jpg');
-      background-size: cover;
-      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
     }
 
     h1 {
+      font-size: 2.8rem;
+      margin-bottom: 40px;
       text-align: center;
-      font-size: 48px;
-      color: #00ff00;
-      text-shadow: 2px 2px #000;
+      text-shadow: 2px 2px 10px #000;
     }
 
-    .players {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .player-card {
-      background-color: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00ff00;
+    .discord-btn {
+      background: #5865F2;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
       border-radius: 12px;
-      padding: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 50px;
+      text-decoration: none;
+    }
+
+    .discord-btn:hover {
+      background: #4752c4;
+      transform: scale(1.05);
+    }
+
+    .discord-logo {
+      width: 28px;
+      height: 28px;
+    }
+
+    .server-code-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 60px;
       text-align: center;
     }
 
-    .player-card img {
-      width: 100px;
-      height: 100px;
-      border-radius: 5px;
+    .server-code-box h2 {
+      font-size: 1.5rem;
       margin-bottom: 10px;
     }
 
-    .player-card p {
-      margin: 4px 0;
-    }
-
-    .player-card p:first-of-type {
-      font-size: 18px;
+    .server-code {
+      font-size: 1.3rem;
+      letter-spacing: 1.5px;
+      color: #00ffaa;
       font-weight: bold;
     }
 
-    .role {
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .majitel {
-      color: #FF0000;
-    }
-
-    .developer, .hl-developer {
-      color: orange;
-    }
-
-    /* Tlačítko zpět */
-    .back-button {
-      position: fixed;
-      left: 20px;
-      bottom: 20px;
-      background-color: #00ff00;
-      color: #000;
-      font-weight: bold;
+    .back-btn {
+      background: #444;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
       border: none;
-      padding: 16px 32px;
       border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #00ff00;
-      transition: all 0.3s ease;
-      font-family: 'Verdana', sans-serif;
-      user-select: none;
-      text-transform: uppercase;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      text-decoration: none;
+      transition: background 0.3s ease;
     }
 
-    .back-button:hover {
-      background-color: #00cc00;
-      box-shadow: 0 0 14px #00cc00;
-      transform: translateY(-4px);
-    }
-
-    .back-button:active {
-      transform: translateY(1px);
-      box-shadow: 0 0 7px #009900;
-    }
-
-    .back-button .arrow {
-      font-size: 24px;
-      line-height: 1;
+    .back-btn:hover {
+      background: #666;
     }
   </style>
 </head>
 <body>
-  <h1>Hráči na serveru</h1>
 
-  <div class="players">
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Notch/100" alt="skin">
-      <p>Amizar</p>
-      <p>Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Dream/100" alt="skin">
-      <p>jan444</p>
-      <p class="role hl-developer">Hl.Developer</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Technoblade/100" alt="skin">
-      <p>Tademade11</p>
-      <p class="role majitel">Majitel</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Herobrine/100" alt="skin">
-      <p>Da_rak123</p>
-      <p>Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Steve/100" alt="skin">
-      <p>Mavik123</p>
-      <p>Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Alex/100" alt="skin">
-      <p>Mildak</p>
-      <p class="role developer">Developer</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Skeppy/100" alt="skin">
-      <p>Honzig3000</p>
-      <p>Zabanovaný Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/TommyInnit/100" alt="skin">
-      <p>david115156</p>
-      <p>Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/BadBoyHalo/100" alt="skin">
-      <p>DocaCZ</p>
-      <p>Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/Jeb_/100" alt="skin">
-      <p>Susenka64</p>
-      <p>Zabanovaný Hráč</p>
-    </div>
-    <div class="player-card">
-      <img src="https://minotar.net/avatar/CaptainSparklez/100" alt="skin">
-      <p>Figegs</p>
-      <p>Hráč</p>
-    </div>
+  <h1>🎮 Informace o Discordu</h1>
+
+  <a href="https://discord.gg/FDf5z5Vyfj" class="discord-btn" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="discord-logo">
+    Připojit se na Discord
+  </a>
+
+  <div class="server-code-box">
+    <h2>Kód serveru</h2>
+    <div class="server-code">rbjbajw3</div>
   </div>
 
-  <button class="back-button" onclick="window.location.href='https://jan11223.github.io/TadeSurvival/'">
-    <span class="arrow">←</span> BACK
-  </button>
+  <a href="https://jan11223.github.io/HamburgRP-CZSK/" class="back-btn">🔙 Zpět na hlavní stránku</a>
+
 </body>
 </html>
