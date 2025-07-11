@@ -13,14 +13,15 @@
     }
 
     body {
-      height: 100vh;
+      min-height: 100vh;
       background: url('https://wallpapercave.com/wp/wp7462433.jpg') no-repeat center center/cover;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      color: white;
     }
 
     .background-overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -32,7 +33,6 @@
     header {
       text-align: center;
       padding: 40px 20px;
-      color: #fff;
       z-index: 1;
       position: relative;
     }
@@ -76,6 +76,7 @@
       gap: 30px;
       z-index: 1;
       position: relative;
+      flex-wrap: wrap;
     }
 
     .gallery img {
@@ -89,16 +90,40 @@
     .gallery img:hover {
       transform: scale(1.1);
     }
+
+    section[id] {
+      margin: 60px auto;
+      max-width: 800px;
+      padding: 40px;
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      z-index: 1;
+      position: relative;
+    }
+
+    section h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 2em;
+      color: #00ffaa;
+    }
+
+    section p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <div class="background-overlay"></div>
+
   <header>
-    <h1>Vítej na 🇨🇿Czech/SK🇸🇰 webu </h1>
+    <h1>Vítej na 🇨🇿Czech/SK🇸🇰 webu</h1>
   </header>
 
   <main class="menu">
-    <!-- Opravený odkaz na stránku informace.html -->
     <a href="informace.html" class="button" target="_blank">📘 Informace</a>
     <a href="pravidla.html" class="button" target="_blank">📜 Pravidla</a>
     <a href="ateam.html" class="button">👥 A-Team</a>
@@ -111,6 +136,17 @@
     <img src="https://tr.rbxcdn.com/92e46238f091f88866c01db7587a5460/420/420/Hat/Png" alt="Roblox skin 2" />
     <img src="https://tr.rbxcdn.com/e12f51cf7208411e1cbe07d8e70d0e08/420/420/Hat/Png" alt="Roblox skin 3" />
   </section>
+
+  <!-- Sekce Nábor -->
+  <section id="nabor">
+    <h2>📝 Nábor do A-Teamu</h2>
+    <p>Chceš se připojit k našemu A-Teamu? Sleduj informace na našem Discordu nebo nás kontaktuj!</p>
+  </section>
+
+  <!-- Sekce Reporty -->
+  <section id="reporty">
+    <h2>🚨 Reporty</h2>
+    <p>Pro nahlášení porušení pravidel nebo chyb využij náš reportovací formulář na Discordu nebo napiš adminovi.</p>
+  </section>
 </body>
 </html>
-
