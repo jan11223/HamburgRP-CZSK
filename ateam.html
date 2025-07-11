@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Team</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: black;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .member {
+      background-color: #1f1f1f;
+      border-radius: 15px;
+      width: 200px;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    .member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .role {
+      font-size: 0.9em;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+
+  <h1>🌌 Admin Team</h1>
+
+  <div class="container">
+    <!-- Členové -->
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/a8bde5ad7cf2f92f6ff8fd0d5c9f0ae2/150/150/AvatarHeadshot/Png">
+      <strong>Dolkys</strong>
+      <div class="role" style="color: orange;">HL. Developer</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/3d01551901f1fcfa68f8bfa7d48bdfef/150/150/AvatarHeadshot/Png">
+      <strong>Dejv</strong>
+      <div class="role" style="color: red;">Spolumajitel</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/78e542938a810abce1c03f45edfe73c4/150/150/AvatarHeadshot/Png">
+      <strong>Klokánek</strong>
+      <div class="role" style="color: red;">Admin</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/b97c48ab06b2e8c2d3c5f7698a9e999a/150/150/AvatarHeadshot/Png">
+      <strong>spidakmore</strong>
+      <div class="role" style="color: #ff5555;">Zk. Admin</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/92c8eb9ed2b7e42fa6c63fa3532f7c97/150/150/AvatarHeadshot/Png">
+      <strong>Adel Kargová</strong>
+      <div class="role" style="color: gold;">27wolfenaja</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/fda5c5e53900bb5b6f6b59ab9f917bd0/150/150/AvatarHeadshot/Png">
+      <strong>Nickiee Night</strong>
+      <div class="role" style="color: hotpink;">Admin</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/b4dd1a7ad6f7968724916178e19591b5/150/150/AvatarHeadshot/Png">
+      <strong>Alexandre Napol Dumas Adm Diablo</strong>
+      <div class="role" style="color: lightgray;"></div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/0a24f87c5dce5398942c09ef98c3b255/150/150/AvatarHeadshot/Png">
+      <strong>Daniel Vencmal</strong>
+      <div class="role" style="color: greenyellow;">StamGast</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/497d869afc15c181c7c8d888db2f1742/150/150/AvatarHeadshot/Png">
+      <strong>Itachi Ramírez</strong>
+      <div class="role" style="color: crimson;">Itachi</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/fcfd48cb81f2b2a22c84171f6c9a5275/150/150/AvatarHeadshot/Png">
+      <strong>Petr Kargo</strong>
+      <div class="role" style="color: yellow;">kargoCze</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/bf34f3d700b94f76b74e23765eaef9e3/150/150/AvatarHeadshot/Png">
+      <strong>Hugoušek</strong>
+      <div class="role" style="color: deeppink;">Vedení</div>
+    </div>
+
+    <div class="member">
+      <img src="https://tr.rbxcdn.com/e927e1c91c6f4a0e3d1cbbfe85f8a4e4/150/150/AvatarHeadshot/Png">
+      <strong>Soudruh Panda</strong>
+      <div class="role" style="color: limegreen;">Zk. Admin</div>
+    </div>
+  </div>
+
+  <script>
+    // ⭐ Pohybující se hvězdy
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createStars(count) {
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          speed: Math.random() * 0.5 + 0.1
+        });
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+      createStars(150);
+    });
+
+    resize();
+    createStars(150);
+    animateStars();
+  </script>
+</body>
+</html>
