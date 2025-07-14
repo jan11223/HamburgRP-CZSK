@@ -207,9 +207,9 @@
           <option value="Ano">Ano</option>
           <option value="Ne">Ne</option>
           <option value="Jen poslouchám">Jen poslouchám</option>
-          <input type="text" id="coto" placeholder="👤 Jak by jsi řešil kdyby někdo spamoval" required />
-          <input type="text" id="coto1" placeholder="👤 Jak by jsi řešil kdyby nekdo lital na serveru" required />
         </select>
+        <input type="text" id="coto" placeholder="👤 Jak by jsi řešil kdyby někdo spamoval?" required />
+        <input type="text" id="coto1" placeholder="👤 Jak by jsi řešil kdyby někdo lítal na serveru?" required />
         <button type="submit">Odeslat ticket</button>
         <p id="vysledek"></p>
       </form>
@@ -230,8 +230,8 @@
       const silne = document.getElementById("silne").value.trim();
       const kdy = document.getElementById("kdy").value.trim();
       const mic = document.getElementById("mic").value;
-      const cas = document.getElementById("coto").value.trim();
-      const cas = document.getElementById("coto1").value.trim();
+      const coto = document.getElementById("coto").value.trim();
+      const coto1 = document.getElementById("coto1").value.trim();
 
       const data = {
         content: `📝 **Nový náborový ticket:**\n
@@ -242,10 +242,9 @@
 **⏰ Čas denně:** ${cas}
 **💪 Silné stránky:** ${silne}
 **📅 Kdy je online:** ${kdy}
-**🎙️ Mikrofon:** ${mic}`    `
-**🎂 Řešení spamování:** ${coto}` `
-**📅 Řešení hráče s fly:** ${coto1}
-
+**🎙️ Mikrofon:** ${mic}
+**🛑 Řešení spamování:** ${coto}
+**🚀 Řešení hráče s fly:** ${coto1}`
       };
 
       fetch(webhookURL, {
