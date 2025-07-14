@@ -16,7 +16,7 @@
       height: 100vh;
       background: url('https://wallpapercave.com/wp/wp7462433.jpg') no-repeat center center/cover;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .background-overlay {
@@ -62,6 +62,7 @@
       text-decoration: none;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
     }
 
     .button:hover {
@@ -90,6 +91,75 @@
     .gallery img:hover {
       transform: scale(1.1);
     }
+
+    /* Modal (formulář) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.85);
+    }
+
+    .modal-content {
+      background: rgba(30, 35, 55, 0.95);
+      margin: 100px auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      color: white;
+    }
+
+    .modal-content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      background: #2f3651;
+      color: white;
+    }
+
+    .modal-content button {
+      background-color: #7289da;
+      color: white;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #5b6eae;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #vysledek {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -103,7 +173,7 @@
     <a href="informace.html" class="button" target="_blank">📘 Informace</a>
     <a href="pravidla.html" class="button" target="_blank">📜 Pravidla</a>
     <a href="ateam.html" class="button">👥 A-Team</a>
-    <a href="nabor.html" class="button">📝 Nábor do A-Teamu</a>
+    <button class="button" onclick="document.getElementById('naborModal').style.display='block'">📝 Nábor do A-Teamu</button>
     <a href="reporty.html" class="button">🚨 Reporty</a>
     <a href="https://discord.gg/7Yev4rdwrw" class="button" target="_blank">💬 Připojit se na Discord</a>
   </main>
@@ -113,5 +183,64 @@
     <img src="https://tr.rbxcdn.com/92e46238f091f88866c01db7587a5460/420/420/Hat/Png" alt="Roblox skin 2" />
     <img src="https://tr.rbxcdn.com/e12f51cf7208411e1cbe07d8e70d0e08/420/420/Hat/Png" alt="Roblox skin 3" />
   </section>
+
+  <!-- MODAL s náborovým formulářem -->
+  <div id="naborModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('naborModal').style.display='none'">&times;</span>
+      <h2>📩 Náborový Ticket</h2>
+      <form id="naborForm">
+        <input type="text" id="jmeno" placeholder="Tvé jméno na Discordu" required />
+        <input type="text" id="vek" placeholder="Tvůj věk" required />
+        <textarea id="zprava" placeholder="Proč chceš být admin?" rows="4" required></textarea>
+        <button type="submit">Odeslat ticket</button>
+        <p id="vysledek"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1394330201701224510/lUG89d3dGatYuRFEuPb7zUTArcivpsLb4pL3UajJ0SGb38FhAYV5w9GX04kKFGY_SmOC";
+
+    document.getElementById("naborForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const jmeno = document.getElementById("jmeno").value.trim();
+      const vek = document.getElementById("vek").value.trim();
+      const zprava = document.getElementById("zprava").value.trim();
+
+      const data = {
+        content: `📬 **Nový náborový ticket:**\n\n**👤 Discord:** ${jmeno}\n**🎂 Věk:** ${vek}\n**📝 Zpráva:** ${zprava}`
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("vysledek").innerText = "✅ Ticket byl úspěšně odeslán!";
+          document.getElementById("naborForm").reset();
+        } else {
+          document.getElementById("vysledek").innerText = "❌ Nepodařilo se odeslat ticket.";
+        }
+      })
+      .catch(error => {
+        console.error("Chyba:", error);
+        document.getElementById("vysledek").innerText = "❌ Došlo k technické chybě.";
+      });
+    });
+
+    // Zavření modal po kliknutí mimo něj
+    window.onclick = function(event) {
+      const modal = document.getElementById('naborModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
