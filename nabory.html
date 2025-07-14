@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Náborový Ticket</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0f2f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url("https://i.imgur.com/zvWTUVu.gif"); /* hvězdné pozadí */
+      background-size: cover;
+      background-position: center;
+    }
+
+    form {
+      background: rgba(30, 35, 55, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    input, textarea {
+      background: #2f3651;
+      color: #fff;
+    }
+
+    button {
+      background-color: #7289da;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #5b6eae;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    #vysledek {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form id="naborForm">
+    <h2>📩 Náborový Ticket</h2>
+    <input type="text" id="jmeno" placeholder="Tvé jméno na Discordu" required />
+    <input type="text" id="vek" placeholder="Tvůj věk" required />
+    <textarea id="zprava" placeholder="Proč chceš být admin?" rows="5" required></textarea>
+    <button type="submit">Odeslat ticket</button>
+    <p id="vysledek"></p>
+  </form>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1394330201701224510/lUG89d3dGatYuRFEuPb7zUTArcivpsLb4pL3UajJ0SGb38FhAYV5w9GX04kKFGY_SmOC";
+
+    document.getElementById("naborForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const jmeno = document.getElementById("jmeno").value.trim();
+      const vek = document.getElementById("vek").value.trim();
+      const zprava = document.getElementById("zprava").value.trim();
+
+      const data = {
+        content: `📬 **Nový náborový ticket:**\n\n**👤 Discord:** ${jmeno}\n**🎂 Věk:** ${vek}\n**📝 Zpráva:** ${zprava}`
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("vysledek").innerText = "✅ Ticket byl úspěšně odeslán!";
+          document.getElementById("naborForm").reset();
+        } else {
+          document.getElementById("vysledek").innerText = "❌ Nepodařilo se odeslat ticket.";
+        }
+      })
+      .catch(error => {
+        console.error("Chyba:", error);
+        document.getElementById("vysledek").innerText = "❌ Došlo k technické chybě.";
+      });
+    });
+  </script>
+</body>
+</html>
