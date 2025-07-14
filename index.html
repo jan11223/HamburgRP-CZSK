@@ -92,26 +92,28 @@
       transform: scale(1.1);
     }
 
-    /* Modal (formulář) */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
-      z-index: 999;
+      z-index: 99;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.85);
+      background-color: rgba(0,0,0,0.7);
+      padding-top: 60px;
     }
 
     .modal-content {
-      background: rgba(30, 35, 55, 0.95);
-      margin: 100px auto;
-      padding: 30px;
-      border-radius: 12px;
+      background-color: #1e1e1e;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
       width: 90%;
-      max-width: 400px;
+      max-width: 600px;
+      border-radius: 10px;
       color: white;
     }
 
@@ -122,43 +124,46 @@
 
     .modal-content input,
     .modal-content textarea,
+    .modal-content select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1em;
+    }
+
     .modal-content button {
       width: 100%;
-      margin: 10px 0;
-      padding: 10px;
+      padding: 12px;
+      font-size: 1.1em;
+      background: #007acc;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
-    }
-
-    .modal-content input,
-    .modal-content textarea {
-      background: #2f3651;
-      color: white;
-    }
-
-    .modal-content button {
-      background-color: #7289da;
       color: white;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     .modal-content button:hover {
-      background-color: #5b6eae;
+      background: #0099ff;
     }
 
     .close {
-      color: #aaa;
+      color: white;
       float: right;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .close:hover {
+      color: red;
     }
 
     #vysledek {
       text-align: center;
       margin-top: 10px;
-      font-weight: bold;
     }
   </style>
 </head>
@@ -184,15 +189,25 @@
     <img src="https://tr.rbxcdn.com/e12f51cf7208411e1cbe07d8e70d0e08/420/420/Hat/Png" alt="Roblox skin 3" />
   </section>
 
-  <!-- MODAL s náborovým formulářem -->
+  <!-- MODAL - Náborový formulář -->
   <div id="naborModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="document.getElementById('naborModal').style.display='none'">&times;</span>
       <h2>📩 Náborový Ticket</h2>
       <form id="naborForm">
-        <input type="text" id="jmeno" placeholder="Tvé jméno na Discordu" required />
-        <input type="text" id="vek" placeholder="Tvůj věk" required />
-        <textarea id="zprava" placeholder="Proč chceš být admin?" rows="4" required></textarea>
+        <input type="text" id="jmeno" placeholder="👤 Jak se jmenuješ na Discordu?" required />
+        <input type="text" id="vek" placeholder="🎂 Kolik je ti let?" required />
+        <textarea id="proc" placeholder="📝 Proč chceš být admin?" rows="3" required></textarea>
+        <textarea id="zkusenosti" placeholder="🛠️ Máš nějaké zkušenosti s adminováním? Pokud ano, jaké?" rows="3" required></textarea>
+        <input type="text" id="cas" placeholder="⏰ Kolik času denně můžeš věnovat serveru?" required />
+        <textarea id="silne" placeholder="💪 Jaké máš silné stránky (např. komunikace, trpělivost)?" rows="3" required></textarea>
+        <input type="text" id="kdy" placeholder="📅 Kdy tě lze nejčastěji zastihnout (dny/časy)?" required />
+        <select id="mic" required>
+          <option value="" disabled selected>🎙️ Máš mikrofon a umíš mluvit na voice chatu?</option>
+          <option value="Ano">Ano</option>
+          <option value="Ne">Ne</option>
+          <option value="Jen poslouchám">Jen poslouchám</option>
+        </select>
         <button type="submit">Odeslat ticket</button>
         <p id="vysledek"></p>
       </form>
@@ -207,34 +222,44 @@
 
       const jmeno = document.getElementById("jmeno").value.trim();
       const vek = document.getElementById("vek").value.trim();
-      const zprava = document.getElementById("zprava").value.trim();
+      const proc = document.getElementById("proc").value.trim();
+      const zkusenosti = document.getElementById("zkusenosti").value.trim();
+      const cas = document.getElementById("cas").value.trim();
+      const silne = document.getElementById("silne").value.trim();
+      const kdy = document.getElementById("kdy").value.trim();
+      const mic = document.getElementById("mic").value;
 
       const data = {
-        content: `📬 **Nový náborový ticket:**\n\n**👤 Discord:** ${jmeno}\n**🎂 Věk:** ${vek}\n**📝 Zpráva:** ${zprava}`
+        content: `📝 **Nový náborový ticket:**\n
+**👤 Jméno:** ${jmeno}
+**🎂 Věk:** ${vek}
+**📝 Proč chce být admin:** ${proc}
+**🛠️ Zkušenosti:** ${zkusenosti}
+**⏰ Čas denně:** ${cas}
+**💪 Silné stránky:** ${silne}
+**📅 Kdy je online:** ${kdy}
+**🎙️ Mikrofon:** ${mic}`
       };
 
       fetch(webhookURL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       })
-      .then(response => {
-        if (response.ok) {
-          document.getElementById("vysledek").innerText = "✅ Ticket byl úspěšně odeslán!";
+      .then(res => {
+        if (res.ok) {
+          document.getElementById("vysledek").innerText = "✅ Odesláno!";
           document.getElementById("naborForm").reset();
         } else {
-          document.getElementById("vysledek").innerText = "❌ Nepodařilo se odeslat ticket.";
+          document.getElementById("vysledek").innerText = "❌ Chyba při odesílání.";
         }
       })
-      .catch(error => {
-        console.error("Chyba:", error);
-        document.getElementById("vysledek").innerText = "❌ Došlo k technické chybě.";
+      .catch(() => {
+        document.getElementById("vysledek").innerText = "❌ Nelze odeslat (zkontroluj připojení).";
       });
     });
 
-    // Zavření modal po kliknutí mimo něj
+    // Zavírání modalu kliknutím mimo něj
     window.onclick = function(event) {
       const modal = document.getElementById('naborModal');
       if (event.target == modal) {
