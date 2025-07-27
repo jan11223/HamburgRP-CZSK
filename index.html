@@ -5,164 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🇨🇿Czech/SK🇸🇰</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body {
       height: 100vh;
       background: url('https://wallpapercave.com/wp/wp7462433.jpg') no-repeat center center/cover;
       position: relative;
       overflow-x: hidden;
     }
-
     .background-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.6);
-      z-index: 0;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6); z-index: 0;
     }
-
     header {
-      text-align: center;
-      padding: 40px 20px;
-      color: #fff;
-      z-index: 1;
-      position: relative;
+      text-align: center; padding: 40px 20px; color: #fff;
+      z-index: 1; position: relative;
     }
-
-    header h1 {
-      font-size: 2.8em;
-      text-shadow: 2px 2px 10px #000;
-    }
-
+    header h1 { font-size: 2.8em; text-shadow: 2px 2px 10px #000; }
     .menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      margin-top: 30px;
-      z-index: 1;
-      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 20px; margin-top: 30px; z-index: 1; position: relative;
     }
-
     .button {
-      padding: 15px 30px;
-      font-size: 1.3em;
-      color: white;
+      padding: 15px 30px; font-size: 1.3em; color: white;
       background: linear-gradient(45deg, #00aaff, #004466);
-      border: none;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      border: none; border-radius: 10px; text-decoration: none;
+      transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       cursor: pointer;
     }
-
     .button:hover {
       transform: scale(1.1);
       background: linear-gradient(45deg, #00ffaa, #006644);
     }
-
     .gallery {
-      margin-top: 50px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      z-index: 1;
-      position: relative;
-      flex-wrap: wrap;
+      margin-top: 50px; display: flex; justify-content: center;
+      gap: 30px; z-index: 1; position: relative; flex-wrap: wrap;
     }
-
     .gallery img {
-      width: 150px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
+      width: 150px; height: auto; border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5); transition: transform 0.3s ease;
     }
-
-    .gallery img:hover {
-      transform: scale(1.1);
-    }
+    .gallery img:hover { transform: scale(1.1); }
 
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 99;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.7);
-      padding-top: 60px;
+      display: none; position: fixed; z-index: 99;
+      left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0,0,0,0.7); padding-top: 60px;
     }
-
     .modal-content {
-      background-color: #1e1e1e;
-      margin: 5% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 90%;
-      max-width: 600px;
-      border-radius: 10px;
-      color: white;
+      background-color: #1e1e1e; margin: 5% auto; padding: 20px;
+      border: 1px solid #888; width: 90%; max-width: 600px;
+      border-radius: 10px; color: white;
     }
-
     .modal-content h2 {
-      text-align: center;
-      margin-bottom: 20px;
+      text-align: center; margin-bottom: 20px;
     }
-
-    .modal-content input,
-    .modal-content textarea,
-    .modal-content select {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: none;
-      font-size: 1em;
+    .modal-content input, .modal-content textarea, .modal-content select {
+      width: 100%; padding: 12px; margin: 8px 0;
+      border-radius: 6px; border: none; font-size: 1em;
     }
-
     .modal-content button {
-      width: 100%;
-      padding: 12px;
-      font-size: 1.1em;
-      background: #007acc;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-      margin-top: 10px;
+      width: 100%; padding: 12px; font-size: 1.1em;
+      background: #007acc; border: none; border-radius: 6px;
+      color: white; cursor: pointer; margin-top: 10px;
     }
-
-    .modal-content button:hover {
-      background: #0099ff;
-    }
-
+    .modal-content button:hover { background: #0099ff; }
     .close {
-      color: white;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
+      color: white; float: right; font-size: 28px;
+      font-weight: bold; cursor: pointer;
     }
-
-    .close:hover {
-      color: red;
-    }
-
-    #vysledek {
-      text-align: center;
-      margin-top: 10px;
+    .close:hover { color: red; }
+    #vysledek, #vysledekEventer {
+      text-align: center; margin-top: 10px;
     }
   </style>
 </head>
@@ -177,7 +90,7 @@
     <a href="informace.html" class="button" target="_blank">📘 Informace</a>
     <a href="pravidla.html" class="button" target="_blank">📜 Pravidla</a>
     <a href="ateam.html" class="button">👥 A-Team</a>
-    <button class="button" onclick="document.getElementById('naborModal').style.display='block'">📝 Nábor do A-Teamu</button>
+    <button class="button" onclick="document.getElementById('vyberModal').style.display='block'">📝 Nábor do A-Teamu</button>
     <a href="reporty.html" class="button">🚨 Reporty</a>
     <a href="https://discord.gg/7Yev4rdwrw" class="button" target="_blank">💬 Připojit se na Discord</a>
   </main>
@@ -188,11 +101,21 @@
     <img src="https://tr.rbxcdn.com/e12f51cf7208411e1cbe07d8e70d0e08/420/420/Hat/Png" alt="Roblox skin 3" />
   </section>
 
-  <!-- MODAL -->
-  <div id="naborModal" class="modal">
+  <!-- MODAL VÝBĚRU -->
+  <div id="vyberModal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="document.getElementById('naborModal').style.display='none'">&times;</span>
-      <h2>📩 Náborový Ticket</h2>
+      <span class="close" onclick="document.getElementById('vyberModal').style.display='none'">&times;</span>
+      <h2>Vyber typ náboru</h2>
+      <button onclick="openModal('adminModal')">📋 Nábor na Admina</button>
+      <button onclick="openModal('eventerModal')">🎉 Nábor na Eventera</button>
+    </div>
+  </div>
+
+  <!-- MODAL ADMIN -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('adminModal').style.display='none'">&times;</span>
+      <h2>📩 Nábor - Admin</h2>
       <form id="naborForm">
         <input type="text" id="jmeno" placeholder="👤 Jak se jmenuješ na Discordu?" required />
         <input type="text" id="vek" placeholder="🎂 Kolik je ti let?" required />
@@ -215,64 +138,96 @@
     </div>
   </div>
 
+  <!-- MODAL EVENTER -->
+  <div id="eventerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('eventerModal').style.display='none'">&times;</span>
+      <h2>🎉 Nábor - Eventer</h2>
+      <form id="eventerForm">
+        <input type="text" id="ev_vek" placeholder="🎂 Kolik ti je let?" required />
+        <input type="text" id="ev_discord" placeholder="👤 Tvůj Discord nick?" required />
+        <input type="text" id="ev_roblox" placeholder="👤 Tvůj Roblox nick?" required />
+        <input type="text" id="ev_cas" placeholder="⏰ Kolik času dokážeš věnovat serveru?" required />
+        <textarea id="ev_ideal" placeholder="🧠 Jak si představuješ ideálního Eventera?" rows="2" required></textarea>
+        <textarea id="ev_kdo" placeholder="🤔 Kdo je to vlastně Eventer?" rows="2" required></textarea>
+        <textarea id="ev_typy" placeholder="🎮 Jaké eventy bys dokázal udělat?" rows="2" required></textarea>
+        <textarea id="ev_ocekavani" placeholder="📌 Co očekáváš od toho, když se staneš Eventerem?" rows="2" required></textarea>
+        <p><strong>📢 Informace:</strong><br>Pokud projdeš tímto kolem, budeš automaticky postupovat do druhého kola.<br>Naše vedení ti oznámí postup. Pokud nedostaneš žádnou odezvu, tak jsi neprošel.<br><br>S pozdravem,<br>Vedení serveru Dolkys</p>
+        <button type="submit">Odeslat ticket</button>
+        <p id="vysledekEventer"></p>
+      </form>
+    </div>
+  </div>
+
   <script>
     const webhookURL = "https://discord.com/api/webhooks/1394336170770694185/YGwD9BEVAtGLx_sL7CYbH-aEH1FVE4LNFiH8jf47C56CIoIl0sJuHBC7R9RuhNjbsDYi";
 
+    function openModal(id) {
+      document.getElementById('vyberModal').style.display = 'none';
+      document.getElementById(id).style.display = 'block';
+    }
+
+    // Admin form
     document.getElementById("naborForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      const content = `📝 **Nový náborový ticket (Admin):**
+**👤 Jméno:** ${jmeno.value}
+**🎂 Věk:** ${vek.value}
+**📝 Proč chce být admin:** ${proc.value}
+**🛠️ Zkušenosti:** ${zkusenosti.value}
+**⏰ Čas denně:** ${cas.value}
+**💪 Silné stránky:** ${silne.value}
+**📅 Kdy je online:** ${kdy.value}
+**🎙️ Mikrofon:** ${mic.value}
+**📌 Spamování:** ${coto.value}
+**🚁 Létání:** ${coto1.value}`;
 
-      const jmeno = document.getElementById("jmeno").value.trim();
-      const vek = document.getElementById("vek").value.trim();
-      const proc = document.getElementById("proc").value.trim();
-      const zkusenosti = document.getElementById("zkusenosti").value.trim();
-      const cas = document.getElementById("cas").value.trim();
-      const silne = document.getElementById("silne").value.trim();
-      const kdy = document.getElementById("kdy").value.trim();
-      const mic = document.getElementById("mic").value;
-      const coto = document.getElementById("coto").value.trim();
-      const coto1 = document.getElementById("coto1").value.trim();
+      sendWebhook(content, "vysledek", "naborForm");
+    });
 
-      const data = {
-        content: `📝 **Nový náborový ticket:**\n
-**👤 Jméno:** ${jmeno}
-**🎂 Věk:** ${vek}
-**📝 Proč chce být admin:** ${proc}
-**🛠️ Zkušenosti:** ${zkusenosti}
-**⏰ Čas denně:** ${cas}
-**💪 Silné stránky:** ${silne}
-**📅 Kdy je online:** ${kdy}
-**🎙️ Mikrofon:** ${mic}
-**📌 Spamování:** ${coto}
-**🚁 Létání:** ${coto1}`
-      };
+    // Eventer form
+    document.getElementById("eventerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const content = `🎉 **Nový náborový ticket (Eventer):**
+**🎂 Věk:** ${ev_vek.value}
+**👤 Discord:** ${ev_discord.value}
+**👤 Roblox:** ${ev_roblox.value}
+**⏰ Čas:** ${ev_cas.value}
+**🧠 Ideální Eventer:** ${ev_ideal.value}
+**🤔 Kdo je Eventer:** ${ev_kdo.value}
+**🎮 Typy eventů:** ${ev_typy.value}
+**📌 Očekávání:** ${ev_ocekavani.value}`;
 
+      sendWebhook(content, "vysledekEventer", "eventerForm");
+    });
+
+    function sendWebhook(content, outputId, formId) {
       fetch(webhookURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ content })
       })
       .then(res => {
         if (res.ok) {
-          document.getElementById("vysledek").innerText = "✅ Ticket odeslán!";
-          document.getElementById("naborForm").reset();
+          document.getElementById(outputId).innerText = "✅ Ticket odeslán!";
+          document.getElementById(formId).reset();
         } else {
-          res.text().then(text => {
-            console.error("Chyba při odesílání:", text);
-            document.getElementById("vysledek").innerText = "❌ Chyba při odesílání.";
-          });
+          document.getElementById(outputId).innerText = "❌ Chyba při odesílání.";
         }
       })
-      .catch(error => {
-        console.error("Chyba sítě:", error);
-        document.getElementById("vysledek").innerText = "❌ Nelze odeslat (zkontroluj připojení).";
+      .catch(() => {
+        document.getElementById(outputId).innerText = "❌ Nelze odeslat (zkontroluj připojení).";
       });
-    });
+    }
 
+    // Zavření modalů kliknutím mimo ně
     window.onclick = function(event) {
-      const modal = document.getElementById('naborModal');
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+      ['adminModal', 'eventerModal', 'vyberModal'].forEach(id => {
+        const modal = document.getElementById(id);
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      });
     }
   </script>
 </body>
