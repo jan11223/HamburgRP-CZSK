@@ -216,7 +216,7 @@
   </div>
 
   <script>
-    const webhookURL = "https://discord.com/api/webhooks/1394336175036170270/Btx0dH6ouYkTSvOF6Ou2poPyawBC3s5CUFNsiAo833QsQFt-ieMR6oKRa5Qs1Qbr1OMK";
+    const webhookURL = "https://discord.com/api/webhooks/1394336170770694185/YGwD9BEVAtGLx_sL7CYbH-aEH1FVE4LNFiH8jf47C56CIoIl0sJuHBC7R9RuhNjbsDYi";
 
     document.getElementById("naborForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -256,10 +256,14 @@
           document.getElementById("vysledek").innerText = "✅ Ticket odeslán!";
           document.getElementById("naborForm").reset();
         } else {
-          document.getElementById("vysledek").innerText = "❌ Chyba při odesílání.";
+          res.text().then(text => {
+            console.error("Chyba při odesílání:", text);
+            document.getElementById("vysledek").innerText = "❌ Chyba při odesílání.";
+          });
         }
       })
-      .catch(() => {
+      .catch(error => {
+        console.error("Chyba sítě:", error);
         document.getElementById("vysledek").innerText = "❌ Nelze odeslat (zkontroluj připojení).";
       });
     });
