@@ -8,22 +8,182 @@
 <style>
 :root {
   --primary: #ff6363;
-  --dark: #111;
+  --dark: #0d0d0d;
   --light: #fff;
-  --gray: #222;
-  --card-bg: #1c1c1c;
+  --gray: #1a1a1a;
 }
-body { background: var(--dark); color: var(--light); font-family: 'Montserrat', sans-serif; padding:2rem; }
-h1,h2 { color: var(--primary); text-align:center; margin-bottom:1rem; }
-.cart-table { width:100%; border-collapse:collapse; margin-bottom:2rem; }
-.cart-table th, .cart-table td { border:1px solid #444; padding:0.8rem; text-align:center; }
-.cart-table th { background: #222; }
-.cart-table td { background: #1c1c1c; }
-.total { text-align:right; font-size:1.2rem; margin-bottom:2rem; }
-form { max-width:500px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
-input, textarea { padding:0.8rem; border-radius:8px; border:none; }
-button { background:var(--primary); color:#fff; padding:0.8rem 1.6rem; border-radius:30px; border:none; cursor:pointer; transition:0.3s; }
-button:hover { transform:translateY(-3px); box-shadow:0 5px 15px rgba(255,99,99,0.4); }
+body {
+  background: radial-gradient(circle at 20% 20%, #1a1a1a, #0b0b0b);
+  color: var(--light);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  padding: 2rem;
+  min-height: 100vh;
+  position: relative;
+}
+h1 {
+  text-align: center;
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 20px rgba(255,99,99,0.4);
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.cart-table th, .cart-table td {
+  padding: 1rem;
+  text-align: center;
+}
+.cart-table th {
+  background: rgba(255,255,255,0.05);
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.cart-table td {
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.cart-table img {
+  width: 90px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255,99,99,0.2);
+}
+
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+}
+.quantity button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+.quantity button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255,99,99,0.6);
+}
+
+.total {
+  text-align: right;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.total .old-price {
+  text-decoration: line-through;
+  opacity: 0.7;
+  display: block;
+}
+.total .new-price {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.discount-box {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+.discount-box input {
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  margin-right: 0.5rem;
+}
+.discount-box button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.discount-box button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
+}
+
+button.main-btn {
+  display: block;
+  margin: 0 auto;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.9rem 1.8rem;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+button.main-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
+}
+
+#form-container {
+  display: none;
+  background: var(--gray);
+  padding: 1.8rem;
+  border-radius: 15px;
+  margin-top: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+input, textarea {
+  padding: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: white;
+}
+input::placeholder, textarea::placeholder {
+  color: #999;
+}
+
+#thankyou {
+  display: none;
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  animation: fadeIn 0.6s ease-in-out;
+}
+#thankyou h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+#thankyou p {
+  margin: 0.5rem 0;
+}
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
 </style>
 </head>
 <body>
@@ -33,62 +193,144 @@ button:hover { transform:translateY(-3px); box-shadow:0 5px 15px rgba(255,99,99,
 <table class="cart-table" id="cart-table">
   <thead>
     <tr>
+      <th>Foto</th>
       <th>Produkt</th>
-      <th>Cena (Kč)</th>
+      <th>Cena</th>
+      <th>Množství</th>
+      <th>Celkem</th>
+      <th>Odebrat</th>
     </tr>
   </thead>
-  <tbody>
-    <!-- Produkty se vloží skriptem -->
-  </tbody>
+  <tbody id="cart-body"></tbody>
 </table>
 
-<div class="total" id="total-price">Celkem: 0 Kč</div>
+<div class="discount-box">
+  <input type="text" id="discount-code" placeholder="Zadej slevový kód">
+  <button onclick="applyDiscount()">Použít</button>
+</div>
 
-<h2>Dokončit objednávku</h2>
-<form id="order-form">
-  <input type="text" id="name" placeholder="Jméno a příjmení" required>
-  <input type="tel" id="phone" placeholder="Telefon" required>
-  <input type="email" id="email" placeholder="Email" required>
-  <textarea id="address" placeholder="Adresa" required></textarea>
-  <button type="submit">Dokončit objednávku</button>
-</form>
+<div class="total" id="total">Celkem: 0 Kč</div>
+
+<button class="main-btn" id="show-form-btn">Dokončit objednávku</button>
+
+<div id="form-container">
+  <h2>Odeslat objednávku</h2>
+  <form id="order-form">
+    <input type="text" placeholder="E-mail nebo kontakt" required>
+    <textarea placeholder="Poznámka k objednávce (nepovinné)"></textarea>
+    <button type="submit" class="main-btn">Odeslat objednávku</button>
+  </form>
+</div>
+
+<div id="thankyou">
+  <h2>🎉 Děkujeme za Vaši objednávku!</h2>
+  <p>Na další nákup máte 10 % slevu s kódem:</p>
+  <p style="font-weight:700; color:var(--primary); font-size:1.3rem;">MARTASDESIGN10</p>
+</div>
+
+<!-- Konfety knihovna -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-// Načtení produktů z localStorage
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
-const tableBody = document.querySelector('#cart-table tbody');
-let total = 0;
+// --- DEMO PRODUKTY ---
+let cart = JSON.parse(localStorage.getItem("cart")) || [
+  { id: 1, name: "Tričko MarťasDesign", price: 499, qty: 1, img: "https://via.placeholder.com/80x80?text=Tričko" },
+  { id: 2, name: "Koberec MarťasDesign", price: 899, qty: 2, img: "https://via.placeholder.com/80x80?text=Koberec" }
+];
+let discountActive = false;
 
-cart.forEach(item => {
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td>${item.name}</td><td>${item.price} Kč</td>`;
-  tableBody.appendChild(tr);
-  total += item.price;
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function updateCart() {
+  const tbody = document.getElementById("cart-body");
+  tbody.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><img src="${item.img}" alt="${item.name}"></td>
+      <td>${item.name}</td>
+      <td>${item.price} Kč</td>
+      <td class="quantity">
+        <button onclick="changeQty(${index}, -1)">−</button>
+        ${item.qty}
+        <button onclick="changeQty(${index}, 1)">+</button>
+      </td>
+      <td>${subtotal} Kč</td>
+      <td><button onclick="removeItem(${index})">🗑️</button></td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  let totalText = `Celkem: ${total} Kč`;
+  if (discountActive) {
+    const discounted = Math.round(total * 0.9);
+    totalText = `
+      <span class="old-price">Celkem: ${total} Kč</span>
+      <span class="new-price">Po slevě: ${discounted} Kč</span>`;
+  }
+
+  document.getElementById("total").innerHTML = totalText;
+  saveCart();
+}
+
+function changeQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) cart.splice(index, 1);
+  updateCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function applyDiscount() {
+  const code = document.getElementById("discount-code").value.trim().toUpperCase();
+  if (code === "MARTASDESIGN10") {
+    discountActive = true;
+    updateCart();
+    alert("✅ Sleva 10 % byla úspěšně uplatněna!");
+  } else {
+    alert("❌ Neplatný slevový kód.");
+  }
+}
+
+document.getElementById("show-form-btn").addEventListener("click", () => {
+  const form = document.getElementById("form-container");
+  form.style.display = form.style.display === "block" ? "none" : "block";
 });
 
-document.getElementById('total-price').textContent = `Celkem: ${total} Kč`;
-
-// Formulář objednávky
-document.getElementById('order-form').addEventListener('submit', function(e){
+document.getElementById("order-form").addEventListener("submit", (e) => {
   e.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const phone = document.getElementById('phone').value;
-  const email = document.getElementById('email').value;
-  const address = document.getElementById('address').value;
+  localStorage.removeItem("cart");
+  cart = [];
+  updateCart();
+  document.getElementById("form-container").style.display = "none";
+  document.getElementById("thankyou").style.display = "block";
 
-  // Data pro email (zatím jen alert, implementace odeslání vyžaduje backend)
-  let orderSummary = "Nová objednávka:\n\n";
-  cart.forEach(item => { orderSummary += `${item.name} - ${item.price} Kč\n`; });
-  orderSummary += `\nCelkem: ${total} Kč\n\n`;
-  orderSummary += `Jméno: ${name}\nTelefon: ${phone}\nEmail: ${email}\nAdresa: ${address}`;
-
-  alert(orderSummary);
-
-  // Po odeslání vymazat košík
-  localStorage.removeItem('cart');
-  window.location.href = "index.html"; // návrat na hlavní stránku
+  // Konfety efekt 🎊
+  const duration = 2 * 1000;
+  const end = Date.now() + duration;
+  (function frame() {
+    confetti({
+      particleCount: 4,
+      startVelocity: 30,
+      spread: 360,
+      ticks: 60,
+      origin: { x: Math.random(), y: Math.random() - 0.2 }
+    });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
 });
+
+updateCart();
 </script>
 
 </body>
