@@ -179,6 +179,9 @@ input::placeholder, textarea::placeholder {
 #thankyou p {
   margin: 0.5rem 0;
 }
+#empty-cart {
+  display: none;
+}
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(10px);}
   to {opacity: 1; transform: translateY(0);}
@@ -189,7 +192,7 @@ input::placeholder, textarea::placeholder {
 
 <h1>Tvůj košík</h1>
 
-<div id="empty-cart" style="display:none;">
+<div id="empty-cart">
   <p style="font-size:1.3rem; margin-bottom:1rem;">Košík je prázdný.</p>
   <a href="index.html"><button class="main-btn">Vybrat produkty</button></a>
 </div>
@@ -234,6 +237,7 @@ input::placeholder, textarea::placeholder {
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
+// --- DEMO PRODUKTY ---
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let discountActive = false;
 
@@ -246,28 +250,30 @@ function updateCart() {
   const table = document.getElementById("cart-table");
   const empty = document.getElementById("empty-cart");
   const discountBox = document.getElementById("discount-box");
+  const totalDiv = document.getElementById("total");
+  const formBtn = document.getElementById("show-form-btn");
 
   if(cart.length === 0){
     table.style.display = "none";
     discountBox.style.display = "none";
-    document.getElementById("total").style.display = "none";
-    document.getElementById("show-form-btn").style.display = "none";
+    totalDiv.style.display = "none";
+    formBtn.style.display = "none";
     empty.style.display = "block";
     return;
   } else {
     table.style.display = "table";
     discountBox.style.display = "block";
-    document.getElementById("total").style.display = "block";
-    document.getElementById("show-form-btn").style.display = "inline-block";
+    totalDiv.style.display = "block";
+    formBtn.style.display = "inline-block";
     empty.style.display = "none";
   }
 
   tbody.innerHTML = "";
   let total = 0;
 
-  cart.forEach((item, index) => {
-    const price = Number(item.price);
-    const qty = Number(item.qty);
+  cart.forEach((item,index)=>{
+    const price = parseFloat(item.price) || 0;
+    const qty = parseInt(item.qty) || 0;
     const subtotal = price * qty;
     total += subtotal;
 
@@ -277,9 +283,9 @@ function updateCart() {
       <td>${item.name}</td>
       <td>${price} Kč</td>
       <td class="quantity">
-        <button onclick="changeQty(${index}, -1)">−</button>
+        <button onclick="changeQty(${index},-1)">−</button>
         ${qty}
-        <button onclick="changeQty(${index}, 1)">+</button>
+        <button onclick="changeQty(${index},1)">+</button>
       </td>
       <td>${subtotal} Kč</td>
       <td><button onclick="removeItem(${index})">🗑️</button></td>
@@ -288,19 +294,18 @@ function updateCart() {
   });
 
   let totalText = `Celkem: ${total} Kč`;
-  if (discountActive) {
-    const discounted = Math.round(total * 0.9);
-    totalText = `
-      <span class="old-price">Celkem: ${total} Kč</span>
-      <span class="new-price">Po slevě: ${discounted} Kč</span>`;
+  if(discountActive){
+    const discounted = Math.round(total*0.9);
+    totalText = `<span class="old-price">Celkem: ${total} Kč</span>
+                 <span class="new-price">Po slevě: ${discounted} Kč</span>`;
   }
 
-  document.getElementById("total").innerHTML = totalText;
+  totalDiv.innerHTML = totalText;
   saveCart();
 }
 
-function changeQty(index, delta) {
-  cart[index].qty = Number(cart[index].qty) + delta;
+function changeQty(index,delta){
+  cart[index].qty = parseInt(cart[index].qty) + delta;
   if(cart[index].qty <= 0) cart.splice(index,1);
   updateCart();
 }
@@ -312,7 +317,7 @@ function removeItem(index){
 
 function applyDiscount(){
   const code = document.getElementById("discount-code").value.trim().toUpperCase();
-  if(code === "MARTASDESIGN10"){
+  if(code==="MARTASDESIGN10"){
     discountActive = true;
     updateCart();
     alert("✅ Sleva 10 % byla úspěšně uplatněna!");
@@ -323,16 +328,16 @@ function applyDiscount(){
   }
 }
 
-document.getElementById("show-form-btn").addEventListener("click", ()=>{
-  const form = document.getElementById("form-container");
-  form.style.display = form.style.display==="block"?"none":"block";
+document.getElementById("show-form-btn").addEventListener("click",()=>{
+  const form=document.getElementById("form-container");
+  form.style.display=form.style.display==="block"?"none":"block";
 });
 
 document.getElementById("order-form").addEventListener("submit",(e)=>{
   e.preventDefault();
   localStorage.removeItem("cart");
-  cart = [];
-  discountActive = false;
+  cart=[];
+  discountActive=false;
   updateCart();
   document.getElementById("form-container").style.display="none";
   document.getElementById("thankyou").style.display="block";
