@@ -3,63 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Košík — BETA 0.3</title>
+<title>Košík — MarťasDesign</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:'Montserrat',sans-serif;background:#111;color:white;}
-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:#222;}
-header .logo{font-weight:800;}
-header a{color:white;text-decoration:none;}
-main{max-width:900px;margin:2rem auto;padding:2rem;}
-.cart-item{display:flex;align-items:center;justify-content:space-between;background:#222;padding:1rem;border-radius:10px;margin-bottom:1rem;}
-.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:5px;margin-right:1rem;}
-.cart-item h3{flex:1;margin:0 1rem;}
-.cart-item p{color:#ff6363;font-weight:600;}
-.remove-btn{border:2px solid #ff6363;background:transparent;color:#ff6363;padding:0.4rem 1rem;border-radius:25px;cursor:pointer;}
-.remove-btn:hover{background:#ff6363;color:white;}
-.total{text-align:right;font-weight:600;font-size:1.3rem;margin-top:1rem;}
-.btn{display:inline-block;margin-top:1rem;padding:0.8rem 1.6rem;border-radius:30px;background:#ff6363;color:white;text-decoration:none;}
-.btn:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:#111;}
+.navbar a{color:white;text-decoration:none;margin-left:1rem;}
+.logo{font-weight:800;color:#ff6363;}
+.container{max-width:900px;margin:3rem auto;padding:0 1rem;}
+h1{color:#ff6363;text-align:center;margin-bottom:2rem;}
+.cart-list{background:#222;padding:1rem;border-radius:10px;}
+.cart-item{display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #444;}
+.cart-item:last-child{border-bottom:none;}
+.total{margin-top:1rem;text-align:right;font-weight:600;font-size:1.2rem;color:#ff6363;}
+button{padding:0.8rem 1.5rem;border:none;border-radius:30px;background:#ff6363;color:white;font-size:1rem;cursor:pointer;transition:0.3s;}
+button:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
+.cart-icon{position:fixed;top:20px;right:30px;font-size:2rem;cursor:pointer;color:#ff6363;z-index:1001;}
+.cart-icon span{background:#fff;color:#ff6363;font-size:1rem;padding:2px 6px;border-radius:50%;position:absolute;top:-10px;right:-10px;}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">MarťasDesign</div>
-  <a href="index.html">← Zpět do obchodu</a>
-</header>
 
-<main>
-<h1>🛒 Váš košík</h1>
-<div id="cart"></div>
-<div class="total" id="total">Celkem: 0 Kč</div>
-<a href="checkout.html" class="btn">Dokončit objednávku</a>
-</main>
+<div class="cart-icon" id="cart-icon">🛒<span id="cart-count">0</span></div>
+
+<nav class="navbar">
+  <div class="logo">MarťasDesign</div>
+  <div><a href="index.html">Domů</a></div>
+</nav>
+
+<div class="container">
+  <h1>Váš košík</h1>
+  <div class="cart-list" id="cart-list"></div>
+  <div class="total" id="total-price"></div>
+  <button onclick="window.location.href='checkout.html'">Dokončit objednávku</button>
+</div>
 
 <script>
-let cart=JSON.parse(localStorage.getItem('cart'))||[];
-const cartContainer=document.getElementById('cart');
-const totalPriceEl=document.getElementById('total');
+// Načtení košíku
+function updateCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartList = document.getElementById('cart-list');
+  cartList.innerHTML = '';
+  let total = 0;
 
-function renderCart(){
-  cartContainer.innerHTML='';
-  if(cart.length===0){cartContainer.innerHTML='<p>Košík je prázdný 😔</p>'; totalPriceEl.textContent='Celkem: 0 Kč'; return;}
-  let total=0;
   cart.forEach((item,index)=>{
-    total+=item.price;
-    const div=document.createElement('div');
+    const div = document.createElement('div');
     div.classList.add('cart-item');
-    div.innerHTML=`<img src="${item.img}" alt="${item.name}"><h3>${item.name}</h3><p>${item.price} Kč</p><button class="remove-btn" data-index="${index}">Odstranit</button>`;
-    cartContainer.appendChild(div);
+    div.innerHTML = `<span>${item.name}</span><span>${item.price} Kč</span>`;
+    cartList.appendChild(div);
+    total += item.price;
   });
-  totalPriceEl.textContent='Celkem: '+total+' Kč';
-  document.querySelectorAll('.remove-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const i=btn.dataset.index; cart.splice(i,1);
-      localStorage.setItem('cart',JSON.stringify(cart)); renderCart();
-    });
-  });
+
+  document.getElementById('total-price').textContent = `Celkem: ${total} Kč`;
+  document.getElementById('cart-count').textContent = cart.length;
 }
-renderCart();
+
+updateCart();
 </script>
+
 </body>
 </html>
