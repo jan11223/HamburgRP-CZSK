@@ -3,254 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarťasDesign — Oblečení a koberce na míru</title>
+<title>MarťasDesign — Oblečení & Koberce na míru</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #d93030;
-  --primary-light: #ff5c5c;
-  --dark: #1a1a1a;
+  --primary: #ff3b3b;
+  --primary-light: #ff5e5e;
+  --dark: #121212;
+  --gray: #2a2a2a;
   --light: #fff;
-  --gray: #2c2c2c;
-  --card-bg: #2a2a2a;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+
 body {
-  background: linear-gradient(135deg, #2e2e2e, #3a0000);
+  background: radial-gradient(circle at top, #3a0000, #1b1b1b);
   color: var(--light);
-  scroll-behavior: smooth;
-  transition: background 0.8s ease;
+  overflow-x:hidden;
+}
+
+/* animované plameny na pozadí */
+.flame-bg {
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:
+    radial-gradient(circle at 20% 120%, rgba(255,80,0,0.3), transparent 70%),
+    radial-gradient(circle at 80% 120%, rgba(255,20,0,0.2), transparent 70%),
+    radial-gradient(circle at 50% 120%, rgba(255,120,0,0.25), transparent 70%);
+  filter:blur(60px);
+  animation: flames 5s infinite alternate ease-in-out;
+  z-index:-1;
+}
+@keyframes flames {
+  0% {transform:translateY(0);}
+  100% {transform:translateY(-30px);}
 }
 
 /* Navbar */
 .navbar {
-  display:flex; justify-content:space-between; align-items:center;
+  display:flex;justify-content:space-between;align-items:center;
   padding:1.5rem 3rem;
-  background:rgba(26,26,26,0.9);
-  backdrop-filter: blur(6px);
-  position:sticky; top:0; z-index:1000;
-  transition:background 0.3s ease;
+  background:rgba(20,20,20,0.8);
+  backdrop-filter:blur(6px);
+  position:sticky;top:0;z-index:10;
 }
-.logo { font-weight:800; font-size:1.6rem; color:var(--primary); letter-spacing:0.5px; }
-.nav-links { list-style:none; display:flex; gap:1.5rem; }
-.nav-links a {
-  text-decoration:none; color:var(--light); font-weight:600; transition:0.3s;
-  position:relative;
-}
-.nav-links a::after {
-  content:''; position:absolute; bottom:-4px; left:0; width:0%; height:2px;
-  background:var(--primary); transition:width 0.3s;
-}
-.nav-links a:hover { color:var(--primary-light); }
-.nav-links a:hover::after { width:100%; }
+.logo {font-weight:800;font-size:1.6rem;color:var(--primary);}
+.nav-links {list-style:none;display:flex;gap:1.5rem;}
+.nav-links a{text-decoration:none;color:#fff;font-weight:600;transition:0.3s;}
+.nav-links a:hover{color:var(--primary-light);}
 
-/* Hero */
-header.hero {
+/* Hero sekce */
+.hero {
   height:100vh;
-  background:linear-gradient(rgba(30,30,30,0.6), rgba(0,0,0,0.8)),
-  url('https://images.unsplash.com/photo-1520975918318-3e1ee0d51c8f?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-  display:flex; flex-direction:column; justify-content:center; text-align:center;
-  animation: fadeInHero 1.2s ease forwards;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+  url('https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+  animation: fadeInHero 1.5s ease forwards;
 }
 @keyframes fadeInHero {
-  from { opacity:0; transform:translateY(40px); }
-  to { opacity:1; transform:translateY(0); }
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
 }
-.hero h1 { font-size:3rem; letter-spacing:1px; }
-.hero h1 span { color:var(--primary-light); }
-.hero p { margin-top:1rem; color:#ddd; font-size:1.2rem; }
+.hero h1 {font-size:3rem;letter-spacing:1px;}
+.hero h1 span {color:var(--primary);}
+.hero p {margin-top:1rem;font-size:1.2rem;color:#ddd;}
 .hero .btn {
-  display:inline-block; background:var(--primary);
-  color:white; padding:0.8rem 1.6rem; border-radius:30px;
-  margin-top:1.5rem; text-decoration:none;
-  transition:all 0.3s ease; box-shadow:0 0 0 rgba(255,92,92,0);
+  display:inline-block;margin-top:2rem;padding:1rem 2rem;
+  background:var(--primary);color:#fff;text-decoration:none;
+  border-radius:50px;font-weight:600;letter-spacing:0.5px;
+  transition:all 0.3s ease;
 }
 .hero .btn:hover {
   transform:scale(1.08);
   background:var(--primary-light);
-  box-shadow:0 0 20px rgba(255,92,92,0.5);
+  box-shadow:0 0 25px rgba(255,60,60,0.5);
 }
 
-/* Sekce */
-.section { padding:5rem 3rem; text-align:center; opacity:0; transform:translateY(50px); transition:all 1s ease; }
-.section.visible { opacity:1; transform:translateY(0); }
+/* Sekce o nás */
+.about {
+  padding:5rem 2rem;text-align:center;
+}
+.about h2 {font-size:2rem;margin-bottom:1.5rem;color:var(--primary);}
+.about p {max-width:700px;margin:auto;color:#ccc;font-size:1.1rem;line-height:1.7;}
 
-/* Produkty */
-.produkty .grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:2rem;
-  margin-top:2rem;
+/* CTA sekce */
+.cta {
+  padding:6rem 2rem;text-align:center;
+  background:linear-gradient(135deg,#2a2a2a,#3a0000);
 }
-.card {
-  background:var(--card-bg);
-  border-radius:12px;
-  overflow:hidden;
-  transition:transform 0.4s ease, box-shadow 0.4s ease;
-}
-.card:hover {
-  transform:translateY(-10px);
-  box-shadow:0 10px 25px rgba(255,99,99,0.25);
-}
-.card img {
-  width:100%; height:220px; object-fit:cover;
-  transition:transform 0.5s ease;
-}
-.card:hover img { transform:scale(1.05); }
-.card h3 { margin:1rem 0 0.5rem; font-weight:700; }
-.card p { padding:0 1rem 1.5rem; color:#ccc; font-size:0.95rem; }
-.card button {
-  display:inline-block; background:var(--primary);
-  color:white; padding:0.7rem 1.4rem; border-radius:30px;
-  margin-bottom:1.2rem; border:none; cursor:pointer;
-  font-weight:600; letter-spacing:0.3px;
+.cta h2 {font-size:2.4rem;margin-bottom:1rem;}
+.cta p {color:#ddd;font-size:1.1rem;margin-bottom:2rem;}
+.cta .btn {
+  background:var(--primary);
+  color:#fff;
+  padding:1rem 2.4rem;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:600;
   transition:all 0.3s ease;
 }
-.card button:hover {
-  transform:scale(1.08);
+.cta .btn:hover {
+  transform:scale(1.1);
   background:var(--primary-light);
-  box-shadow:0 0 15px rgba(255,92,92,0.5);
+  box-shadow:0 0 20px rgba(255,80,80,0.5);
 }
-
-/* Služby */
-.sluzby p { max-width:600px; margin:1rem auto 2rem; color:#ccc; font-size:1.1rem; }
 
 /* Footer */
-.footer { background:#1a1a1a; color:var(--light); padding:3rem 2rem; text-align:center; }
-.footer .copy { margin-top:1rem; font-size:0.9rem; color:#bbb; }
-
-/* Košík ikonka */
-.cart-icon {
-  position:fixed; top:20px; right:30px;
-  font-size:2rem; cursor:pointer; color:var(--primary);
-  z-index:1001; transition:transform 0.3s ease;
+.footer {
+  background:#121212;
+  color:#ccc;
+  text-align:center;
+  padding:3rem 2rem;
+  font-size:0.95rem;
 }
-.cart-icon span {
-  background:#fff; color:var(--primary);
-  font-size:1rem; padding:2px 6px; border-radius:50%;
-  position:absolute; top:-10px; right:-10px;
-  font-weight:600;
-}
-.cart-icon:hover { transform:scale(1.15) rotate(5deg); }
-
-/* Bounce animace pro košík */
-@keyframes bounce {
-  0%, 100% { transform:translateY(0); }
-  30% { transform:translateY(-12px); }
-  60% { transform:translateY(-6px); }
-}
-
-/* Responsivita */
-@media(max-width:768px){
-  .hero h1 { font-size:2.2rem; }
-  .navbar { flex-direction:column; gap:1rem; }
-}
+.footer a {color:var(--primary);text-decoration:none;}
+.footer a:hover {color:var(--primary-light);}
 </style>
 </head>
 <body>
 
-<!-- Košík -->
-<div class="cart-icon" id="cart-icon">🛒<span id="cart-count">0</span></div>
+<div class="flame-bg"></div>
 
 <!-- Navbar -->
 <nav class="navbar">
   <div class="logo">MarťasDesign</div>
   <ul class="nav-links">
-    <li><a href="#produkty">Produkty</a></li>
-    <li><a href="#sluzby">Oblečení na míru</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#about">O nás</a></li>
+    <li><a href="#objednat">Objednat</a></li>
+    <li><a href="kosik.html">Košík 🛒</a></li>
   </ul>
 </nav>
 
 <!-- Hero -->
-<header class="hero">
-  <h1>Tvoříme <span>na míru</span> pro vás</h1>
-  <p>Moderní oblečení, koberce a doplňky šité přesně podle vašich představ.</p>
-  <a href="#produkty" class="btn">Prohlédnout nabídku</a>
-</header>
-
-<!-- Produkty -->
-<section id="produkty" class="section produkty">
-  <h2>Naše produkty</h2>
-  <div class="grid">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Oblečení">
-      <h3>Oblečení na míru</h3>
-      <p>Elegantní, sportovní i pracovní oděvy dle vašeho stylu.</p>
-      <button class="add-to-cart" data-name="Oblečení na míru" data-price="499">Přidat do košíku</button>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=800&q=80" alt="Koberec">
-      <h3>Koberce</h3>
-      <p>Luxusní ručně tkané i moderní designové koberce přesně na rozměr.</p>
-      <button class="add-to-cart" data-name="Koberec" data-price="1299">Přidat do košíku</button>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1562158070-622a04b5ef1b?auto=format&fit=crop&w=800&q=80" alt="Doplňky">
-      <h3>Doplňky</h3>
-      <p>Stylové doplňky do interiéru i na sebe, navržené s vámi.</p>
-      <button class="add-to-cart" data-name="Doplňky" data-price="299">Přidat do košíku</button>
-    </div>
-  </div>
+<section class="hero">
+  <h1>Tvoříme <span>unikátní design</span></h1>
+  <p>Oblečení, koberce a doplňky přesně podle vás. Ruční práce, moderní styl.</p>
+  <a href="kosik.html" class="btn">Zobrazit nabídku</a>
 </section>
 
-<!-- Služby -->
-<section id="sluzby" class="section sluzby">
-  <h2>Vše na míru</h2>
-  <p>Naši designéři a řemeslníci pracují ručně podle vašich představ. Vyberete si materiál, barvu i rozměry — zbytek nechte na nás.</p>
-  <a href="#kontakt" class="btn">Domluvte si konzultaci</a>
+<!-- O nás -->
+<section id="about" class="about">
+  <h2>O nás</h2>
+  <p>Jsme tým kreativních designérů, kteří milují detail a osobitý styl. 
+  Každý kus, který vytvoříme, má vlastní příběh – váš příběh. 
+  Ať už jde o moderní oblečení nebo stylové koberce, 
+  spojujeme estetiku, kvalitu a originalitu.</p>
 </section>
 
-<!-- Kontakt -->
-<footer id="kontakt" class="footer">
-  <h2>Kontaktujte nás</h2>
-  <p>📍 Adresa: Ulice 123, Praha 1, 110 00, Česká republika</p>
-  <p>📞 Telefon: +420 123 456 789</p>
-  <p>✉️ Email: martasdesing@beta.test</p>
-  <p>📸 Instagram: @martasdesing</p>
-  <p class="copy">© 2025 MarťasDesign. Všechna práva vyhrazena.</p>
+<!-- CTA sekce -->
+<section id="objednat" class="cta">
+  <h2>Připraveni vytvořit něco výjimečného?</h2>
+  <p>Vyberte si z naší nabídky nebo nám napište vaše představy — zrealizujeme je přesně na míru.</p>
+  <a href="kosik.html" class="btn">Dokončit objednávku</a>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>📞 +420 123 456 789 | ✉️ martasdesign@beta.test</p>
+  <p>📸 Sledujte nás na <a href="#">Instagramu</a></p>
+  <p>© 2025 MarťasDesign. Všechna práva vyhrazena.</p>
 </footer>
-
-<script>
-// Animace sekcí při scrollu
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.2 });
-document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
-
-// Košík - přesměrování
-const cartIcon = document.getElementById('cart-icon');
-cartIcon.addEventListener('click', ()=>{ window.location.href="kosik.html"; });
-
-// Počet položek v košíku
-function updateCartCount(){
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  document.getElementById('cart-count').textContent = cart.length;
-}
-updateCartCount();
-
-// Přidání produktů do košíku
-document.querySelectorAll('.add-to-cart').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const name = btn.getAttribute('data-name');
-    const price = parseInt(btn.getAttribute('data-price'));
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({name: name, price: price});
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-
-    // animace košíku
-    const cartIcon = document.getElementById('cart-icon');
-    cartIcon.style.animation = 'bounce 0.6s';
-    setTimeout(()=>{ cartIcon.style.animation = ''; }, 600);
-
-    // notifikace
-    alert(`✅ Produkt "${name}" byl přidán do košíku!`);
-  });
-});
-</script>
 
 </body>
 </html>
