@@ -3,158 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarťasDesign — Košík BETA 0.2</title>
+<title>Košík — BETA 0.3</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --primary:#ff6363;
-  --dark:#111;
-  --light:#fff;
-  --gray:#222;
-}
-
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;}
-
-body{
-  background: radial-gradient(circle at top, #111 0%, #000 100%);
-  color: var(--light);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-  overflow-x:hidden;
-}
-
-/* Beta pozadí */
-body::before{
-  content:"BETA 0.2 VERZE";
-  position: fixed;
-  top:50%; left:50%;
-  transform: translate(-50%, -50%) rotate(-30deg);
-  font-size:6rem; font-weight:800;
-  color: rgba(255,255,255,0.05); pointer-events:none;
-  z-index:0; white-space:nowrap;
-}
-
-header{
-  background:var(--dark);
-  color:white;
-  padding:1.5rem 3rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:relative;
-  z-index:1;
-}
-
-header .logo{
-  font-size:1.5rem;
-  font-weight:800;
-}
-
-header a{
-  text-decoration:none; color:white; font-weight:600;
-  transition: color 0.3s;
-}
-
-header a:hover{color: var(--primary);}
-
-main{
-  flex:1;
-  padding:4rem 3rem;
-  z-index:1;
-  position:relative;
-}
-
-h1{
-  font-size:2.2rem;
-  margin-bottom:2rem;
-  text-align:center;
-}
-
-.cart{
-  max-width:900px;
-  margin:0 auto;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background: var(--gray);
-  margin-bottom:1rem;
-  padding:1rem 1.5rem;
-  border-left:3px solid var(--primary);
-  border-radius:8px;
-  transition: all 0.3s ease;
-}
-
-.cart-item:hover{
-  transform:translateY(-3px);
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-
-.cart-item img{
-  width:60px;
-  height:60px;
-  object-fit:cover;
-  border-radius:5px;
-  margin-right:1rem;
-}
-
-.cart-item h3{flex:1; text-align:left;}
-.cart-item p{font-weight:600; color:var(--primary);}
-.remove-btn{
-  background:transparent;
-  border:2px solid var(--primary);
-  color:var(--primary);
-  border-radius:25px;
-  padding:0.4rem 1rem;
-  cursor:pointer;
-  transition:all 0.3s ease;
-}
-
-.remove-btn:hover{
-  background:var(--primary);
-  color:white;
-}
-
-.total{
-  text-align:right;
-  font-size:1.4rem;
-  font-weight:600;
-  margin-top:1rem;
-}
-
-.btn{
-  display:inline-block;
-  background: var(--primary);
-  color:white;
-  padding:0.8rem 1.6rem;
-  border-radius:30px;
-  text-decoration:none;
-  margin-top:2rem;
-  transition:all 0.3s ease;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 5px 15px rgba(255,99,99,0.4);
-}
-
-footer{
-  background:var(--dark);
-  color:#ccc;
-  text-align:center;
-  padding:2rem;
-}
-
-@media(max-width:600px){
-  .cart-item{flex-direction:column; align-items:flex-start; gap:0.5rem;}
-  .total{text-align:center;}
-}
+body{margin:0;font-family:'Montserrat',sans-serif;background:#111;color:white;}
+header{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:#222;}
+header .logo{font-weight:800;}
+header a{color:white;text-decoration:none;}
+main{max-width:900px;margin:2rem auto;padding:2rem;}
+.cart-item{display:flex;align-items:center;justify-content:space-between;background:#222;padding:1rem;border-radius:10px;margin-bottom:1rem;}
+.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:5px;margin-right:1rem;}
+.cart-item h3{flex:1;margin:0 1rem;}
+.cart-item p{color:#ff6363;font-weight:600;}
+.remove-btn{border:2px solid #ff6363;background:transparent;color:#ff6363;padding:0.4rem 1rem;border-radius:25px;cursor:pointer;}
+.remove-btn:hover{background:#ff6363;color:white;}
+.total{text-align:right;font-weight:600;font-size:1.3rem;margin-top:1rem;}
+.btn{display:inline-block;margin-top:1rem;padding:0.8rem 1.6rem;border-radius:30px;background:#ff6363;color:white;text-decoration:none;}
+.btn:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
 </style>
 </head>
 <body>
@@ -164,69 +29,36 @@ footer{
 </header>
 
 <main>
-  <h1>🛒 Váš košík</h1>
-  <div class="cart" id="cart"></div>
-  <div class="total" id="total">Celkem: 0 Kč</div>
-  <a href="#" class="btn" id="checkout-btn">Dokončit objednávku</a>
+<h1>🛒 Váš košík</h1>
+<div id="cart"></div>
+<div class="total" id="total">Celkem: 0 Kč</div>
+<a href="checkout.html" class="btn">Dokončit objednávku</a>
 </main>
 
-<footer>
-  <p>© 2025 MarťasDesign — BETA 0.2 verze</p>
-</footer>
-
 <script>
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const cartContainer = document.getElementById('cart');
-const totalPriceEl = document.getElementById('total');
+let cart=JSON.parse(localStorage.getItem('cart'))||[];
+const cartContainer=document.getElementById('cart');
+const totalPriceEl=document.getElementById('total');
 
 function renderCart(){
   cartContainer.innerHTML='';
-  if(cart.length===0){
-    cartContainer.innerHTML='<p>Košík je prázdný 😔</p>';
-    totalPriceEl.textContent='Celkem: 0 Kč';
-    return;
-  }
+  if(cart.length===0){cartContainer.innerHTML='<p>Košík je prázdný 😔</p>'; totalPriceEl.textContent='Celkem: 0 Kč'; return;}
   let total=0;
   cart.forEach((item,index)=>{
     total+=item.price;
     const div=document.createElement('div');
     div.classList.add('cart-item');
-    div.innerHTML=`
-      <img src="${item.img}" alt="${item.name}">
-      <h3>${item.name}</h3>
-      <p>${item.price} Kč</p>
-      <button class="remove-btn" data-index="${index}">Odstranit</button>
-    `;
+    div.innerHTML=`<img src="${item.img}" alt="${item.name}"><h3>${item.name}</h3><p>${item.price} Kč</p><button class="remove-btn" data-index="${index}">Odstranit</button>`;
     cartContainer.appendChild(div);
   });
   totalPriceEl.textContent='Celkem: '+total+' Kč';
-
   document.querySelectorAll('.remove-btn').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      const i=btn.dataset.index;
-      const el = cartContainer.children[i];
-      el.style.transform='translateX(100%)';
-      el.style.opacity='0';
-      setTimeout(()=>{
-        cart.splice(i,1);
-        localStorage.setItem('cart',JSON.stringify(cart));
-        renderCart();
-      },300);
+      const i=btn.dataset.index; cart.splice(i,1);
+      localStorage.setItem('cart',JSON.stringify(cart)); renderCart();
     });
   });
 }
-
-document.getElementById('checkout-btn').addEventListener('click',()=>{
-  if(cart.length===0){
-    alert('Košík je prázdný.');
-    return;
-  }
-  alert('Děkujeme za objednávku! 💖 (BETA 0.2 – testovací verze)');
-  localStorage.removeItem('cart');
-  cart=[];
-  renderCart();
-});
-
 renderCart();
 </script>
 </body>
