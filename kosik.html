@@ -13,7 +13,6 @@
   --gray: #1a1a1a;
 }
 body {
-  background: radial-gradient(circle at 30% 30%, #1a1a1a, #0b0b0b);
   font-family: 'Montserrat', sans-serif;
   margin:0;
   padding:2rem;
@@ -24,6 +23,8 @@ body {
   align-items:center;
   justify-content:flex-start;
   overflow-x:hidden;
+  background: linear-gradient(135deg, #1a1a1a, #0b0b0b);
+  position:relative;
 }
 h1 {
   color: var(--primary);
@@ -140,6 +141,13 @@ h1 {
 }
 #close-modal:hover { transform:scale(1.2); }
 
+#total-display {
+  margin:1rem 0;
+  font-size:1.3rem;
+  font-weight:600;
+  color:#fff;
+}
+
 #thankyou {
   display:none;
   text-align:center;
@@ -149,12 +157,34 @@ h1 {
 }
 #thankyou h2 { color:var(--primary); margin-bottom:0.5rem; }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
+#back-btn {
+  position:fixed;
+  left:20px;
+  bottom:20px;
+  background: var(--primary);
+  color:#fff;
+  padding:0.7rem 1.5rem;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  z-index:100;
+  transition:0.3s;
+}
+#back-btn:hover {
+  transform:translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
 }
 
-/* background animation - floating particles */
+.footer-text {
+  margin-top:2rem;
+  text-align:center;
+  font-size:0.9rem;
+  color:#ccc;
+  max-width:600px;
+}
+
+/* background particles */
 .particle{
   position:absolute;
   width:4px;
@@ -164,7 +194,7 @@ h1 {
   animation:float 8s linear infinite;
 }
 @keyframes float{
-  0% {transform:translateY(0px);}
+  0% {transform:translateY(0);}
   100% {transform:translateY(-100vh);}
 }
 </style>
@@ -175,6 +205,8 @@ h1 {
 
 <div id="cart-container"></div>
 
+<div id="total-display"></div>
+
 <button class="main-btn" id="checkout-btn">Dokončit objednávku</button>
 
 <div id="form-modal">
@@ -184,6 +216,7 @@ h1 {
     <form id="order-form">
       <input type="text" placeholder="E-mail nebo kontakt" required>
       <textarea placeholder="Poznámka k objednávce (nepovinné)"></textarea>
+      <input type="text" id="discount-code" placeholder="Slevový kód (např. MARTASDESIGN10)">
       <button type="submit" class="main-btn">Odeslat objednávku</button>
     </form>
   </div>
@@ -195,14 +228,26 @@ h1 {
   <p style="font-weight:700; color:var(--primary); font-size:1.3rem;">MARTASDESIGN10</p>
 </div>
 
+<button id="back-btn" onclick="window.location.href='index.html'">← Zpět</button>
+
+<div class="footer-text">
+  Kontakt: info@martasdesign.cz | Telefon: +420 123 456 789<br>
+  Sledujte nás na sociálních sítích a objevte naše nové produkty!
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
-// demo cart
 let cart = JSON.parse(localStorage.getItem("cart")) || [
   {id:1,name:"Tričko MarťasDesign",price:499},
   {id:2,name:"Koberec MarťasDesign",price:899}
 ];
 let discountActive=false;
+
+function calculateTotal(){
+  let total=0;
+  cart.forEach(item => total+=parseFloat(item.price));
+  return discountActive ? Math.round(total*0.9) : total;
+}
 
 function renderCart(){
   const container=document.getElementById("cart-container");
@@ -210,16 +255,20 @@ function renderCart(){
   if(cart.length===0){
     container.innerHTML='<p style="font-size:1.2rem;">Košík je prázdný.</p>';
     document.getElementById("checkout-btn").style.display="none";
+    document.getElementById("total-display").style.display="none";
     return;
   }
   document.getElementById("checkout-btn").style.display="inline-block";
-  let total=0;
+  document.getElementById("total-display").style.display="block";
+  let total=calculateTotal();
+  document.getElementById("total-display").innerHTML = discountActive ? 
+    `<span style="text-decoration:line-through;">Celkem: ${cart.reduce((a,b)=>a+parseFloat(b.price),0)} Kč</span> <span style="color:var(--primary)">Po slevě: ${total} Kč</span>` :
+    `Celkem: ${total} Kč`;
+
   cart.forEach((item,index)=>{
-    total+=parseFloat(item.price);
     const div=document.createElement("div");
     div.className="cart-item";
-    div.innerHTML=`<span>${item.name}</span>
-                   <button onclick="removeItem(${index})">Odebrat</button>`;
+    div.innerHTML=`<span>${item.name}</span> <button onclick="removeItem(${index})">Odebrat</button>`;
     container.appendChild(div);
   });
 }
@@ -230,23 +279,18 @@ function removeItem(index){
   renderCart();
 }
 
-document.getElementById("checkout-btn").addEventListener("click",()=>{
-  document.getElementById("form-modal").style.display="flex";
-});
-
-document.getElementById("close-modal").addEventListener("click",()=>{
-  document.getElementById("form-modal").style.display="none";
-});
+document.getElementById("checkout-btn").addEventListener("click",()=>document.getElementById("form-modal").style.display="flex");
+document.getElementById("close-modal").addEventListener("click",()=>document.getElementById("form-modal").style.display="none");
 
 document.getElementById("order-form").addEventListener("submit",(e)=>{
   e.preventDefault();
-  cart=[];
-  localStorage.removeItem("cart");
+  const code = document.getElementById("discount-code").value.trim().toUpperCase();
+  discountActive = (code==="MARTASDESIGN10");
+  cart=[]; localStorage.removeItem("cart");
   renderCart();
   document.getElementById("form-modal").style.display="none";
   document.getElementById("thankyou").style.display="block";
 
-  // konfety
   const duration = 2*1000;
   const end = Date.now()+duration;
   (function frame(){
@@ -255,7 +299,7 @@ document.getElementById("order-form").addEventListener("submit",(e)=>{
   })();
 });
 
-// simple floating particles
+// floating particles
 for(let i=0;i<50;i++){
   const p=document.createElement("div");
   p.className="particle";
