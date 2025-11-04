@@ -120,6 +120,21 @@ header.hero {
 .card img { width: 100%; height: 200px; object-fit: cover; }
 .card h3 { margin: 1rem 0 0.5rem; }
 .card p { padding: 0 1rem 1.5rem; color: #ccc; }
+.card button {
+  display:inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  margin-bottom:1rem;
+  border:none;
+  cursor:pointer;
+  transition: 0.3s;
+}
+.card button:hover {
+  transform: translateY(-3px);
+  box-shadow:0 5px 15px rgba(255,99,99,0.4);
+}
 
 /* Sluzby */
 .sluzby p {
@@ -154,7 +169,7 @@ header.hero {
 }
 .cart-icon span {
   background: #fff;
-  color: var(--primary);
+  color: #ff6363;
   font-size: 1rem;
   padding: 2px 6px;
   border-radius: 50%;
@@ -205,19 +220,19 @@ header.hero {
       <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Oblečení">
       <h3>Oblečení na míru</h3>
       <p>Elegantní, sportovní i pracovní oděvy dle vašeho stylu.</p>
-      <a href="produkt.html" class="btn">Více info</a>
+      <button class="add-to-cart" data-name="Oblečení na míru" data-price="499">Přidat do košíku</button>
     </div>
     <div class="card">
       <img src="https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=800&q=80" alt="Koberec">
       <h3>Koberce</h3>
       <p>Luxusní ručně tkané i moderní designové koberce přesně na rozměr.</p>
-      <a href="produkt.html" class="btn">Více info</a>
+      <button class="add-to-cart" data-name="Koberec" data-price="1299">Přidat do košíku</button>
     </div>
     <div class="card">
       <img src="https://images.unsplash.com/photo-1562158070-622a04b5ef1b?auto=format&fit=crop&w=800&q=80" alt="Doplňky">
       <h3>Doplňky</h3>
       <p>Stylové doplňky do interiéru i na sebe, navržené s vámi.</p>
-      <a href="produkt.html" class="btn">Více info</a>
+      <button class="add-to-cart" data-name="Doplňky" data-price="299">Přidat do košíku</button>
     </div>
   </div>
 </section>
@@ -240,7 +255,7 @@ header.hero {
 </footer>
 
 <script>
-// Animace sekcí při scrollu
+// Animace sekcí
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
@@ -250,13 +265,16 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
 
-// Počet produktů v košíku
+// Košík
+const cartIcon = document.getElementById('cart-icon');
+cartIcon.addEventListener('click', ()=>{ window.location.href="kosik.html"; });
+
 function updateCartCount(){
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   document.getElementById('cart-count').textContent = cart.length;
 }
 updateCartCount();
-</script>
 
-</body>
-</html>
+// Přidání produktů
+document.querySelectorAll('.add-to-cart').forEach(btn=>{
+ 
