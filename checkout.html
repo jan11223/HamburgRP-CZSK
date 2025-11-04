@@ -6,4 +6,164 @@
 <title>Dokončení objednávky — BETA 0.3</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-body
+body {
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:#111;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.container {
+  background:#222;
+  padding:2rem;
+  border-radius:15px;
+  max-width:600px;
+  width:90%;
+  box-shadow:0 0 20px rgba(255,99,99,0.3);
+}
+h1 {
+  text-align:center;
+  margin-bottom:2rem;
+  font-size:2rem;
+  color: #ff6363;
+}
+form label {
+  display:block;
+  margin:0.5rem 0 0.2rem 0;
+  font-weight:600;
+}
+form input, form textarea {
+  width:100%;
+  padding:0.6rem;
+  border:none;
+  border-radius:8px;
+  margin-bottom:1rem;
+  background:#333;
+  color:white;
+}
+form textarea {
+  resize:none;
+}
+button {
+  width:100%;
+  padding:0.8rem;
+  border:none;
+  border-radius:30px;
+  background:#ff6363;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 5px 15px rgba(255,99,99,0.4);
+}
+.order-summary {
+  margin-top:2rem;
+  background:#333;
+  padding:1rem;
+  border-radius:10px;
+}
+.order-summary h2 {
+  margin-bottom:1rem;
+  color:#ff6363;
+}
+.order-item {
+  display:flex;
+  justify-content:space-between;
+  padding:0.5rem 0;
+  border-bottom:1px solid #444;
+}
+.order-item:last-child {border-bottom:none;}
+.total-price {
+  text-align:right;
+  margin-top:1rem;
+  font-weight:600;
+  font-size:1.2rem;
+  color:#ff6363;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Dokončení objednávky</h1>
+  <form id="checkout-form">
+    <label for="name">Jméno a příjmení</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="phone">Telefon</label>
+    <input type="tel" id="phone" name="phone" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="address">Adresa</label>
+    <textarea id="address" name="address" rows="3" placeholder="Ulice, město, PSČ, stát" required></textarea>
+
+    <div class="order-summary">
+      <h2>Seznam produktů</h2>
+      <div id="cart-summary"></div>
+      <div class="total-price" id="total-price"></div>
+    </div>
+
+    <button type="submit">Odeslat objednávku</button>
+  </form>
+</div>
+
+<script>
+// Načtení produktů z localStorage
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartSummary = document.getElementById('cart-summary');
+const totalPriceEl = document.getElementById('total-price');
+let total = 0;
+
+if(cart.length === 0){
+  cartSummary.innerHTML = "<p>Košík je prázdný 😔</p>";
+  totalPriceEl.textContent = "";
+} else {
+  cart.forEach((item, index)=>{
+    const div = document.createElement('div');
+    div.classList.add('order-item');
+    div.innerHTML = `<span>${item.name}</span><span>${item.price} Kč</span>`;
+    cartSummary.appendChild(div);
+    total += item.price;
+  });
+  totalPriceEl.textContent = `Celkem: ${total} Kč`;
+}
+
+// Odeslání formuláře
+document.getElementById('checkout-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const email = document.getElementById('email').value;
+  const address = document.getElementById('address').value;
+
+  if(cart.length === 0){
+    alert("Košík je prázdný!");
+    return;
+  }
+
+  // Sestavení seznamu produktů do emailu
+  let productsText = "";
+  cart.forEach((item, index)=>{
+    productsText += `${index+1}. ${item.name} — ${item.price} Kč\n`;
+  });
+
+  const subject = encodeURIComponent("Nová objednávka z MarťasDesign");
+  const body = encodeURIComponent(
+    `Jméno: ${name}\nTelefon: ${phone}\nEmail: ${email}\nAdresa: ${address}\n\nObjednané produkty:\n${productsText}\nCelkem: ${total} Kč`
+  );
+
+  window.location.href = `mailto:jandolezal444@seznam.cz?subject=${subject}&body=${body}`;
+  alert("Děkujeme za objednávku! Zkontrolujte svůj e-mail.");
+});
+</script>
+
+</body>
+</html>
