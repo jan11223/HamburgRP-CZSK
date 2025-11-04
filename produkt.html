@@ -3,60 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produkt — BETA 0.3</title>
+<title>Produkt — MarťasDesign</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:'Montserrat',sans-serif;background:#111;color:white;}
-.container{max-width:900px;margin:3rem auto;padding:2rem;background:#222;border-radius:10px;}
-img{width:100%;max-height:400px;object-fit:cover;border-radius:10px;}
-h1{margin:1rem 0;}
-.price{color:#ff6363;font-weight:600;margin-bottom:1rem;}
-label{display:block;margin:0.5rem 0;}
-select{padding:0.5rem;border-radius:8px;border:none;}
-button{margin-top:1rem;padding:0.8rem 1.6rem;border-radius:30px;border:none;background:#ff6363;color:white;cursor:pointer;transition:0.3s;}
-button:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
+body {
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:#111;
+  color:white;
+}
+.navbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem 3rem;
+  background:#111;
+}
+.navbar a { color:white; text-decoration:none; margin-left:1rem; }
+.logo { font-weight:800; color:#ff6363; }
+.container { max-width:900px; margin:3rem auto; padding:0 1rem; display:flex; flex-wrap:wrap; gap:2rem; }
+.product-image { flex:1 1 300px; }
+.product-image img { width:100%; border-radius:10px; }
+.product-details { flex:1 1 300px; }
+.product-details h1 { color:#ff6363; }
+.product-details p { color:#ccc; margin:1rem 0; }
+select { width:100%; padding:0.5rem; margin:0.5rem 0; border-radius:8px; border:none; background:#222; color:white; }
+button { padding:0.8rem 1.5rem; border:none; border-radius:30px; background:#ff6363; color:white; font-size:1rem; cursor:pointer; transition:0.3s; }
+button:hover { transform:translateY(-3px); box-shadow:0 5px 15px rgba(255,99,99,0.4); }
+.cart-icon { position:fixed; top:20px; right:30px; font-size:2rem; cursor:pointer; color:#ff6363; z-index:1001; }
+.cart-icon span { background:#fff; color:#ff6363; font-size:1rem; padding:2px 6px; border-radius:50%; position:absolute; top:-10px; right:-10px; }
 </style>
 </head>
 <body>
 
+<!-- Košík -->
+<div class="cart-icon" id="cart-icon">🛒<span id="cart-count">0</span></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">MarťasDesign</div>
+  <div><a href="index.html">Domů</a></div>
+</nav>
+
+<!-- Produkt -->
 <div class="container">
-  <img id="product-img" src="" alt="">
-  <h1 id="product-name"></h1>
-  <p class="price" id="product-price"></p>
-
-  <label for="size">Velikost:</label>
-  <select id="size">
-    <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
-  </select>
-
-  <label for="color">Barva:</label>
-  <select id="color">
-    <option>Červená</option><option>Černá</option><option>Modrá</option>
-  </select>
-
-  <button id="add-cart">Přidat do košíku</button>
-  <button onclick="window.location='index.html'">← Zpět na hlavní stránku</button>
+  <div class="product-image">
+    <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Oblečení">
+  </div>
+  <div class="product-details">
+    <h1>Tričko Classic</h1>
+    <p>Elegantní tričko vhodné pro každodenní nošení. Materiál 100% bavlna.</p>
+    
+    <label for="size">Velikost:</label>
+    <select id="size">
+      <option value="XS">XS</option>
+      <option value="S">S</option>
+      <option value="M" selected>M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+      <option value="XXL">XXL</option>
+    </select>
+    
+    <label for="color">Barva:</label>
+    <select id="color">
+      <option value="Červená">Červená</option>
+      <option value="Modrá">Modrá</option>
+      <option value="Černá" selected>Černá</option>
+      <option value="Bílá">Bílá</option>
+    </select>
+    
+    <p>Cena: <strong id="price">499</strong> Kč</p>
+    
+    <button id="add-to-cart">Přidat do košíku</button>
+  </div>
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const name = params.get('name');
-const price = params.get('price');
-const img = params.get('img');
+// Počet v košíku
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  document.getElementById('cart-count').textContent = cart.length;
+}
+updateCartCount();
 
-document.getElementById('product-name').textContent = name;
-document.getElementById('product-price').textContent = price + " Kč";
-document.getElementById('product-img').src = img;
-
-document.getElementById('add-cart').addEventListener('click', ()=>{
+// Přidání produktu do košíku
+document.getElementById('add-to-cart').addEventListener('click', () => {
+  const name = "Tričko Classic";
   const size = document.getElementById('size').value;
   const color = document.getElementById('color').value;
-  const cartItem = {name:name + ' ('+size+', '+color+')', price:parseInt(price), img:img};
-  let cart = JSON.parse(localStorage.getItem('cart'))||[];
-  cart.push(cartItem);
+  const price = parseInt(document.getElementById('price').textContent);
+
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push({name: `${name} (${size}, ${color})`, price: price});
   localStorage.setItem('cart', JSON.stringify(cart));
-  alert('Produkt přidán do košíku ✅');
+
+  updateCartCount();
+  alert("Produkt přidán do košíku!");
 });
 </script>
+
 </body>
 </html>
