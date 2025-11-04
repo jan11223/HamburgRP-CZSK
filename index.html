@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MíraDesign — Oblečení a koberce na míru</title>
+  <title>MarťasDesign — Oblečení a koberce na míru</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -95,6 +95,7 @@
       margin-top: 1.5rem;
       text-decoration: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -189,10 +190,11 @@
 <body>
   <header class="hero">
     <nav class="navbar">
-      <div class="logo">MíraDesign</div>
+      <div class="logo">MarťasDesign</div>
       <ul class="nav-links">
         <li><a href="#produkty">Produkty</a></li>
-        <li><a href="#sluzby">Na míru</a></li>
+        <li><a href="#sluzby">Oblečení na míru</a></li>
+        <li><a href="galerie.html">Galerie</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
     </nav>
@@ -200,6 +202,7 @@
       <h1>Tvoříme <span>na míru</span> pro vás</h1>
       <p>Moderní oblečení, koberce a doplňky šité přesně podle vašich představ.</p>
       <a href="#produkty" class="btn">Prohlédnout nabídku</a>
+      <a href="galerie.html" class="btn">Zobrazit galerii</a>
     </div>
   </header>
 
@@ -232,12 +235,12 @@
 
   <footer id="kontakt" class="footer">
     <h2>Kontaktujte nás</h2>
-    <p>📍 Praha | 📞 +420 123 456 789 | ✉️ info@miradesign.cz</p>
-    <p class="copy">© 2025 MíraDesign. Všechna práva vyhrazena.</p>
+    <p>📍 Praha | 📞 +420 123 456 789 | ✉️ info@martasdesign.cz</p>
+    <p class="copy">© 2025 MarťasDesign. Všechna práva vyhrazena.</p>
   </footer>
 
   <script>
-    // Jednoduchý efekt při scrollování – animace sekcí
+    // Efekt při scrollování – animace sekcí
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
