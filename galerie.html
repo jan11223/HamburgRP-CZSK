@@ -1,169 +1,293 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galerie — MarťasDesign</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #ff6363;
-      --dark: #222;
-      --light: #fff;
-      --bg: #f9f9f9;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie — MarťasDesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #ff3b3b;
+  --primary-light: #ff5e5e;
+  --dark: #121212;
+  --gray: #2a2a2a;
+  --light: #fff;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ffe4e4, #fff6f6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+body {
+  background: radial-gradient(circle at top, #3a0000, #1b1b1b);
+  color: var(--light);
+  overflow-x: hidden;
+}
 
-    header {
-      width: 100%;
-      text-align: center;
-      padding: 3rem 1rem 1rem;
-    }
+/* animované plameny */
+.flame-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 20% 120%, rgba(255, 80, 0, 0.3), transparent 70%),
+    radial-gradient(circle at 80% 120%, rgba(255, 20, 0, 0.2), transparent 70%),
+    radial-gradient(circle at 50% 120%, rgba(255, 120, 0, 0.25), transparent 70%);
+  filter: blur(60px);
+  animation: flames 5s infinite alternate ease-in-out;
+  z-index: -1;
+}
+@keyframes flames {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
 
-    header h1 {
-      font-size: 2.5rem;
-      color: var(--dark);
-    }
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo {
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--primary);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.nav-links a:hover {
+  color: var(--primary-light);
+}
 
-    header p {
-      color: #555;
-      margin-top: 0.5rem;
-    }
+/* Košík ikonka */
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--primary);
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+.cart-icon span {
+  background: #fff;
+  color: var(--primary);
+  font-size: 1rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+.cart-icon.added {
+  animation: bounce 0.5s;
+}
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-10px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 3rem;
-      width: 100%;
-      max-width: 1200px;
-    }
+/* Galerie */
+header {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+}
+header h1 {
+  font-size: 2.8rem;
+  color: var(--primary);
+}
+header p {
+  color: #ddd;
+  margin-top: 0.5rem;
+}
 
-    .item {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 3rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
 
-    .item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
+.card {
+  background: rgba(30,30,30,0.8);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(255,60,60,0.3);
+}
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.card-content {
+  text-align: center;
+  padding: 1.2rem;
+}
+.card-content h3 {
+  font-size: 1.3rem;
+  color: var(--light);
+}
+.card-content p {
+  color: #bbb;
+  font-size: 0.95rem;
+  margin: 0.5rem 0 1rem;
+}
+.price {
+  font-weight: 700;
+  color: var(--primary-light);
+  margin-bottom: 1rem;
+}
 
-    .item img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-    }
+/* Tlačítka */
+.btn {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+.btn:hover {
+  transform: scale(1.05);
+  background: var(--primary-light);
+  box-shadow: 0 0 25px rgba(255, 60, 60, 0.5);
+}
 
-    .item-content {
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .item-content h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .item-content p {
-      color: #666;
-      font-size: 0.95rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .price {
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 25px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-      background: #ff4a4a;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+/* Footer */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #ccc;
+  background: rgba(20, 20, 20, 0.9);
+  font-size: 0.9rem;
+}
+footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+footer a:hover {
+  color: var(--primary-light);
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Nejlepší oblečení</h1>
-    <p>Vyberte si z našich nejnovějších kousků — vše šité na míru.</p>
-  </header>
 
-  <div class="gallery">
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80" alt="Mikina">
-      <div class="item-content">
-        <h3>Mikina Comfort</h3>
-        <p>Pohodlná mikina z měkké bavlny s moderním střihem.</p>
-        <div class="price>899 Kč</div>
-        <a href="#" class="btn">Koupit</a>
-      </div>
-    </div>
+<div class="flame-bg"></div>
 
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80" alt="Tričko">
-      <div class="item-content">
-        <h3>Tričko Basic</h3>
-        <p>Kvalitní bavlněné tričko, ideální pro každodenní nošení.</p>
-        <div class="price">499 Kč</div>
-        <a href="#" class="btn">Koupit</a>
-      </div>
-    </div>
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">MarťasDesign</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Zpět na hlavní stránku</a></li>
+  </ul>
+</nav>
 
-    <div class="item">
-      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80" alt="Bunda">
-      <div class="item-content">
-        <h3>Bunda Urban</h3>
-        <p>Stylová bunda pro městské prostředí, vhodná do každého počasí.</p>
-        <div class="price">1 499 Kč</div>
-        <a href="#" class="btn">Koupit</a>
-      </div>
+<!-- Košík -->
+<div class="cart-icon" id="cart-icon">🛒<span id="cart-count">0</span></div>
+
+<!-- Galerie -->
+<header>
+  <h1>Galerie produktů</h1>
+  <p>Vyberte si z našich exkluzivních produktů šitých na míru.</p>
+</header>
+
+<div class="gallery">
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80" alt="Mikina">
+    <div class="card-content">
+      <h3>Mikina Comfort</h3>
+      <p>Pohodlná mikina z měkké bavlny s moderním střihem.</p>
+      <div class="price">899 Kč</div>
+      <a href="#" class="btn add-to-cart" data-name="Mikina Comfort" data-price="899">Přidat do košíku</a>
     </div>
   </div>
 
-  <footer>
-    <p>© 2025 Beta Version 0.3 MarťasDesign | Navrženo s ❤️</p>
-  </footer>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80" alt="Tričko">
+    <div class="card-content">
+      <h3>Tričko Basic</h3>
+      <p>Kvalitní bavlněné tričko, ideální pro každodenní nošení.</p>
+      <div class="price">499 Kč</div>
+      <a href="#" class="btn add-to-cart" data-name="Tričko Basic" data-price="499">Přidat do košíku</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80" alt="Bunda">
+    <div class="card-content">
+      <h3>Bunda Urban</h3>
+      <p>Stylová bunda vhodná do každého počasí.</p>
+      <div class="price">1 499 Kč</div>
+      <a href="#" class="btn add-to-cart" data-name="Bunda Urban" data-price="1499">Přidat do košíku</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 MarťasDesign | Navrženo s ❤️</p>
+</footer>
+
+<script>
+// Aktualizace počtu v košíku
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  document.getElementById('cart-count').textContent = cart.length;
+}
+updateCartCount();
+
+// Přidávání produktů do košíku
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const name = btn.getAttribute('data-name');
+    const price = parseInt(btn.getAttribute('data-price'));
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({ name, price });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    const cartIcon = document.getElementById('cart-icon');
+    cartIcon.classList.add('added');
+    setTimeout(() => cartIcon.classList.remove('added'), 500);
+  });
+});
+
+// Kliknutí na košík
+document.getElementById('cart-icon').addEventListener('click', () => {
+  window.location.href = "kosik.html";
+});
+</script>
+
 </body>
 </html>
-
