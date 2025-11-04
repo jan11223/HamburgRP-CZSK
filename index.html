@@ -3,146 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarťasDesign — BETA 0.3</title>
+<title>MarťasDesign — Oblečení a koberce na míru</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --primary:#ff6363;
-  --dark:#111;
-  --light:#fff;
-  --gray:#222;
+:root {
+  --primary: #ff6363;
+  --dark: #111;
+  --light: #fff;
+  --gray: #222;
+  --card-bg: #1c1c1c;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;}
-body{
-  background: radial-gradient(circle at top, #111 0%, #000 100%);
-  color: var(--light);
-  min-height:100vh;
-  overflow-x:hidden;
-  position:relative;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* BETA text v pozadí */
-body::before{
-  content:"BETA 0.3 VERZE";
-  position: fixed;
-  top:50%; left:50%;
-  transform: translate(-50%, -50%) rotate(-30deg);
-  font-size:6rem; font-weight:800;
-  color: rgba(255,255,255,0.05); pointer-events:none; white-space:nowrap;
-  z-index:0;
-}
-
-header{
-  display:flex; justify-content:space-between; align-items:center;
-  padding:1rem 2rem;
+body {
   background: var(--dark);
-  position:relative; z-index:2;
+  color: var(--light);
+  scroll-behavior: smooth;
 }
-header .logo{font-size:1.5rem; font-weight:800;}
-header nav{display:flex; gap:1rem;}
-header nav a{
-  color:white; text-decoration:none; font-weight:600;
-  padding:0.4rem 0.8rem; border-radius:8px; transition:0.3s;
-}
-header nav a:hover{background:var(--primary);}
 
-.hero{
-  text-align:center; padding:5rem 2rem;
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: #111;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-.hero h1{font-size:3rem;}
-.hero h1 span{color:var(--primary);}
-.hero p{margin-top:1rem;color:#ccc;font-size:1.2rem;}
-.btn{display:inline-block;background:var(--primary);color:white;padding:0.8rem 1.6rem;border-radius:30px;text-decoration:none;margin-top:1.5rem;transition:0.3s;}
-.btn:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
+.logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--light);
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--primary); }
 
-.section{padding:3rem 2rem; opacity:0; transform:translateY(50px); transition:all 1s ease;}
-.section.visible{opacity:1; transform:translateY(0);}
+/* Hero */
+header.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url('https://images.unsplash.com/photo-1520975918318-3e1ee0d51c8f?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  color: var(--light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 3rem;
+}
+.hero h1 span { color: var(--primary); }
+.hero p { margin-top: 1rem; color: #ddd; font-size: 1.2rem; }
+.hero .btn {
+  display:inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  margin-top: 1.5rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.hero .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
+}
 
-.produkty .grid{
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:2rem; margin-top:2rem; position:relative; z-index:2;
+/* Sections */
+.section {
+  padding: 5rem 3rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
 }
-.card{
-  background: var(--gray); border-radius:10px; overflow:hidden;
-  transition:transform 0.4s ease, box-shadow 0.4s ease;
-  text-align:center; padding:1rem;
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
-.card:hover{transform:translateY(-10px); box-shadow:0 10px 25px rgba(0,0,0,0.3);}
-.card img{width:100%; height:200px; object-fit:cover; border-radius:10px;}
-.card h3{margin:0.5rem 0;}
-.card p{color:#ccc; margin-bottom:0.5rem;}
-.price{color:var(--primary); font-weight:600;}
-.card .view-btn{
-  display:inline-block; padding:0.5rem 1rem; border:2px solid var(--primary);
-  border-radius:25px; color:white; background:transparent; cursor:pointer; transition:0.3s;
-}
-.card .view-btn:hover{background:var(--primary);}
 
-footer{
-  background: var(--dark); color:#ccc; text-align:center; padding:2rem; margin-top:2rem;
+/* Produkty */
+.produkty .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
-footer a{color:white; text-decoration:none;}
-footer a:hover{color:var(--primary);}
-.contact-item{margin:0.5rem 0;}
-.contact-item img{vertical-align:middle; margin-right:0.5rem;}
-.cart-icon{
-  position:fixed; top:20px; right:20px; background:var(--primary);
-  color:white; border-radius:50%; width:50px; height:50px;
-  display:flex; justify-content:center; align-items:center; font-size:1.5rem; cursor:pointer; z-index:3;
-  transition: transform 0.3s ease;
+.card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-.cart-icon:hover{transform: scale(1.2);}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(255,99,99,0.3);
+}
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card h3 { margin: 1rem 0 0.5rem; }
+.card p { padding: 0 1rem 1.5rem; color: #ccc; }
+
+/* Sluzby */
+.sluzby p {
+  max-width: 600px;
+  margin: 1rem auto 2rem;
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+/* Footer */
+.footer {
+  background: #111;
+  color: var(--light);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.footer .copy {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Košík ikonka */
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--primary);
+  z-index: 1001;
+}
+.cart-icon span {
+  background: #fff;
+  color: var(--primary);
+  font-size: 1rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+/* Animace */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width:768px){
+  .hero h1 { font-size:2.2rem; }
+  .navbar { flex-direction: column; gap:1rem; }
+}
 </style>
 </head>
 <body>
 
-<header>
+<!-- Košík -->
+<div class="cart-icon" id="cart-icon">🛒<span id="cart-count">0</span></div>
+
+<!-- Navbar -->
+<nav class="navbar">
   <div class="logo">MarťasDesign</div>
-  <nav>
-    <a href="#produkty">Produkty</a>
-    <a href="kosik.html">🛒 Košík</a>
-  </nav>
+  <ul class="nav-links">
+    <li><a href="#produkty">Produkty</a></li>
+    <li><a href="#sluzby">Oblečení na míru</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <h1>Tvoříme <span>na míru</span> pro vás</h1>
+  <p>Moderní oblečení, koberce a doplňky šité přesně podle vašich představ.</p>
+  <a href="#produkty" class="btn">Prohlédnout nabídku</a>
 </header>
 
-<section class="hero">
-  <h1>Styl, kvalita a <span>design</span></h1>
-  <p>Moderní oblečení a doplňky, které si zamilujete.</p>
-  <a href="#produkty" class="btn">Prohlédnout produkty</a>
-</section>
-
+<!-- Produkty -->
 <section id="produkty" class="section produkty">
   <h2>Naše produkty</h2>
   <div class="grid">
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80" alt="Tričko">
-      <h3>Tričko Classic</h3>
-      <p class="price">499 Kč</p>
-      <button class="view-btn" onclick="window.location='produkt.html?name=Tričko+Classic&price=499&img=https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80'">Zobrazit produkt</button>
+      <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Oblečení">
+      <h3>Oblečení na míru</h3>
+      <p>Elegantní, sportovní i pracovní oděvy dle vašeho stylu.</p>
+      <a href="produkt.html" class="btn">Více info</a>
     </div>
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Mikina">
-      <h3>Mikina Comfort</h3>
-      <p class="price">899 Kč</p>
-      <button class="view-btn" onclick="window.location='produkt.html?name=Mikina+Comfort&price=899&img=https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80'">Zobrazit produkt</button>
+      <img src="https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=800&q=80" alt="Koberec">
+      <h3>Koberce</h3>
+      <p>Luxusní ručně tkané i moderní designové koberce přesně na rozměr.</p>
+      <a href="produkt.html" class="btn">Více info</a>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1562158070-622a04b5ef1b?auto=format&fit=crop&w=800&q=80" alt="Doplňky">
+      <h3>Doplňky</h3>
+      <p>Stylové doplňky do interiéru i na sebe, navržené s vámi.</p>
+      <a href="produkt.html" class="btn">Více info</a>
     </div>
   </div>
 </section>
 
-<section class="section kontakt">
-  <h2>Kontakt</h2>
-  <div class="contact-item">📞 Telefon: +420 123 456 789</div>
-  <div class="contact-item">✉️ Email: <a href="mailto:martasdesing@beta.test">martasdesing@beta.test</a></div>
-  <div class="contact-item">📸 Instagram: <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" width="20"> <a href="https://instagram.com/martasdesing" target="_blank">martasdesing</a></div>
+<!-- Sluzby -->
+<section id="sluzby" class="section sluzby">
+  <h2>Vše na míru</h2>
+  <p>Naši designéři a řemeslníci pracují ručně podle vašich představ. Vyberete si materiál, barvu i rozměry — zbytek nechte na nás.</p>
+  <a href="#kontakt" class="btn">Domluvte si konzultaci</a>
 </section>
 
-<div class="cart-icon" onclick="window.location='kosik.html'">🛒</div>
+<!-- Kontakt -->
+<footer id="kontakt" class="footer">
+  <h2>Kontaktujte nás</h2>
+  <p>📍 Adresa: Ulice 123, Praha 1, 110 00, Česká republika</p>
+  <p>📞 Telefon: +420 123 456 789</p>
+  <p>✉️ Email: martasdesing@beta.test</p>
+  <p>📸 Instagram: @martasdesing</p>
+  <p class="copy">© 2025 MarťasDesign. Všechna práva vyhrazena.</p>
+</footer>
 
 <script>
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});
-},{threshold:0.2});
-document.querySelectorAll('.section').forEach(sec=>observer.observe(sec));
+// Animace sekcí při scrollu
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
+
+// Počet produktů v košíku
+function updateCartCount(){
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  document.getElementById('cart-count').textContent = cart.length;
+}
+updateCartCount();
 </script>
 
 </body>
