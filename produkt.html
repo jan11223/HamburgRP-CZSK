@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produkt — BETA 0.3</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Montserrat',sans-serif;background:#111;color:white;}
+.container{max-width:900px;margin:3rem auto;padding:2rem;background:#222;border-radius:10px;}
+img{width:100%;max-height:400px;object-fit:cover;border-radius:10px;}
+h1{margin:1rem 0;}
+.price{color:#ff6363;font-weight:600;margin-bottom:1rem;}
+label{display:block;margin:0.5rem 0;}
+select{padding:0.5rem;border-radius:8px;border:none;}
+button{margin-top:1rem;padding:0.8rem 1.6rem;border-radius:30px;border:none;background:#ff6363;color:white;cursor:pointer;transition:0.3s;}
+button:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img id="product-img" src="" alt="">
+  <h1 id="product-name"></h1>
+  <p class="price" id="product-price"></p>
+
+  <label for="size">Velikost:</label>
+  <select id="size">
+    <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+  </select>
+
+  <label for="color">Barva:</label>
+  <select id="color">
+    <option>Červená</option><option>Černá</option><option>Modrá</option>
+  </select>
+
+  <button id="add-cart">Přidat do košíku</button>
+  <button onclick="window.location='index.html'">← Zpět na hlavní stránku</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name');
+const price = params.get('price');
+const img = params.get('img');
+
+document.getElementById('product-name').textContent = name;
+document.getElementById('product-price').textContent = price + " Kč";
+document.getElementById('product-img').src = img;
+
+document.getElementById('add-cart').addEventListener('click', ()=>{
+  const size = document.getElementById('size').value;
+  const color = document.getElementById('color').value;
+  const cartItem = {name:name + ' ('+size+', '+color+')', price:parseInt(price), img:img};
+  let cart = JSON.parse(localStorage.getItem('cart'))||[];
+  cart.push(cartItem);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert('Produkt přidán do košíku ✅');
+});
+</script>
+</body>
+</html>
