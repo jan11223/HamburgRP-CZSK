@@ -19,10 +19,9 @@ body {
   overflow-x: hidden;
   padding: 2rem;
   min-height: 100vh;
-  position: relative;
+  text-align: center;
 }
 h1 {
-  text-align: center;
   color: var(--primary);
   font-weight: 800;
   letter-spacing: 1px;
@@ -122,8 +121,7 @@ h1 {
 }
 
 button.main-btn {
-  display: block;
-  margin: 0 auto;
+  display: inline-block;
   background: var(--primary);
   color: #fff;
   padding: 0.9rem 1.8rem;
@@ -134,6 +132,7 @@ button.main-btn {
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
+  margin-top: 1rem;
 }
 button.main-btn:hover {
   transform: translateY(-4px);
@@ -190,6 +189,11 @@ input::placeholder, textarea::placeholder {
 
 <h1>Tvůj košík</h1>
 
+<div id="empty-cart" style="display:none;">
+  <p style="font-size:1.3rem; margin-bottom:1rem;">Košík je prázdný.</p>
+  <a href="index.html"><button class="main-btn">Vybrat produkty</button></a>
+</div>
+
 <table class="cart-table" id="cart-table">
   <thead>
     <tr>
@@ -204,7 +208,7 @@ input::placeholder, textarea::placeholder {
   <tbody id="cart-body"></tbody>
 </table>
 
-<div class="discount-box">
+<div class="discount-box" id="discount-box">
   <input type="text" id="discount-code" placeholder="Zadej slevový kód">
   <button onclick="applyDiscount()">Použít</button>
 </div>
@@ -228,15 +232,9 @@ input::placeholder, textarea::placeholder {
   <p style="font-weight:700; color:var(--primary); font-size:1.3rem;">MARTASDESIGN10</p>
 </div>
 
-<!-- Konfety knihovna -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <script>
-// --- DEMO PRODUKTY ---
-let cart = JSON.parse(localStorage.getItem("cart")) || [
-  { id: 1, name: "Tričko MarťasDesign", price: 499, qty: 1, img: "https://via.placeholder.com/80x80?text=Tričko" },
-  { id: 2, name: "Koberec MarťasDesign", price: 899, qty: 2, img: "https://via.placeholder.com/80x80?text=Koberec" }
-];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let discountActive = false;
 
 function saveCart() {
@@ -245,21 +243,42 @@ function saveCart() {
 
 function updateCart() {
   const tbody = document.getElementById("cart-body");
+  const table = document.getElementById("cart-table");
+  const empty = document.getElementById("empty-cart");
+  const discountBox = document.getElementById("discount-box");
+
+  if(cart.length === 0){
+    table.style.display = "none";
+    discountBox.style.display = "none";
+    document.getElementById("total").style.display = "none";
+    document.getElementById("show-form-btn").style.display = "none";
+    empty.style.display = "block";
+    return;
+  } else {
+    table.style.display = "table";
+    discountBox.style.display = "block";
+    document.getElementById("total").style.display = "block";
+    document.getElementById("show-form-btn").style.display = "inline-block";
+    empty.style.display = "none";
+  }
+
   tbody.innerHTML = "";
   let total = 0;
 
   cart.forEach((item, index) => {
-    const subtotal = item.price * item.qty;
+    const price = Number(item.price);
+    const qty = Number(item.qty);
+    const subtotal = price * qty;
     total += subtotal;
 
     const row = document.createElement("tr");
     row.innerHTML = `
       <td><img src="${item.img}" alt="${item.name}"></td>
       <td>${item.name}</td>
-      <td>${item.price} Kč</td>
+      <td>${price} Kč</td>
       <td class="quantity">
         <button onclick="changeQty(${index}, -1)">−</button>
-        ${item.qty}
+        ${qty}
         <button onclick="changeQty(${index}, 1)">+</button>
       </td>
       <td>${subtotal} Kč</td>
@@ -281,52 +300,48 @@ function updateCart() {
 }
 
 function changeQty(index, delta) {
-  cart[index].qty += delta;
-  if (cart[index].qty <= 0) cart.splice(index, 1);
+  cart[index].qty = Number(cart[index].qty) + delta;
+  if(cart[index].qty <= 0) cart.splice(index,1);
   updateCart();
 }
 
-function removeItem(index) {
-  cart.splice(index, 1);
+function removeItem(index){
+  cart.splice(index,1);
   updateCart();
 }
 
-function applyDiscount() {
+function applyDiscount(){
   const code = document.getElementById("discount-code").value.trim().toUpperCase();
-  if (code === "MARTASDESIGN10") {
+  if(code === "MARTASDESIGN10"){
     discountActive = true;
     updateCart();
     alert("✅ Sleva 10 % byla úspěšně uplatněna!");
   } else {
+    discountActive = false;
+    updateCart();
     alert("❌ Neplatný slevový kód.");
   }
 }
 
-document.getElementById("show-form-btn").addEventListener("click", () => {
+document.getElementById("show-form-btn").addEventListener("click", ()=>{
   const form = document.getElementById("form-container");
-  form.style.display = form.style.display === "block" ? "none" : "block";
+  form.style.display = form.style.display==="block"?"none":"block";
 });
 
-document.getElementById("order-form").addEventListener("submit", (e) => {
+document.getElementById("order-form").addEventListener("submit",(e)=>{
   e.preventDefault();
   localStorage.removeItem("cart");
   cart = [];
+  discountActive = false;
   updateCart();
-  document.getElementById("form-container").style.display = "none";
-  document.getElementById("thankyou").style.display = "block";
+  document.getElementById("form-container").style.display="none";
+  document.getElementById("thankyou").style.display="block";
 
-  // Konfety efekt 🎊
-  const duration = 2 * 1000;
-  const end = Date.now() + duration;
-  (function frame() {
-    confetti({
-      particleCount: 4,
-      startVelocity: 30,
-      spread: 360,
-      ticks: 60,
-      origin: { x: Math.random(), y: Math.random() - 0.2 }
-    });
-    if (Date.now() < end) requestAnimationFrame(frame);
+  const duration = 2*1000;
+  const end = Date.now()+duration;
+  (function frame(){
+    confetti({particleCount:4,startVelocity:30,spread:360,ticks:60,origin:{x:Math.random(),y:Math.random()-0.2}});
+    if(Date.now()<end) requestAnimationFrame(frame);
   })();
 });
 
