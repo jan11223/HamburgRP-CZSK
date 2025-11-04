@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarťasDesign — BETA 0.2</title>
+<title>MarťasDesign — BETA 0.3</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --primary: #ff6363;
-  --dark: #111;
-  --light: #fff;
-  --gray: #222;
+:root{
+  --primary:#ff6363;
+  --dark:#111;
+  --light:#fff;
+  --gray:#222;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Montserrat',sans-serif;}
-
 body{
   background: radial-gradient(circle at top, #111 0%, #000 100%);
   color: var(--light);
+  min-height:100vh;
   overflow-x:hidden;
-  position: relative;
+  position:relative;
 }
 
-/* Beta text v pozadí */
+/* BETA text v pozadí */
 body::before{
-  content:"BETA 0.2 VERZE";
+  content:"BETA 0.3 VERZE";
   position: fixed;
   top:50%; left:50%;
   transform: translate(-50%, -50%) rotate(-30deg);
@@ -33,158 +33,83 @@ body::before{
   z-index:0;
 }
 
-header.hero{
-  height:100vh;
-  display:flex; flex-direction:column; justify-content:space-between;
-  position: relative;
-  z-index:1;
-}
-
-.navbar{
+header{
   display:flex; justify-content:space-between; align-items:center;
-  padding:1.5rem 3rem;
+  padding:1rem 2rem;
+  background: var(--dark);
+  position:relative; z-index:2;
 }
-
-.logo{
-  font-weight:800;
-  font-size:1.8rem;
-  color:white;
+header .logo{font-size:1.5rem; font-weight:800;}
+header nav{display:flex; gap:1rem;}
+header nav a{
+  color:white; text-decoration:none; font-weight:600;
+  padding:0.4rem 0.8rem; border-radius:8px; transition:0.3s;
 }
+header nav a:hover{background:var(--primary);}
 
-.nav-links{
-  list-style:none;
-  display:flex;
-  gap:1.5rem;
+.hero{
+  text-align:center; padding:5rem 2rem;
 }
+.hero h1{font-size:3rem;}
+.hero h1 span{color:var(--primary);}
+.hero p{margin-top:1rem;color:#ccc;font-size:1.2rem;}
+.btn{display:inline-block;background:var(--primary);color:white;padding:0.8rem 1.6rem;border-radius:30px;text-decoration:none;margin-top:1.5rem;transition:0.3s;}
+.btn:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(255,99,99,0.4);}
 
-.nav-links a{
-  text-decoration:none; color:white; font-weight:600; position:relative;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover{color: var(--primary);}
-
-.hero-content{
-  text-align:center;
-  margin-bottom:10vh;
-  animation:fadeIn 2s ease;
-}
-
-.hero-content h1{
-  font-size:3rem; line-height:1.2;
-}
-
-.hero-content h1 span{color:var(--primary);}
-.hero-content p{margin-top:1rem;color:#ccc;font-size:1.2rem;}
-
-.btn{
-  display:inline-block;
-  background: var(--primary);
-  color:white;
-  padding:0.8rem 1.6rem;
-  border-radius:30px;
-  margin-top:1.5rem;
-  text-decoration:none;
-  cursor:pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow:hidden;
-}
-
-.btn:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
-}
-
-.section{
-  padding:5rem 3rem;
-  text-align:center;
-  opacity:0;
-  transform:translateY(50px);
-  transition:all 1s ease;
-}
-
+.section{padding:3rem 2rem; opacity:0; transform:translateY(50px); transition:all 1s ease;}
 .section.visible{opacity:1; transform:translateY(0);}
 
 .produkty .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:2rem;
-  margin-top:2rem;
-  position:relative; z-index:2;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2rem; margin-top:2rem; position:relative; z-index:2;
 }
-
 .card{
-  background: var(--gray);
-  border-radius:10px;
-  overflow:hidden;
+  background: var(--gray); border-radius:10px; overflow:hidden;
   transition:transform 0.4s ease, box-shadow 0.4s ease;
+  text-align:center; padding:1rem;
 }
-
 .card:hover{transform:translateY(-10px); box-shadow:0 10px 25px rgba(0,0,0,0.3);}
-.card img{width:100%; height:200px; object-fit:cover;}
-.card h3{margin:1rem 0 0.5rem;}
-.card p{padding:0 1rem 0.5rem; color:#ccc;}
+.card img{width:100%; height:200px; object-fit:cover; border-radius:10px;}
+.card h3{margin:0.5rem 0;}
+.card p{color:#ccc; margin-bottom:0.5rem;}
 .price{color:var(--primary); font-weight:600;}
-
-.buy-btn{
-  border:2px solid var(--primary);
-  background:transparent;
-  color:white;
-  border-radius:30px;
-  padding:0.5rem 1rem;
-  cursor:pointer;
-  transition:all 0.3s ease;
+.card .view-btn{
+  display:inline-block; padding:0.5rem 1rem; border:2px solid var(--primary);
+  border-radius:25px; color:white; background:transparent; cursor:pointer; transition:0.3s;
 }
+.card .view-btn:hover{background:var(--primary);}
 
-.buy-btn:hover{background:var(--primary); color:white;}
-
+footer{
+  background: var(--dark); color:#ccc; text-align:center; padding:2rem; margin-top:2rem;
+}
+footer a{color:white; text-decoration:none;}
+footer a:hover{color:var(--primary);}
+.contact-item{margin:0.5rem 0;}
+.contact-item img{vertical-align:middle; margin-right:0.5rem;}
 .cart-icon{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:var(--primary);
-  color:white;
-  border-radius:50%;
-  width:50px; height:50px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:1.5rem;
-  cursor:pointer;
-  z-index:3;
+  position:fixed; top:20px; right:20px; background:var(--primary);
+  color:white; border-radius:50%; width:50px; height:50px;
+  display:flex; justify-content:center; align-items:center; font-size:1.5rem; cursor:pointer; z-index:3;
   transition: transform 0.3s ease;
 }
-
 .cart-icon:hover{transform: scale(1.2);}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* Animace letícího obrázku */
-@keyframes fly-to-cart{
-  0% {opacity:1; transform:translate(0,0) scale(1);}
-  100% {opacity:0; transform:translate(600px,-400px) scale(0.1);}
-}
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <nav class="navbar">
-    <div class="logo">MarťasDesign</div>
-    <ul class="nav-links">
-      <li><a href="#produkty">Produkty</a></li>
-      <li><a href="kosik.html">🛒 Košík</a></li>
-    </ul>
+<header>
+  <div class="logo">MarťasDesign</div>
+  <nav>
+    <a href="#produkty">Produkty</a>
+    <a href="kosik.html">🛒 Košík</a>
   </nav>
-  <div class="hero-content">
-    <h1>Styl, kvalita a <span>design</span></h1>
-    <p>Moderní oblečení a doplňky, které si zamilujete.</p>
-  </div>
 </header>
+
+<section class="hero">
+  <h1>Styl, kvalita a <span>design</span></h1>
+  <p>Moderní oblečení a doplňky, které si zamilujete.</p>
+  <a href="#produkty" class="btn">Prohlédnout produkty</a>
+</section>
 
 <section id="produkty" class="section produkty">
   <h2>Naše produkty</h2>
@@ -192,77 +117,33 @@ header.hero{
     <div class="card">
       <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80" alt="Tričko">
       <h3>Tričko Classic</h3>
-      <p>Kvalitní bavlněné tričko</p>
       <p class="price">499 Kč</p>
-      <button class="buy-btn" data-name="Tričko Classic" data-price="499" data-img="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80">Koupit</button>
+      <button class="view-btn" onclick="window.location='produkt.html?name=Tričko+Classic&price=499&img=https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80'">Zobrazit produkt</button>
     </div>
     <div class="card">
       <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Mikina">
       <h3>Mikina Comfort</h3>
-      <p>Teplá mikina s moderním střihem</p>
       <p class="price">899 Kč</p>
-      <button class="buy-btn" data-name="Mikina Comfort" data-price="899" data-img="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80">Koupit</button>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=800&q=80" alt="Kalhoty">
-      <h3>Kalhoty Fit</h3>
-      <p>Pohodlné, elastické a stylové</p>
-      <p class="price">749 Kč</p>
-      <button class="buy-btn" data-name="Kalhoty Fit" data-price="749" data-img="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=800&q=80">Koupit</button>
+      <button class="view-btn" onclick="window.location='produkt.html?name=Mikina+Comfort&price=899&img=https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80'">Zobrazit produkt</button>
     </div>
   </div>
+</section>
+
+<section class="section kontakt">
+  <h2>Kontakt</h2>
+  <div class="contact-item">📞 Telefon: +420 123 456 789</div>
+  <div class="contact-item">✉️ Email: <a href="mailto:martasdesing@beta.test">martasdesing@beta.test</a></div>
+  <div class="contact-item">📸 Instagram: <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" width="20"> <a href="https://instagram.com/martasdesing" target="_blank">martasdesing</a></div>
 </section>
 
 <div class="cart-icon" onclick="window.location='kosik.html'">🛒</div>
 
 <script>
-const buttons=document.querySelectorAll('.buy-btn');
-buttons.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const product={
-      name: btn.dataset.name,
-      price: parseInt(btn.dataset.price),
-      img: btn.dataset.img
-    };
-
-    let cart=JSON.parse(localStorage.getItem('cart'))||[];
-    cart.push(product);
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Animace letícího obrázku
-    const img = document.createElement('img');
-    img.src = product.img;
-    img.style.position = 'fixed';
-    const rect = btn.getBoundingClientRect();
-    img.style.left = rect.left + 'px';
-    img.style.top = rect.top + 'px';
-    img.style.width = '50px';
-    img.style.height = '50px';
-    img.style.zIndex = '1000';
-    img.style.borderRadius='10px';
-    document.body.appendChild(img);
-
-    img.animate([
-      {transform:`translate(0px,0px) scale(1)`, opacity:1},
-      {transform:`translate(${window.innerWidth-rect.left-50}px, ${-rect.top-50}px) scale(0.1)`, opacity:0}
-    ],{
-      duration:800, easing:'ease-in-out'
-    });
-
-    setTimeout(()=>document.body.removeChild(img),800);
-
-    btn.textContent='✅ Přidáno';
-    btn.disabled=true;
-    setTimeout(()=>{btn.textContent='Koupit'; btn.disabled=false;},1000);
-  });
-});
-
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){entry.target.classList.add('visible');}
-  });
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});
 },{threshold:0.2});
 document.querySelectorAll('.section').forEach(sec=>observer.observe(sec));
 </script>
+
 </body>
 </html>
