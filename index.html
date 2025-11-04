@@ -14,111 +14,151 @@
   --light: #fff;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
 
 body {
   background: radial-gradient(circle at top, #3a0000, #1b1b1b);
   color: var(--light);
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 /* animované plameny na pozadí */
 .flame-bg {
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background:
-    radial-gradient(circle at 20% 120%, rgba(255,80,0,0.3), transparent 70%),
-    radial-gradient(circle at 80% 120%, rgba(255,20,0,0.2), transparent 70%),
-    radial-gradient(circle at 50% 120%, rgba(255,120,0,0.25), transparent 70%);
-  filter:blur(60px);
+    radial-gradient(circle at 20% 120%, rgba(255, 80, 0, 0.3), transparent 70%),
+    radial-gradient(circle at 80% 120%, rgba(255, 20, 0, 0.2), transparent 70%),
+    radial-gradient(circle at 50% 120%, rgba(255, 120, 0, 0.25), transparent 70%);
+  filter: blur(60px);
   animation: flames 5s infinite alternate ease-in-out;
-  z-index:-1;
+  z-index: -1;
 }
 @keyframes flames {
-  0% {transform:translateY(0);}
-  100% {transform:translateY(-30px);}
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
 }
 
 /* Navbar */
 .navbar {
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.5rem 3rem;
-  background:rgba(20,20,20,0.8);
-  backdrop-filter:blur(6px);
-  position:sticky;top:0;z-index:10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-.logo {font-weight:800;font-size:1.6rem;color:var(--primary);}
-.nav-links {list-style:none;display:flex;gap:1.5rem;}
-.nav-links a{text-decoration:none;color:#fff;font-weight:600;transition:0.3s;}
-.nav-links a:hover{color:var(--primary-light);}
+.logo {
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--primary);
+  margin-left: -1rem; /* posun mírně doleva */
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.nav-links a:hover {
+  color: var(--primary-light);
+}
 
 /* Hero sekce */
 .hero {
-  height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;
-  background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-  url('https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
   animation: fadeInHero 1.5s ease forwards;
 }
 @keyframes fadeInHero {
-  from{opacity:0;transform:translateY(40px);}
-  to{opacity:1;transform:translateY(0);}
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.hero h1 {font-size:3rem;letter-spacing:1px;}
-.hero h1 span {color:var(--primary);}
-.hero p {margin-top:1rem;font-size:1.2rem;color:#ddd;}
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+.hero h1 span {
+  color: var(--primary);
+}
+.hero p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #ddd;
+}
 .hero .btn {
-  display:inline-block;margin-top:2rem;padding:1rem 2rem;
-  background:var(--primary);color:#fff;text-decoration:none;
-  border-radius:50px;font-weight:600;letter-spacing:0.5px;
-  transition:all 0.3s ease;
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 .hero .btn:hover {
-  transform:scale(1.08);
-  background:var(--primary-light);
-  box-shadow:0 0 25px rgba(255,60,60,0.5);
+  transform: scale(1.08);
+  background: var(--primary-light);
+  box-shadow: 0 0 25px rgba(255, 60, 60, 0.5);
 }
 
 /* Sekce o nás */
 .about {
-  padding:5rem 2rem;text-align:center;
+  padding: 5rem 2rem;
+  text-align: center;
 }
-.about h2 {font-size:2rem;margin-bottom:1.5rem;color:var(--primary);}
-.about p {max-width:700px;margin:auto;color:#ccc;font-size:1.1rem;line-height:1.7;}
-
-/* CTA sekce */
-.cta {
-  padding:6rem 2rem;text-align:center;
-  background:linear-gradient(135deg,#2a2a2a,#3a0000);
+.about h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
 }
-.cta h2 {font-size:2.4rem;margin-bottom:1rem;}
-.cta p {color:#ddd;font-size:1.1rem;margin-bottom:2rem;}
-.cta .btn {
-  background:var(--primary);
-  color:#fff;
-  padding:1rem 2.4rem;
-  border-radius:50px;
-  text-decoration:none;
-  font-weight:600;
-  transition:all 0.3s ease;
-}
-.cta .btn:hover {
-  transform:scale(1.1);
-  background:var(--primary-light);
-  box-shadow:0 0 20px rgba(255,80,80,0.5);
+.about p {
+  max-width: 700px;
+  margin: auto;
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.7;
 }
 
 /* Footer */
 .footer {
-  background:#121212;
-  color:#ccc;
-  text-align:center;
-  padding:3rem 2rem;
-  font-size:0.95rem;
+  background: #121212;
+  color: #ccc;
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.95rem;
 }
-.footer a {color:var(--primary);text-decoration:none;}
-.footer a:hover {color:var(--primary-light);}
+.footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.footer a:hover {
+  color: var(--primary-light);
+}
 </style>
 </head>
 <body>
@@ -130,7 +170,6 @@ body {
   <div class="logo">MarťasDesign</div>
   <ul class="nav-links">
     <li><a href="#about">O nás</a></li>
-    <li><a href="#objednat">Objednat</a></li>
     <li><a href="kosik.html">Košík 🛒</a></li>
   </ul>
 </nav>
@@ -139,7 +178,7 @@ body {
 <section class="hero">
   <h1>Tvoříme <span>unikátní design</span></h1>
   <p>Oblečení, koberce a doplňky přesně podle vás. Ruční práce, moderní styl.</p>
-  <a href="kosik.html" class="btn">Zobrazit nabídku</a>
+  <a href="galerie.html" class="btn">Zobrazit nabídku</a>
 </section>
 
 <!-- O nás -->
@@ -149,13 +188,6 @@ body {
   Každý kus, který vytvoříme, má vlastní příběh – váš příběh. 
   Ať už jde o moderní oblečení nebo stylové koberce, 
   spojujeme estetiku, kvalitu a originalitu.</p>
-</section>
-
-<!-- CTA sekce -->
-<section id="objednat" class="cta">
-  <h2>Připraveni vytvořit něco výjimečného?</h2>
-  <p>Vyberte si z naší nabídky nebo nám napište vaše představy — zrealizujeme je přesně na míru.</p>
-  <a href="kosik.html" class="btn">Dokončit objednávku</a>
 </section>
 
 <!-- Footer -->
