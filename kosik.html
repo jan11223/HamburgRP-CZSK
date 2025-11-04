@@ -12,6 +12,7 @@
   --light: #fff;
   --gray: #1a1a1a;
 }
+
 body {
   font-family: 'Montserrat', sans-serif;
   margin:0;
@@ -26,6 +27,7 @@ body {
   background: linear-gradient(135deg, #1a1a1a, #0b0b0b);
   position:relative;
 }
+
 h1 {
   color: var(--primary);
   font-weight: 800;
@@ -176,15 +178,48 @@ h1 {
   box-shadow: 0 5px 15px rgba(255,99,99,0.4);
 }
 
-.footer-text {
-  margin-top:2rem;
-  text-align:center;
-  font-size:0.9rem;
-  color:#ccc;
-  max-width:600px;
+/* Footer stejný jako index */
+.footer {
+  margin-top: 3rem;
+  width: 100%;
+  background: #111;
+  color: #ccc;
+  padding: 2rem 1rem;
+}
+.footer-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.footer-logo h2 {
+  color: var(--primary);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.footer-info p {
+  margin: 0.2rem 0;
+}
+.footer-info a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.footer-socials {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.8rem;
+}
+.footer-socials img {
+  width: 24px;
+  height: 24px;
+  transition: 0.3s;
+}
+.footer-socials img:hover {
+  transform: scale(1.2);
 }
 
-/* background particles */
+/* floating particles */
 .particle{
   position:absolute;
   width:4px;
@@ -230,9 +265,23 @@ h1 {
 
 <button id="back-btn" onclick="window.location.href='index.html'">← Zpět</button>
 
-<div class="footer-text">
-  Kontakt: info@martasdesign.cz | Telefon: +420 123 456 789<br>
-  Sledujte nás na sociálních sítích a objevte naše nové produkty!
+<!-- Footer stejný jako index -->
+<div class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <h2>MarťasDesign</h2>
+    </div>
+    <div class="footer-info">
+      <p>Kontakt: <a href="mailto:info@martasdesign.cz">info@martasdesign.cz</a></p>
+      <p>Telefon: +420 123 456 789</p>
+      <p>Sledujte nás na sociálních sítích:</p>
+      <div class="footer-socials">
+        <a href="#"><img src="img/ico-facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="img/ico-instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="img/ico-twitter.png" alt="Twitter"></a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -313,6 +362,5 @@ for(let i=0;i<50;i++){
 
 renderCart();
 </script>
-
 </body>
 </html>
