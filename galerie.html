@@ -22,7 +22,7 @@ body{
   overflow-y:auto;
 }
 
-/* flame bg (from your code) */
+/* flame bg */
 .flame-bg{position:fixed;top:0;left:0;width:100%;height:100%;
   background:
     radial-gradient(circle at 20% 120%, rgba(255,80,0,0.28), transparent 70%),
@@ -40,11 +40,11 @@ body{
 }
 .logo{font-weight:800;font-size:1.6rem;color:var(--primary);cursor:default}
 .nav-right{display:flex;align-items:center;gap:1rem}
-.nav-links a{color:var(--white);text-decoration:none;font-weight:600}
+.nav-links{color:var(--white);text-decoration:none;font-weight:600}
 .cart-icon{position:relative;font-size:1.6rem;color:var(--primary);cursor:pointer}
 .cart-icon span{position:absolute;top:-8px;right:-8px;background:#fff;color:var(--primary);border-radius:50%;padding:2px 6px;font-size:0.8rem}
 
-/* DROPDOWN MENU (pod logem) */
+/* DROPDOWN MENU */
 .menu-wrap{position:relative;width:100%;max-width:1200px;margin:0 auto}
 .menu-toggle{
   margin-top:0.6rem;background:transparent;border:2px solid rgba(255,255,255,0.04);
@@ -55,7 +55,7 @@ body{
   position:absolute;left:1.6rem;top:64px;right:1.6rem;
   background:linear-gradient(180deg,#151515, #121212);
   border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,0.03);
-  box-shadow:0 10px 30px rgba(0,0,0,0.6);z-index:999;display:none;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);z-index:999;display:none
 }
 .dropdown.open{display:block}
 .dropdown-grid{display:grid;grid-template-columns:320px 1fr;gap:1rem}
@@ -66,23 +66,20 @@ body{
 }
 .suggestions{max-height:210px;overflow:auto;padding:0.2rem;border-radius:8px}
 .suggestion{display:flex;align-items:center;gap:0.6rem;padding:0.45rem;border-radius:8px;cursor:pointer}
-.suggestion img{width:48px;height:48px;object-fit:cover;border-radius:6px;flex-shrink:0}
 .suggestion:hover{background:rgba(255,255,255,0.02)}
 
 .cat-list{display:flex;flex-direction:column;gap:0.5rem;padding:0.4rem}
 .cat-btn{background:transparent;border:none;color:var(--white);text-align:left;padding:0.6rem;border-radius:10px;cursor:pointer;font-weight:700}
 .cat-btn:hover{background:rgba(255,255,255,0.02);color:var(--primary-light)}
 
-/* small gallery preview in dropdown */
-.preview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem}
-.preview-grid img{width:100%;height:60px;object-fit:cover;border-radius:6px}
+.preview-grid{display:flex;flex-direction:column;gap:0.4rem;font-weight:700;color:var(--white)}
+.preview-grid div{cursor:pointer;padding:0.3rem 0.5rem;border-radius:6px}
+.preview-grid div:hover{background:rgba(255,255,255,0.02);color:var(--primary-light)}
 
-/* HEADER main */
 header{ text-align:center;padding:2.4rem 1rem 1rem}
 header h1{font-size:2.8rem;color:var(--primary)}
 header p{color:#ddd;margin-top:0.6rem}
 
-/* MAIN gallery */
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.6rem;padding:2rem;max-width:1200px;margin:0 auto}
 .card{background:rgba(30,30,30,0.85);border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.6);transition:transform .25s,box-shadow .25s}
 .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(255,60,60,0.12)}
@@ -92,6 +89,7 @@ header p{color:#ddd;margin-top:0.6rem}
 .card-content p{color:var(--muted);font-size:0.9rem;margin-bottom:0.6rem}
 .price{font-weight:800;color:var(--primary-light);margin-bottom:0.6rem}
 .btn{display:inline-block;background:var(--primary);color:#fff;padding:0.6rem 1rem;border-radius:26px;text-decoration:none;font-weight:700}
+
 .filter-bar{max-width:1200px;margin:0 auto;display:flex;gap:0.6rem;padding:0 1rem 0.6rem;align-items:center;flex-wrap:wrap}
 .chips{display:flex;gap:0.5rem;flex-wrap:wrap}
 .chip{background:rgba(255,255,255,0.03);padding:0.45rem 0.8rem;border-radius:999px;cursor:pointer;font-weight:700}
@@ -101,8 +99,9 @@ footer{margin-top:2rem;padding:2rem;text-align:center;color:#ccc;background:rgba
 @media(max-width:720px){
   .dropdown{left:12px;right:12px;top:66px}
   .dropdown-grid{grid-template-columns:1fr}
-  .preview-grid{grid-template-columns:repeat(4,1fr)}
 }
+.added{animation:addCartAnim 0.45s ease forwards}
+@keyframes addCartAnim{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
 </style>
 </head>
 <body>
@@ -112,7 +111,6 @@ footer{margin-top:2rem;padding:2rem;text-align:center;color:#ccc;background:rgba
 <nav class="navbar">
   <div style="display:flex;align-items:center;gap:1rem">
     <div class="logo">MarťasDesign</div>
-    <!-- menu toggle pod logem -->
     <div class="menu-wrap">
       <button id="menuToggle" class="menu-toggle">Kategorie produktů ▼</button>
       <div id="dropdown" class="dropdown" aria-hidden="true">
@@ -137,9 +135,7 @@ footer{margin-top:2rem;padding:2rem;text-align:center;color:#ccc;background:rgba
             <div style="display:flex;align-items:center;justify-content:space-between">
               <div style="font-weight:800;color:#ddd;margin-bottom:0.5rem">Kategorie</div>
             </div>
-            <div class="cat-list" id="catList">
-              <!-- buttons injected by JS -->
-            </div>
+            <div class="cat-list" id="catList"></div>
           </div>
         </div>
       </div>
@@ -147,7 +143,7 @@ footer{margin-top:2rem;padding:2rem;text-align:center;color:#ccc;background:rgba
   </div>
 
   <div class="nav-right">
-    <a class="nav-links" href="index.html">Zpět na hlavní stránku</a>
+    <a class="nav-links" href="index.html">Zpět</a>
     <div id="cart" class="cart-icon">🛒<span id="cart-count">0</span></div>
   </div>
 </nav>
@@ -157,12 +153,10 @@ footer{margin-top:2rem;padding:2rem;text-align:center;color:#ccc;background:rgba
   <p>Vyber si z našich exkluzivních návrhů — klikni na kategorii v menu (pod logem).</p>
 </header>
 
-<!-- filtry/chips -->
 <div class="filter-bar" id="filterBar" style="display:none;">
   <div class="chips" id="chipsContainer"></div>
 </div>
 
-<!-- gallery area -->
 <main>
   <div class="gallery" id="gallery"></div>
 </main>
@@ -172,314 +166,94 @@ footer{margin-top:2rem;padding:2rem;text-align:center;color:#ccc;background:rgba
 </footer>
 
 <script>
-/* ===== DATA: categories each with 10 products (names + images) =====
-   Images jsou z Unsplash (volně hotlinkovatelné). Ceny generujeme náhodně. */
 const data = {
-  "Čepice": [
-    {name:"Čepice Classic 1", img:"https://images.unsplash.com/photo-1518568505835-49b76d3f9a6b?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Sport 2", img:"https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Street 3", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Warm 4", img:"https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Knit 5", img:"https://images.unsplash.com/photo-1600180758890-8c5b5f9ae9c3?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Logo 6", img:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Minimal 7", img:"https://images.unsplash.com/photo-1532134891-6f8f99b6f1f8?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Retro 8", img:"https://images.unsplash.com/photo-1511044568932-338cba0ad803?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Sport 9", img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80"},
-    {name:"Čepice Casual 10", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
+  "Čepice":[
+    {name:"Čepice Classic 1"}, {name:"Čepice Sport 2"}, {name:"Čepice Street 3"}, {name:"Čepice Warm 4"}, {name:"Čepice Knit 5"},
+    {name:"Čepice Logo 6"}, {name:"Čepice Minimal 7"}, {name:"Čepice Retro 8"}, {name:"Čepice Sport 9"}, {name:"Čepice Casual 10"}
   ],
-  "Mikiny": [
-    {name:"Mikina Comfort 1", img:"https://images.unsplash.com/photo-1520975919878-3b0b1c9e2b45?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Zip 2", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Oversize 3", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Sport 4", img:"https://images.unsplash.com/photo-1601387539765-2d9a7991f4ea?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Logo 5", img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Heavy 6", img:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Urban 7", img:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Classic 8", img:"https://images.unsplash.com/photo-1472437774355-71ab6752b434?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Light 9", img:"https://images.unsplash.com/photo-1444888556705-2bf6f2b9d2b2?auto=format&fit=crop&w=800&q=80"},
-    {name:"Mikina Retro 10", img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"},
+  "Mikiny":[
+    {name:"Mikina Comfort 1"}, {name:"Mikina Zip 2"}, {name:"Mikina Oversize 3"}, {name:"Mikina Sport 4"}, {name:"Mikina Logo 5"},
+    {name:"Mikina Heavy 6"}, {name:"Mikina Urban 7"}, {name:"Mikina Classic 8"}, {name:"Mikina Light 9"}, {name:"Mikina Retro 10"}
   ],
-  "Trička": [
-    {name:"Tričko Basic 1", img:"https://images.unsplash.com/photo-1520975919878-3b0b1c9e2b45?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Premium 2", img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Oversize 3", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Vintage 4", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Sport 5", img:"https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Logo 6", img:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Eco 7", img:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Slim 8", img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Cotton 9", img:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"},
-    {name:"Tričko Urban 10", img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"},
+  "Trička":[
+    {name:"Tričko Basic 1"}, {name:"Tričko Premium 2"}, {name:"Tričko Oversize 3"}, {name:"Tričko Vintage 4"}, {name:"Tričko Sport 5"},
+    {name:"Tričko Logo 6"}, {name:"Tričko Eco 7"}, {name:"Tričko Slim 8"}, {name:"Tričko Cotton 9"}, {name:"Tričko Urban 10"}
   ],
-  "Kraťasy": [
-    {name:"Kraťasy Sport 1", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Casual 2", img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Denim 3", img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Cargo 4", img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Swim 5", img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Retro 6", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Gym 7", img:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Slim 8", img:"https://images.unsplash.com/photo-1520975919878-3b0b1c9e2b45?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Beach 9", img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kraťasy Cotton 10", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80"},
+  "Kraťasy":[
+    {name:"Kraťasy Sport 1"}, {name:"Kraťasy Casual 2"}, {name:"Kraťasy Denim 3"}, {name:"Kraťasy Cargo 4"}, {name:"Kraťasy Swim 5"},
+    {name:"Kraťasy Retro 6"}, {name:"Kraťasy Gym 7"}, {name:"Kraťasy Slim 8"}, {name:"Kraťasy Beach 9"}, {name:"Kraťasy Cotton 10"}
   ],
-  "Kalhoty": [
-    {name:"Kalhoty Classic 1", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Cargo 2", img:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Slim 3", img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Jeans 4", img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Sport 5", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Formal 6", img:"https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Warm 7", img:"https://images.unsplash.com/photo-1520975919878-3b0b1c9e2b45?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Outdoor 8", img:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Retro 9", img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"},
-    {name:"Kalhoty Modern 10", img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80"},
+  "Kalhoty":[
+    {name:"Kalhoty Classic 1"}, {name:"Kalhoty Cargo 2"}, {name:"Kalhoty Slim 3"}, {name:"Kalhoty Jeans 4"}, {name:"Kalhoty Sport 5"},
+    {name:"Kalhoty Formal 6"}, {name:"Kalhoty Warm 7"}, {name:"Kalhoty Outdoor 8"}, {name:"Kalhoty Retro 9"}, {name:"Kalhoty Modern 10"}
   ],
-  "Boty": [
-    {name:"Boty Sport 1", img:"https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Casual 2", img:"https://images.unsplash.com/photo-1520975919878-3b0b1c9e2b45?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty High 3", img:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Running 4", img:"https://images.unsplash.com/photo-1520975692200-7d77c5567a5a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Classic 5", img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Leather 6", img:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Skate 7", img:"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Sport 8", img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Urban 9", img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80"},
-    {name:"Boty Minimal 10", img:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80"},
+  "Boty":[
+    {name:"Boty Sport 1"}, {name:"Boty Casual 2"}, {name:"Boty High 3"}, {name:"Boty Running 4"}, {name:"Boty Classic 5"},
+    {name:"Boty Leather 6"}, {name:"Boty Skate 7"}, {name:"Boty Sport 8"}, {name:"Boty Urban 9"}, {name:"Boty Minimal 10"}
   ],
-  "Koberce": [
-    {name:"Koberec Modern 1", img:"https://images.unsplash.com/photo-1549187774-b4e9b0445b17?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Vintage 2", img:"https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Minimal 3", img:"https://images.unsplash.com/photo-1549184292-8b8a0b2c5f3a?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Shaggy 4", img:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Round 5", img:"https://images.unsplash.com/photo-1505691723518-36a0a3b1b5c4?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Color 6", img:"https://images.unsplash.com/photo-1549187774-6e7e3b2f7a6e?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Classic 7", img:"https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Pattern 8", img:"https://images.unsplash.com/photo-1549187774-b4e9b0445b17?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Cozy 9", img:"https://images.unsplash.com/photo-1505691723518-36a0a3b1b5c4?auto=format&fit=crop&w=800&q=80"},
-    {name:"Koberec Art 10", img:"https://images.unsplash.com/photo-1549184292-8b8a0b2c5f3a?auto=format&fit=crop&w=800&q=80"},
+  "Koberce":[
+    {name:"Koberec Modern 1"}, {name:"Koberec Vintage 2"}, {name:"Koberec Minimal 3"}, {name:"Koberec Shaggy 4"}, {name:"Koberec Round 5"},
+    {name:"Koberec Color 6"}, {name:"Koberec Classic 7"}, {name:"Koberec Pattern 8"}, {name:"Koberec Cozy 9"}, {name:"Koberec Art 10"}
   ],
 };
-
-/* generate random price for each product (ke každému produktu přidáme price) */
+/* generate random prices and add image placeholder */
 Object.keys(data).forEach(cat=>{
-  data[cat] = data[cat].map(item=>{
-    const price = Math.floor(Math.random()*(2200-199))+199; // 199 - 2199 Kč
-    return {...item, price};
+  data[cat] = data[cat].map(p=>{
+    const price=Math.floor(Math.random()*(2200-199))+199;
+    return {...p, price, img:`https://via.placeholder.com/400x300?text=${encodeURIComponent(p.name)}`};
   });
 });
 
-/* ========== RENDERING & INTERACTIONS ========== */
-const galleryEl = document.getElementById('gallery');
-const catListEl = document.getElementById('catList');
-const previewArea = document.getElementById('previewArea');
-const menuToggle = document.getElementById('menuToggle');
-const dropdown = document.getElementById('dropdown');
-const menuSearch = document.getElementById('menuSearch');
-const suggestionsEl = document.getElementById('suggestions');
-const showAllBtn = document.getElementById('showAllBtn');
-const chipsContainer = document.getElementById('chipsContainer');
-const filterBar = document.getElementById('filterBar');
-const cartCount = document.getElementById('cart-count');
+/* ==== RENDERING ==== */
+const galleryEl=document.getElementById('gallery');
+const catListEl=document.getElementById('catList');
+const previewArea=document.getElementById('previewArea');
+const menuToggle=document.getElementById('menuToggle');
+const dropdown=document.getElementById('dropdown');
+const menuSearch=document.getElementById('menuSearch');
+const suggestionsEl=document.getElementById('suggestions');
+const showAllBtn=document.getElementById('showAllBtn');
+const chipsContainer=document.getElementById('chipsContainer');
+const filterBar=document.getElementById('filterBar');
+const cartCount=document.getElementById('cart-count');
 
-/* Render categories buttons */
-const categories = Object.keys(data);
+/* render categories */
+const categories=Object.keys(data);
 categories.forEach(cat=>{
-  const btn = document.createElement('button');
-  btn.className = 'cat-btn';
-  btn.textContent = cat;
-  btn.addEventListener('click', ()=> {
-    renderCategory(cat);
-    closeDropdown();
-  });
+  const btn=document.createElement('button');
+  btn.className='cat-btn';
+  btn.textContent=cat;
+  btn.addEventListener('click',()=>{renderCategory(cat);closeDropdown();});
   catListEl.appendChild(btn);
 });
 
-/* preview grid: show first 5 images from first category by default */
-function renderPreview(cat = categories[0]){
-  previewArea.innerHTML = '';
-  const items = data[cat].slice(0,5);
-  items.forEach(it=>{
-    const img = document.createElement('img');
-    img.src = it.img;
-    img.alt = it.name;
-    previewArea.appendChild(img);
+/* preview = just text list of first 5 items */
+function renderPreview(cat=categories[0]){
+  previewArea.innerHTML='';
+  data[cat].slice(0,5).forEach(it=>{
+    const div=document.createElement('div'); div.textContent=it.name;
+    div.addEventListener('click',()=>{ renderCategory(cat); closeDropdown(); });
+    previewArea.appendChild(div);
   });
 }
 renderPreview();
 
-/* dropdown open/close */
-menuToggle.addEventListener('click', (e)=>{
-  dropdown.classList.toggle('open');
-  dropdown.setAttribute('aria-hidden', dropdown.classList.contains('open') ? 'false' : 'true');
-  // when opened, show preview of first category
-  if(dropdown.classList.contains('open')) renderPreview();
-});
-function closeDropdown(){ dropdown.classList.remove('open'); dropdown.setAttribute('aria-hidden','true'); }
+menuToggle.addEventListener('click',()=>{dropdown.classList.toggle('open');dropdown.setAttribute('aria-hidden',dropdown.classList.contains('open')?'false':'true'); if(dropdown.classList.contains('open')) renderPreview();});
+function closeDropdown(){dropdown.classList.remove('open');dropdown.setAttribute('aria-hidden','true');}
 
-/* click outside to close dropdown */
-document.addEventListener('click', (e)=>{
-  const inside = e.composedPath().includes(dropdown) || e.composedPath().includes(menuToggle);
-  if(!inside) closeDropdown();
-});
+/* click outside */
+document.addEventListener('click',e=>{ const inside=e.composedPath().includes(dropdown)||e.composedPath().includes(menuToggle); if(!inside) closeDropdown(); });
 
-/* render entire gallery (all products) */
-function renderAll(){
-  const all = [];
-  Object.keys(data).forEach(cat=>{
-    data[cat].forEach(p=> all.push({...p, category:cat}));
-  });
-  renderProducts(all);
-  renderChips(); // hide/ show
-}
-
-/* render products array */
+function renderAll(){ const all=[]; Object.keys(data).forEach(cat=>data[cat].forEach(p=>all.push({...p,category:cat}))); renderProducts(all); renderChips(); }
 function renderProducts(products){
-  galleryEl.innerHTML = '';
-  if(products.length === 0){
-    galleryEl.innerHTML = '<p style="padding:2rem;text-align:center;color:var(--muted)">Žádné produkty.</p>';
-    return;
-  }
+  galleryEl.innerHTML='';
+  if(products.length===0){ galleryEl.innerHTML='<p style="padding:2rem;text-align:center;color:var(--muted)">Žádné produkty.</p>'; return; }
   products.forEach(p=>{
-    const card = document.createElement('div'); card.className = 'card';
-    card.innerHTML = `
-      <img src="${p.img}" alt="${escapeHtml(p.name)}">
-      <div class="card-content">
-        <h3>${escapeHtml(p.name)}</h3>
-        <p class="muted">${escapeHtml(p.category || '')}</p>
-        <div class="price">${p.price.toLocaleString('cs-CZ')} Kč</div>
-        <a href="#" class="btn add-to-cart" data-name="${escapeHtml(p.name)}" data-price="${p.price}">Přidat do košíku</a>
-      </div>
-    `;
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-content"><h3>${p.name}</h3><p class="muted">${p.category}</p><div class="price">${p.price.toLocaleString('cs-CZ')} Kč</div><a href="#" class="btn add-to-cart" data-name="${p.name}" data-price="${p.price}">Přidat do košíku</a></div>`;
     galleryEl.appendChild(card);
   });
   attachAddToCart();
 }
-
-/* render category (10 návrhů) */
-function renderCategory(cat){
-  const items = data[cat].map(it => ({...it, category:cat}));
-  renderProducts(items);
-  // show active chip
-  renderChips(cat);
-}
-
-/* chips (zobrazené filtry) */
-function renderChips(activeCat){
-  chipsContainer.innerHTML = '';
-  if(!activeCat){ filterBar.style.display='none'; return; }
-  filterBar.style.display='flex';
-  const chip = document.createElement('div');
-  chip.className = 'chip active';
-  chip.textContent = activeCat;
-  chip.addEventListener('click', ()=>{ renderAll(); });
-  chipsContainer.appendChild(chip);
-}
-
-/* search suggestions */
-menuSearch.addEventListener('input', ()=>{
-  const q = menuSearch.value.trim().toLowerCase();
-  suggestionsEl.innerHTML = '';
-  if(q.length === 0) return;
-  // find up to 12 matches across all categories (name match)
-  const matches = [];
-  for(const cat of Object.keys(data)){
-    for(const it of data[cat]){
-      if(it.name.toLowerCase().includes(q) || cat.toLowerCase().includes(q)){
-        matches.push({...it, category:cat});
-        if(matches.length >= 12) break;
-      }
-    }
-    if(matches.length >= 12) break;
-  }
-  if(matches.length === 0){
-    suggestionsEl.innerHTML = '<div style="padding:0.6rem;color:var(--muted)">Nic nenalezeno</div>';
-    return;
-  }
-  matches.forEach(m=>{
-    const div = document.createElement('div');
-    div.className = 'suggestion';
-    div.innerHTML = `<img src="${m.img}" alt="${escapeHtml(m.name)}"><div><div style="font-weight:700">${escapeHtml(m.name)}</div><div style="color:var(--muted);font-size:0.85rem">${m.category} • ${m.price.toLocaleString('cs-CZ')} Kč</div></div>`;
-    div.addEventListener('click', ()=>{
-      // show only the selected product's category and then scroll to that product (or filter to name)
-      renderProducts([m]); // render single product
-      closeDropdown();
-      menuSearch.value = '';
-      suggestionsEl.innerHTML = '';
-      renderChips(m.category);
-    });
-    suggestionsEl.appendChild(div);
-  });
-});
-
-/* show all button */
-showAllBtn.addEventListener('click', ()=>{
-  renderAll();
-  closeDropdown();
-});
-
-/* initial render = show all */
-renderAll();
-
-/* previewArea interaction: when hover on category in list, show its preview */
-Array.from(catListEl.children).forEach((btn,i)=>{
-  btn.addEventListener('mouseenter', ()=> renderPreview(categories[i]));
-});
-
-/* when clicking category in catList we already renderCategory and close dropdown */
-
-/* attach Add to cart (delegated after rendering) */
-function attachAddToCart(){
-  document.querySelectorAll('.add-to-cart').forEach(btn=>{
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const name = btn.getAttribute('data-name');
-      const price = parseInt(btn.getAttribute('data-price'));
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push({name, price});
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartCount();
-      // little animation: add class to cart icon
-      document.getElementById('cart').classList.add('added');
-      setTimeout(()=>document.getElementById('cart').classList.remove('added'), 450);
-    });
-  });
-}
-
-/* update cart count */
-function updateCartCount(){
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cartCount.textContent = cart.length;
-}
-updateCartCount();
-
-/* helper: escapeHtml */
-function escapeHtml(text){
-  return String(text).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]});
-}
-
-/* accessibility: close dropdown with Escape */
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeDropdown(); });
-
-/* optional: clicking a suggestion in preview area can filter by that category item */
-previewArea.addEventListener('click', (e)=>{
-  if(e.target.tagName === 'IMG'){
-    // find which category contains this image (simple search)
-    const src = e.target.src;
-    let found = null;
-    for(const cat of Object.keys(data)){
-      const f = data[cat].find(it=> it.img === src);
-      if(f){ found = {cat, item:f}; break; }
-    }
-    if(found){ renderCategory(found.cat); closeDropdown(); }
-  }
-});
-
-/* Mobile: when gallery images are slow to load, use lazy loading attribute */
-document.addEventListener('DOMContentLoaded', ()=>{
-  // add loading="lazy" to all images (for browsers that support it)
-  document.querySelectorAll('img').forEach(img=>img.setAttribute('loading','lazy'));
-});
-</script>
-</body>
-</html>
+function renderCategory(cat){ const items=data[cat].map(it=>({...it,category:cat})); renderProducts(items); renderChips(cat);}
+function renderChips(activeCat){ chipsContainer.innerHTML=''; if(!activeCat){filterBar.style.display='none'; return;} filterBar.style.display='flex'; const chip=document.createElement('div'); chip.className='chip active'; chip.textContent=activeCat; chip
