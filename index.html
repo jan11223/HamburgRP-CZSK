@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MarťasDesign — Oblečení & Koberce na míru</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --primary: #ff3b3b;
@@ -21,183 +24,399 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: radial-gradient(circle at top, #3a0000, #1b1b1b);
   color: var(--light);
   overflow-x: hidden;
 }
 
-/* animované plameny na pozadí */
+/* =========================
+   ANIMOVANÉ POZADÍ
+========================= */
+
 .flame-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+
   background:
-    radial-gradient(circle at 20% 120%, rgba(255, 80, 0, 0.3), transparent 70%),
-    radial-gradient(circle at 80% 120%, rgba(255, 20, 0, 0.2), transparent 70%),
-    radial-gradient(circle at 50% 120%, rgba(255, 120, 0, 0.25), transparent 70%);
+    radial-gradient(
+      circle at 20% 120%,
+      rgba(255, 80, 0, 0.3),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 80% 120%,
+      rgba(255, 20, 0, 0.2),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 50% 120%,
+      rgba(255, 120, 0, 0.25),
+      transparent 70%
+    );
+
   filter: blur(60px);
   animation: flames 5s infinite alternate ease-in-out;
   z-index: -1;
 }
+
 @keyframes flames {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-30px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-30px);
+  }
 }
 
-/* Navbar */
+/* =========================
+   NAVBAR
+========================= */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 1.5rem 3rem;
+
   background: rgba(20, 20, 20, 0.8);
   backdrop-filter: blur(6px);
+
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
 }
+
 .logo {
   font-weight: 800;
   font-size: 1.6rem;
   color: var(--primary);
-  margin-left: -1rem; /* posun mírně doleva */
 }
+
 .nav-links {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 1.5rem;
 }
+
 .nav-links a {
   text-decoration: none;
   color: #fff;
   font-weight: 600;
   transition: 0.3s;
 }
+
 .nav-links a:hover {
   color: var(--primary-light);
 }
 
-/* Hero sekce */
+/* =========================
+   HERO
+========================= */
+
 .hero {
-  height: 100vh;
+  min-height: calc(100vh - 80px);
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   text-align: center;
-  background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-    url('https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+
+  padding: 2rem;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url('https://images.unsplash.com/photo-1602526217337-2d7f0a40c1c5?auto=format&fit=crop&w=1500&q=80')
+    center / cover no-repeat;
+
   animation: fadeInHero 1.5s ease forwards;
 }
+
 @keyframes fadeInHero {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .hero h1 {
   font-size: 3rem;
   letter-spacing: 1px;
 }
+
 .hero h1 span {
   color: var(--primary);
 }
+
 .hero p {
   margin-top: 1rem;
   font-size: 1.2rem;
   color: #ddd;
-}
-.hero .btn {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background: var(--primary);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
-.hero .btn:hover {
-  transform: scale(1.08);
-  background: var(--primary-light);
-  box-shadow: 0 0 25px rgba(255, 60, 60, 0.5);
+  max-width: 700px;
+  line-height: 1.6;
 }
 
-/* Sekce o nás */
+/* =========================
+   TLAČÍTKO
+========================= */
+
+.hero .btn {
+  display: inline-block;
+
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+
+  background: var(--primary);
+  color: #fff;
+
+  text-decoration: none;
+
+  border-radius: 50px;
+
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  transition: all 0.3s ease;
+}
+
+.hero .btn:hover {
+  transform: scale(1.08);
+
+  background: var(--primary-light);
+
+  box-shadow:
+    0 0 25px rgba(255, 60, 60, 0.5);
+}
+
+/* =========================
+   O NÁS
+========================= */
+
 .about {
   padding: 5rem 2rem;
   text-align: center;
 }
+
 .about h2 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: var(--primary);
 }
+
 .about p {
   max-width: 700px;
   margin: auto;
+
   color: #ccc;
+
   font-size: 1.1rem;
   line-height: 1.7;
 }
 
-/* Footer */
+/* =========================
+   FOOTER
+========================= */
+
 .footer {
   background: #121212;
   color: #ccc;
+
   text-align: center;
+
   padding: 3rem 2rem;
+
   font-size: 0.95rem;
 }
+
+.footer p {
+  margin: 0.5rem 0;
+}
+
 .footer a {
   color: var(--primary);
   text-decoration: none;
 }
+
 .footer a:hover {
   color: var(--primary-light);
 }
+
+/* =========================
+   MOBIL
+========================= */
+
+@media (max-width: 700px) {
+
+  .navbar {
+    padding: 1rem 1.2rem;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .nav-links {
+    gap: 0.8rem;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    min-height: calc(100vh - 70px);
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero .btn {
+    padding: 0.9rem 1.6rem;
+  }
+
+  .about {
+    padding: 4rem 1.5rem;
+  }
+}
 </style>
 </head>
+
 <body>
 
+<!-- Animované pozadí -->
 <div class="flame-bg"></div>
 
-<!-- Navbar -->
+<!-- =========================
+     NAVBAR
+========================= -->
+
 <nav class="navbar">
-  <div class="logo">MarťasDesign</div>
+
+  <div class="logo">
+    MarťasDesign
+  </div>
+
   <ul class="nav-links">
-    <li><a href="#about">O nás</a></li>
-    <li><a href="kosik.html">Košík 🛒</a></li>
+
+    <li>
+      <a href="#about">
+        O nás
+      </a>
+    </li>
+
+    <li>
+      <a href="galerie.html">
+        Galerie
+      </a>
+    </li>
+
+    <li>
+      <a href="kosik.html">
+        Košík 🛒
+      </a>
+    </li>
+
   </ul>
+
 </nav>
 
-<!-- Hero -->
+
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero">
-  <h1>Tvořím <span>unikátní design</span></h1>
-  <p>Oblečení, koberce a doplňky přesně podle vás. Ruční práce, moderní styl.</p>
-  <a href="galerie.html" class="btn">Zobrazit nabídku</a>
+
+  <h1>
+    Tvořím <span>unikátní design</span>
+  </h1>
+
+  <p>
+    Oblečení, koberce a doplňky přesně podle vás.
+    Ruční práce, moderní styl.
+  </p>
+
+  <!-- TADY SE OTEVŘE GALERIE -->
+  <a href="./galerie.html" class="btn">
+    Zobrazit nabídku
+  </a>
+
 </section>
 
-<!-- O nás -->
+
+<!-- =========================
+     O NÁS
+========================= -->
+
 <section id="about" class="about">
-  <h2>O nás</h2>
-  <p>jsem kreativní designer, který miluje detail a osobitý styl. 
-  Každý kus, který vytvořím, má vlastní příběh – váš příběh. 
-  Ať už jde o moderní oblečení nebo stylové koberce, 
-  spojuji estetiku, kvalitu a originalitu do jednoho.</p>
+
+  <h2>
+    O nás
+  </h2>
+
+  <p>
+    Jsem kreativní designer, který miluje detail a osobitý styl.
+    Každý kus, který vytvořím, má vlastní příběh – váš příběh.
+    Ať už jde o moderní oblečení nebo stylové koberce,
+    spojuji estetiku, kvalitu a originalitu do jednoho.
+  </p>
+
 </section>
 
-<!-- Footer -->
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer class="footer">
-  <p>📞 +420 123 456 789 | ✉️ martasdesign@beta.test</p>
-  <p>📸 Sledujte nás na <a href="#">Instagramu</a></p>
-  <p>© 2025 MarťasDesign.  Všechna práva vyhrazena.</p>
-  <p>❌ BETA Version 0.4
+
+  <p>
+    📞 +420 123 456 789 |
+    ✉️ martasdesign@beta.test
+  </p>
+
+  <p>
+    📸 Sledujte nás na
+    <a href="#">
+      Instagramu
+    </a>
+  </p>
+
+  <p>
+    © 2025 MarťasDesign.
+    Všechna práva vyhrazena.
+  </p>
+
+  <p>
+    ❌ BETA Version 0.4
+  </p>
+
 </footer>
 
 </body>
 </html>
-
