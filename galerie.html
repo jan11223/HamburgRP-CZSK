@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Galerie — MarťasDesign</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-
-/* =====================================================
-   TEST 1 — ZÁKLADNÍ VZHLED
-   ===================================================== */
-
 :root {
     --primary: #ff3b3b;
     --primary-light: #ff5e5e;
@@ -31,49 +24,30 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
-    background: radial-gradient(circle at top, #3a0000, #151515);
-    color: white;
-    min-height: 100vh;
+html {
+    scroll-behavior: smooth;
 }
 
-
-/* =====================================================
-   TEST 2 — ANIMOVANÉ POZADÍ
-   ===================================================== */
+body {
+    background: radial-gradient(circle at top, #3a0000, #151515);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
 .flame-bg {
     position: fixed;
     inset: 0;
-
     background:
-        radial-gradient(
-            circle at 20% 120%,
-            rgba(255, 80, 0, 0.30),
-            transparent 70%
-        ),
-
-        radial-gradient(
-            circle at 80% 120%,
-            rgba(255, 20, 0, 0.25),
-            transparent 70%
-        ),
-
-        radial-gradient(
-            circle at 50% 120%,
-            rgba(255, 120, 0, 0.22),
-            transparent 70%
-        );
-
+        radial-gradient(circle at 20% 120%, rgba(255,80,0,0.3), transparent 70%),
+        radial-gradient(circle at 80% 120%, rgba(255,20,0,0.22), transparent 70%),
+        radial-gradient(circle at 50% 120%, rgba(255,120,0,0.2), transparent 70%);
     filter: blur(60px);
-
     animation: flames 5s infinite alternate ease-in-out;
-
     z-index: -1;
 }
 
 @keyframes flames {
-
     from {
         transform: translateY(0);
     }
@@ -83,204 +57,125 @@ body {
     }
 }
 
-
-/* =====================================================
-   TEST 3 — NAVBAR
-   ===================================================== */
-
 .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px 30px;
+    background: rgba(20,20,20,0.88);
+    backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
-
     z-index: 1000;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 1rem 1.5rem;
-
-    background: rgba(20, 20, 20, 0.85);
-
-    backdrop-filter: blur(10px);
-
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .logo {
     color: var(--primary);
-
-    font-size: 1.5rem;
-
+    font-size: 1.6rem;
     font-weight: 800;
 }
 
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .back-button {
     color: white;
-
     text-decoration: none;
-
-    font-weight: 600;
-
-    padding: 8px 14px;
-
-    border-radius: 20px;
-
+    font-weight: 700;
     transition: 0.3s;
 }
 
 .back-button:hover {
-    background: rgba(255,255,255,0.08);
-
     color: var(--primary-light);
 }
 
 .cart {
     position: relative;
-
-    font-size: 1.6rem;
-
+    color: white;
+    font-size: 1.7rem;
     cursor: pointer;
-
-    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 .cart-count {
     position: absolute;
-
-    top: -8px;
-    right: -10px;
-
+    top: -9px;
+    right: -11px;
+    background: white;
+    color: var(--primary);
     min-width: 20px;
     height: 20px;
-
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: white;
-
-    color: var(--primary);
-
-    border-radius: 50%;
-
-    font-size: 0.75rem;
-
+    font-size: 0.72rem;
     font-weight: 800;
 }
 
-
-/* =====================================================
-   TEST 4 — NADPIS
-   ===================================================== */
-
 header {
     text-align: center;
-
-    padding: 45px 20px 25px;
+    padding: 45px 20px 30px;
 }
 
 header h1 {
-    color: var(--primary);
-
     font-size: 2.8rem;
-
-    margin-bottom: 10px;
+    color: var(--primary);
+    margin-bottom: 12px;
 }
 
 header p {
     color: #ddd;
-
-    max-width: 700px;
-
-    margin: auto;
-
-    line-height: 1.6;
+    font-size: 1rem;
 }
-
-
-/* =====================================================
-   TEST 5 — VYHLEDÁVÁNÍ
-   ===================================================== */
 
 .search-area {
     max-width: 700px;
-
-    margin: 10px auto 25px;
-
+    margin: 0 auto 25px;
     padding: 0 20px;
 }
 
 .search-input {
     width: 100%;
-
-    padding: 15px 18px;
-
-    border: none;
-
-    outline: none;
-
+    padding: 15px 20px;
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 30px;
-
-    background: #161616;
-
+    outline: none;
+    background: rgba(10,10,10,0.8);
     color: white;
-
     font-size: 1rem;
-
-    box-shadow:
-        0 5px 25px rgba(0,0,0,0.35);
-
-    border: 1px solid rgba(255,255,255,0.05);
 }
 
 .search-input:focus {
     border-color: var(--primary);
 }
 
-
-/* =====================================================
-   TEST 6 — KATEGORIE
-   ===================================================== */
-
 .categories {
     max-width: 1200px;
-
     margin: 0 auto;
-
-    padding: 0 20px 25px;
-
+    padding: 0 20px 30px;
     display: flex;
-
     justify-content: center;
-
-    gap: 10px;
-
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 .category-btn {
     border: none;
-
     background: rgba(255,255,255,0.06);
-
     color: white;
-
-    padding: 10px 16px;
-
+    padding: 10px 17px;
     border-radius: 25px;
-
     cursor: pointer;
-
     font-weight: 700;
-
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .category-btn:hover {
@@ -288,194 +183,113 @@ header p {
 }
 
 .category-btn.active {
-    background: linear-gradient(
-        90deg,
-        var(--primary),
-        var(--primary-light)
-    );
-
-    box-shadow:
-        0 5px 20px rgba(255,60,60,0.2);
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    box-shadow: 0 5px 20px rgba(255,60,60,0.2);
 }
-
-
-/* =====================================================
-   TEST 7 — GALERIE PRODUKTŮ
-   ===================================================== */
 
 .gallery {
     max-width: 1200px;
-
-    margin: auto;
-
-    padding: 10px 20px 50px;
-
+    margin: 0 auto;
+    padding: 10px 20px 60px;
     display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(240px, 1fr)
-        );
-
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 25px;
 }
 
-
-/* =====================================================
-   TEST 8 — PRODUKTOVÁ KARTA
-   ===================================================== */
-
 .card {
-    background: rgba(30,30,30,0.90);
-
+    background: rgba(30,30,30,0.9);
     border-radius: 16px;
-
     overflow: hidden;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,0.5);
-
-    transition:
-        transform 0.25s,
-        box-shadow 0.25s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: 0.25s;
 }
 
 .card:hover {
-    transform: translateY(-8px);
-
-    box-shadow:
-        0 20px 40px rgba(255,60,60,0.15);
+    transform: translateY(-7px);
+    box-shadow: 0 20px 40px rgba(255,60,60,0.15);
 }
-
-
-/* =====================================================
-   TEST 9 — OBRÁZEK PRODUKTU
-   ===================================================== */
 
 .product-image {
     width: 100%;
-
     height: 230px;
-
     object-fit: cover;
-
     display: block;
-
     background: #292929;
 }
 
-
-/* =====================================================
-   TEST 10 — INFORMACE PRODUKTU
-   ===================================================== */
-
 .card-content {
     padding: 18px;
-
     text-align: center;
 }
 
 .card-content h3 {
     font-size: 1.1rem;
-
     margin-bottom: 7px;
 }
 
 .category-name {
     color: var(--muted);
-
     font-size: 0.85rem;
-
     margin-bottom: 10px;
 }
 
 .price {
     color: var(--primary-light);
-
     font-weight: 800;
-
     font-size: 1.1rem;
-
     margin-bottom: 15px;
 }
 
-
-/* =====================================================
-   TEST 11 — TLAČÍTKO KOŠÍKU
-   ===================================================== */
-
 .add-button {
+    width: 100%;
     border: none;
-
     background: var(--primary);
-
     color: white;
-
-    padding: 10px 18px;
-
+    padding: 11px 18px;
     border-radius: 25px;
-
     cursor: pointer;
-
     font-weight: 700;
-
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .add-button:hover {
     background: var(--primary-light);
-
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
-
-/* =====================================================
-   TEST 12 — ZPRÁVA O PRÁZDNÉM VÝSLEDKU
-   ===================================================== */
+.add-button.added {
+    background: #27ae60;
+}
 
 .no-products {
     grid-column: 1 / -1;
-
     text-align: center;
-
-    padding: 50px;
-
+    padding: 60px 20px;
     color: var(--muted);
-
-    font-size: 1.1rem;
 }
-
-
-/* =====================================================
-   TEST 13 — FOOTER
-   ===================================================== */
 
 footer {
     background: rgba(15,15,15,0.9);
-
     text-align: center;
-
     color: #ccc;
-
     padding: 30px 20px;
-
-    margin-top: 20px;
 }
 
-
-/* =====================================================
-   TEST 14 — MOBIL
-   ===================================================== */
+footer p {
+    margin: 5px 0;
+}
 
 @media (max-width: 700px) {
-
     .navbar {
-        padding: 1rem;
+        padding: 15px;
     }
 
     .logo {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
+    }
+
+    .nav-right {
+        gap: 12px;
     }
 
     .back-button {
@@ -488,33 +302,20 @@ footer {
 
     .gallery {
         grid-template-columns: 1fr;
-
         padding-left: 15px;
         padding-right: 15px;
     }
 
     .product-image {
-        height: 250px;
+        height: 260px;
     }
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     TEST 15 — POZADÍ
-     ===================================================== -->
-
 <div class="flame-bg"></div>
-
-
-<!-- =====================================================
-     TEST 16 — NAVIGACE
-     ===================================================== -->
 
 <nav class="navbar">
 
@@ -524,55 +325,23 @@ footer {
 
     <div class="nav-right">
 
-        <a
-            href="./index.html"
-            class="back-button"
-        >
-            ← Zpět
+        <a href="./index.html" class="back-button">
+            Zpět
         </a>
 
-        <div
-            class="cart"
-            id="cartButton"
-            title="Košík"
-        >
+        <a href="./kosik.html" class="cart" aria-label="Košík">
             🛒
-
-            <span
-                class="cart-count"
-                id="cartCount"
-            >
-                0
-            </span>
-
-        </div>
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
 
     </div>
 
 </nav>
 
-
-<!-- =====================================================
-     TEST 17 — HLAVIČKA
-     ===================================================== -->
-
 <header>
-
-    <h1>
-        Galerie produktů
-    </h1>
-
-    <p>
-        Vyber si z našich návrhů oblečení,
-        bot, doplňků a koberců.
-    </p>
-
+    <h1>Galerie produktů</h1>
+    <p>Vyber si z našich exkluzivních návrhů.</p>
 </header>
-
-
-<!-- =====================================================
-     TEST 18 — VYHLEDÁVÁNÍ
-     ===================================================== -->
 
 <div class="search-area">
 
@@ -581,76 +350,27 @@ footer {
         id="searchInput"
         class="search-input"
         placeholder="🔎 Hledat produkt..."
+        autocomplete="off"
     >
 
 </div>
 
-
-<!-- =====================================================
-     TEST 19 — KATEGORIE
-     ===================================================== -->
-
-<div
-    class="categories"
-    id="categories"
->
-
-</div>
-
-
-<!-- =====================================================
-     TEST 20 — GALERIE
-     ===================================================== -->
+<div class="categories" id="categories"></div>
 
 <main>
-
-    <div
-        class="gallery"
-        id="gallery"
-    >
-
-    </div>
-
+    <div class="gallery" id="gallery"></div>
 </main>
 
-
-<!-- =====================================================
-     TEST 21 — FOOTER
-     ===================================================== -->
-
 <footer>
-
-    <p>
-        © 2025 MarťasDesign BETA Version 0.4
-    </p>
-
-    <p>
-        Navrženo s ❤️
-    </p>
-
+    <p>© 2025 MarťasDesign BETA Version 0.4</p>
+    <p>Navrženo s ❤️</p>
 </footer>
 
-
 <script>
-
-/* =====================================================
-   TEST 22 — PRODUKTY
-   ===================================================== */
-
-/*
-   Každý produkt má:
-
-   name  = název
-   category = kategorie
-   price = cena
-   image = obrázek
-*/
-
 const products = [
 
-    /* ================= ČEPICE ================= */
-
     {
+        id: 1,
         name: "Čepice Classic",
         category: "Čepice",
         price: 499,
@@ -658,6 +378,7 @@ const products = [
     },
 
     {
+        id: 2,
         name: "Čepice Sport",
         category: "Čepice",
         price: 549,
@@ -665,16 +386,15 @@ const products = [
     },
 
     {
+        id: 3,
         name: "Čepice Street",
         category: "Čepice",
         price: 599,
         image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=800&q=80"
     },
 
-
-    /* ================= MIKINY ================= */
-
     {
+        id: 4,
         name: "Mikina Comfort",
         category: "Mikiny",
         price: 999,
@@ -682,6 +402,7 @@ const products = [
     },
 
     {
+        id: 5,
         name: "Mikina Oversize",
         category: "Mikiny",
         price: 1199,
@@ -689,16 +410,15 @@ const products = [
     },
 
     {
+        id: 6,
         name: "Mikina Street",
         category: "Mikiny",
         price: 1099,
         image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80"
     },
 
-
-    /* ================= TRIČKA ================= */
-
     {
+        id: 7,
         name: "Tričko Basic",
         category: "Trička",
         price: 499,
@@ -706,6 +426,7 @@ const products = [
     },
 
     {
+        id: 8,
         name: "Tričko Premium",
         category: "Trička",
         price: 649,
@@ -713,16 +434,15 @@ const products = [
     },
 
     {
+        id: 9,
         name: "Tričko Urban",
         category: "Trička",
         price: 599,
         image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=800&q=80"
     },
 
-
-    /* ================= KRAŤASY ================= */
-
     {
+        id: 10,
         name: "Kraťasy Sport",
         category: "Kraťasy",
         price: 699,
@@ -730,16 +450,15 @@ const products = [
     },
 
     {
+        id: 11,
         name: "Kraťasy Casual",
         category: "Kraťasy",
         price: 749,
         image: "https://images.unsplash.com/photo-1565084888279-aca607ecce0c?auto=format&fit=crop&w=800&q=80"
     },
 
-
-    /* ================= KALHOTY ================= */
-
     {
+        id: 12,
         name: "Kalhoty Cargo",
         category: "Kalhoty",
         price: 1099,
@@ -747,16 +466,15 @@ const products = [
     },
 
     {
+        id: 13,
         name: "Kalhoty Classic",
         category: "Kalhoty",
         price: 999,
         image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80"
     },
 
-
-    /* ================= BOTY ================= */
-
     {
+        id: 14,
         name: "Boty Sport",
         category: "Boty",
         price: 1499,
@@ -764,16 +482,15 @@ const products = [
     },
 
     {
+        id: 15,
         name: "Boty Classic",
         category: "Boty",
         price: 1699,
         image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80"
     },
 
-
-    /* ================= KOBERCE ================= */
-
     {
+        id: 16,
         name: "Koberec Modern",
         category: "Koberce",
         price: 1899,
@@ -781,6 +498,7 @@ const products = [
     },
 
     {
+        id: 17,
         name: "Koberec Cozy",
         category: "Koberce",
         price: 2199,
@@ -789,34 +507,84 @@ const products = [
 
 ];
 
-
-/* =====================================================
-   TEST 23 — PROMĚNNÉ
-   ===================================================== */
-
 const gallery = document.getElementById("gallery");
-
-const categoriesElement =
-    document.getElementById("categories");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const cartCount =
-    document.getElementById("cartCount");
-
-const cartButton =
-    document.getElementById("cartButton");
-
+const categoriesElement = document.getElementById("categories");
+const searchInput = document.getElementById("searchInput");
+const cartCount = document.getElementById("cartCount");
 
 let selectedCategory = "Vše";
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("martasdesignCart")) || [];
 
+function saveCart() {
+    localStorage.setItem(
+        "martasdesignCart",
+        JSON.stringify(cart)
+    );
+}
 
-/* =====================================================
-   TEST 24 — KATEGORIE
-   ===================================================== */
+function updateCartCount() {
+    const totalItems = cart.reduce(
+        (total, item) => total + item.quantity,
+        0
+    );
+
+    cartCount.textContent = totalItems;
+}
+
+function addToCart(product) {
+
+    const existingProduct = cart.find(
+        item => item.id === product.id
+    );
+
+    if (existingProduct) {
+
+        existingProduct.quantity += 1;
+
+    } else {
+
+        cart.push({
+            id: product.id,
+            name: product.name,
+            category: product.category,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+        });
+
+    }
+
+    saveCart();
+    updateCartCount();
+
+    const buttons =
+        document.querySelectorAll(".add-button");
+
+    buttons.forEach(button => {
+
+        if (
+            Number(button.dataset.id) === product.id
+        ) {
+
+            const oldText = button.textContent;
+
+            button.textContent = "✓ Přidáno";
+
+            button.classList.add("added");
+
+            setTimeout(() => {
+
+                button.textContent = oldText;
+
+                button.classList.remove("added");
+
+            }, 1000);
+
+        }
+
+    });
+}
 
 const categories = [
     "Vše",
@@ -824,7 +592,6 @@ const categories = [
         products.map(product => product.category)
     )
 ];
-
 
 function renderCategories() {
 
@@ -845,12 +612,11 @@ function renderCategories() {
 
         button.addEventListener(
             "click",
-            () => {
+            function() {
 
                 selectedCategory = category;
 
                 renderCategories();
-
                 renderProducts();
 
             }
@@ -859,13 +625,7 @@ function renderCategories() {
         categoriesElement.appendChild(button);
 
     });
-
 }
-
-
-/* =====================================================
-   TEST 25 — ZOBRAZENÍ PRODUKTŮ
-   ===================================================== */
 
 function renderProducts() {
 
@@ -876,7 +636,6 @@ function renderProducts() {
             .toLowerCase()
             .trim();
 
-
     const filteredProducts =
         products.filter(product => {
 
@@ -884,17 +643,13 @@ function renderProducts() {
                 selectedCategory === "Vše" ||
                 product.category === selectedCategory;
 
-
             const searchMatch =
                 product.name
                     .toLowerCase()
                     .includes(search);
 
-
             return categoryMatch && searchMatch;
-
         });
-
 
     if (filteredProducts.length === 0) {
 
@@ -905,9 +660,7 @@ function renderProducts() {
         `;
 
         return;
-
     }
-
 
     filteredProducts.forEach(product => {
 
@@ -916,9 +669,7 @@ function renderProducts() {
 
         card.className = "card";
 
-
         card.innerHTML = `
-
             <img
                 src="${product.image}"
                 alt="${product.name}"
@@ -942,109 +693,39 @@ function renderProducts() {
 
                 <button
                     class="add-button"
-                    data-name="${product.name}"
+                    data-id="${product.id}"
                 >
                     🛒 Přidat do košíku
                 </button>
 
             </div>
-
         `;
-
 
         const button =
             card.querySelector(".add-button");
 
-
         button.addEventListener(
             "click",
-            () => {
-
+            function() {
                 addToCart(product);
-
             }
         );
-
 
         gallery.appendChild(card);
 
     });
-
 }
-
-
-/* =====================================================
-   TEST 26 — PŘIDÁNÍ DO KOŠÍKU
-   ===================================================== */
-
-function addToCart(product) {
-
-    cart.push(product);
-
-    updateCartCount();
-
-    alert(
-        product.name +
-        " bylo přidáno do košíku."
-    );
-
-}
-
-
-/* =====================================================
-   TEST 27 — POČET PRODUKTŮ V KOŠÍKU
-   ===================================================== */
-
-function updateCartCount() {
-
-    cartCount.textContent =
-        cart.length;
-
-}
-
-
-/* =====================================================
-   TEST 28 — VYHLEDÁVÁNÍ
-   ===================================================== */
 
 searchInput.addEventListener(
     "input",
-    () => {
-
+    function() {
         renderProducts();
-
     }
 );
-
-
-/* =====================================================
-   TEST 29 — KOŠÍK
-   ===================================================== */
-
-cartButton.addEventListener(
-    "click",
-    () => {
-
-        /*
-          Zatím přesměrování
-          na kosik.html
-        */
-
-        window.location.href =
-            "./kosik.html";
-
-    }
-);
-
-
-/* =====================================================
-   TEST 30 — SPUŠTĚNÍ GALERIE
-   ===================================================== */
 
 renderCategories();
-
 renderProducts();
-
+updateCartCount();
 </script>
 
 </body>
