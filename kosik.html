@@ -3,364 +3,1178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Košík — MarťasDesign</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
+
 :root {
-  --primary: #ff6363;
-  --dark: #0d0d0d;
-  --light: #fff;
-  --gray: #1a1a1a;
+    --primary: #ff3b3b;
+    --primary-light: #ff5e5e;
+    --dark: #111111;
+    --card: #1e1e1e;
+    --muted: #bdbdbd;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  margin:0;
-  padding:2rem;
-  color: var(--light);
-  min-height: 100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  overflow-x:hidden;
-  background: linear-gradient(135deg, #1a1a1a, #0b0b0b);
-  position:relative;
+    background: radial-gradient(circle at top, #3a0000, #151515);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.flame-bg {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 20% 120%,
+            rgba(255,80,0,0.30),
+            transparent 70%
+        ),
+
+        radial-gradient(
+            circle at 80% 120%,
+            rgba(255,20,0,0.22),
+            transparent 70%
+        ),
+
+        radial-gradient(
+            circle at 50% 120%,
+            rgba(255,120,0,0.20),
+            transparent 70%
+        );
+
+    filter: blur(60px);
+
+    animation: flames 5s infinite alternate ease-in-out;
+
+    z-index: -1;
+}
+
+@keyframes flames {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-30px);
+    }
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 30px;
+
+    background: rgba(20,20,20,0.88);
+
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.logo {
+    color: var(--primary);
+
+    font-size: 1.6rem;
+
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.back-link {
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: 0.3s;
+}
+
+.back-link:hover {
+    color: var(--primary-light);
+}
+
+.cart-icon {
+    font-size: 1.6rem;
+}
+
+main {
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    padding: 45px 20px 70px;
 }
 
 h1 {
-  color: var(--primary);
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 2rem;
-  text-shadow: 0 0 20px rgba(255,99,99,0.4);
-  text-align:center;
+    text-align: center;
+
+    color: var(--primary);
+
+    font-size: 2.8rem;
+
+    margin-bottom: 35px;
+
+    text-shadow:
+        0 0 20px rgba(255,60,60,0.3);
+}
+
+#cart-container {
+    width: 100%;
+}
+
+.empty-cart {
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background: rgba(30,30,30,0.8);
+
+    border-radius: 16px;
+
+    color: var(--muted);
+
+    font-size: 1.1rem;
+}
+
+.empty-cart .empty-icon {
+    display: block;
+
+    font-size: 4rem;
+
+    margin-bottom: 20px;
 }
 
 .cart-item {
-  background: rgba(30,30,30,0.8);
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  width: 100%;
-  max-width: 500px;
-  display:flex;
-  justify-content: space-between;
-  align-items:center;
-  box-shadow:0 4px 12px rgba(255,99,99,0.2);
-  transition: transform 0.2s;
-}
-.cart-item:hover { transform: translateY(-2px); }
+    display: flex;
 
-.cart-item button {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.cart-item button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
+    align-items: center;
+
+    gap: 20px;
+
+    width: 100%;
+
+    background: rgba(30,30,30,0.9);
+
+    border-radius: 16px;
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.4);
+
+    transition: 0.25s;
 }
 
-.main-btn {
-  background: var(--primary);
-  color:#fff;
-  padding:0.9rem 2rem;
-  border-radius:40px;
-  border:none;
-  cursor:pointer;
-  transition:0.3s;
-  font-weight:600;
-  font-size:1.1rem;
-  margin-top:1.5rem;
-}
-.main-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
+.cart-item:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 30px rgba(255,60,60,0.10);
 }
 
-/* Modal form */
+.cart-image {
+    width: 110px;
+
+    height: 100px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    background: #292929;
+
+    flex-shrink: 0;
+}
+
+.cart-info {
+    flex: 1;
+}
+
+.cart-info h3 {
+    font-size: 1.05rem;
+
+    margin-bottom: 6px;
+}
+
+.cart-category {
+    color: var(--muted);
+
+    font-size: 0.85rem;
+
+    margin-bottom: 8px;
+}
+
+.cart-price {
+    color: var(--primary-light);
+
+    font-weight: 800;
+}
+
+.quantity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.quantity button {
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    font-weight: 800;
+}
+
+.quantity button:hover {
+    background: var(--primary-light);
+}
+
+.quantity-number {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-weight: 800;
+}
+
+.item-total {
+    min-width: 100px;
+
+    text-align: right;
+
+    color: white;
+
+    font-weight: 800;
+}
+
+.remove-button {
+    border: none;
+
+    background: transparent;
+
+    color: #ff7777;
+
+    cursor: pointer;
+
+    font-size: 0.85rem;
+
+    font-weight: 700;
+}
+
+.remove-button:hover {
+    color: red;
+}
+
+.cart-summary {
+    margin-top: 25px;
+
+    background: rgba(30,30,30,0.9);
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.4);
+}
+
+.summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 12px;
+
+    color: #ddd;
+}
+
+.summary-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-top: 15px;
+
+    margin-top: 15px;
+
+    border-top: 1px solid rgba(255,255,255,0.1);
+
+    font-size: 1.3rem;
+
+    font-weight: 800;
+}
+
+.summary-total span:last-child {
+    color: var(--primary-light);
+}
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}
+
+.main-button {
+    border: none;
+
+    background: var(--primary);
+
+    color: white;
+
+    padding: 12px 24px;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    font-size: 1rem;
+
+    text-decoration: none;
+
+    transition: 0.25s;
+}
+
+.main-button:hover {
+    background: var(--primary-light);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(255,60,60,0.25);
+}
+
+.secondary-button {
+    background: rgba(255,255,255,0.08);
+}
+
+.secondary-button:hover {
+    background: rgba(255,255,255,0.14);
+}
+
 #form-modal {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(5px);
-  z-index:1000;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:2rem;
-  box-sizing:border-box;
-}
-#form-content {
-  background: var(--gray);
-  padding:2rem;
-  border-radius:20px;
-  width:100%;
-  max-width:500px;
-  position:relative;
-}
-#form-content h2 {
-  color:var(--primary);
-  margin-bottom:1rem;
-  text-align:center;
-}
-#form-content form {
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-}
-#form-content input, #form-content textarea {
-  padding:0.9rem;
-  border-radius:10px;
-  border:none;
-  outline:none;
-  background:#222;
-  color:#fff;
-  font-family:inherit;
-}
-#form-content input::placeholder, #form-content textarea::placeholder {
-  color:#999;
-}
-#close-modal {
-  position:absolute;
-  top:15px;
-  right:15px;
-  font-size:1.5rem;
-  background:none;
-  border:none;
-  color:#fff;
-  cursor:pointer;
-  transition:0.3s;
-}
-#close-modal:hover { transform:scale(1.2); }
+    display: none;
 
-#total-display {
-  margin:1rem 0;
-  font-size:1.3rem;
-  font-weight:600;
-  color:#fff;
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.85);
+
+    backdrop-filter: blur(6px);
+
+    z-index: 2000;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+}
+
+#form-content {
+    width: 100%;
+
+    max-width: 500px;
+
+    background: #1c1c1c;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    position: relative;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.7);
+}
+
+#form-content h2 {
+    text-align: center;
+
+    color: var(--primary);
+
+    margin-bottom: 20px;
+}
+
+#close-modal {
+    position: absolute;
+
+    right: 15px;
+
+    top: 12px;
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    font-size: 1.8rem;
+
+    cursor: pointer;
+}
+
+#order-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+#order-form input,
+#order-form textarea {
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+    background: #292929;
+
+    color: white;
+
+    font-size: 0.95rem;
+}
+
+#order-form textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+#order-form input:focus,
+#order-form textarea:focus {
+    outline: 1px solid var(--primary);
 }
 
 #thankyou {
-  display:none;
-  text-align:center;
-  margin-top:2rem;
-  font-size:1.2rem;
-  animation:fadeIn 0.6s ease-in-out;
-}
-#thankyou h2 { color:var(--primary); margin-bottom:0.5rem; }
+    display: none;
 
-#back-btn {
-  position:fixed;
-  left:20px;
-  bottom:20px;
-  background: var(--primary);
-  color:#fff;
-  padding:0.7rem 1.5rem;
-  border-radius:30px;
-  border:none;
-  cursor:pointer;
-  font-weight:600;
-  z-index:100;
-  transition:0.3s;
-}
-#back-btn:hover {
-  transform:translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255,99,99,0.4);
+    max-width: 700px;
+
+    margin: 0 auto 50px;
+
+    text-align: center;
+
+    background: rgba(30,30,30,0.9);
+
+    border-radius: 16px;
+
+    padding: 30px;
 }
 
-/* Footer stejný jako index */
-.footer {
-  margin-top: 3rem;
-  width: 100%;
-  background: #111;
-  color: #ccc;
-  padding: 2rem 1rem;
-}
-.footer-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.footer-logo h2 {
-  color: var(--primary);
-  font-weight: 800;
-  margin-bottom: 1rem;
-}
-.footer-info p {
-  margin: 0.2rem 0;
-}
-.footer-info a {
-  color: var(--primary);
-  text-decoration: none;
-}
-.footer-socials {
-  margin-top: 0.5rem;
-  display: flex;
-  gap: 0.8rem;
-}
-.footer-socials img {
-  width: 24px;
-  height: 24px;
-  transition: 0.3s;
-}
-.footer-socials img:hover {
-  transform: scale(1.2);
+#thankyou h2 {
+    color: var(--primary);
+
+    margin-bottom: 10px;
 }
 
-/* floating particles */
-.particle{
-  position:absolute;
-  width:4px;
-  height:4px;
-  background:rgba(255,99,99,0.3);
-  border-radius:50%;
-  animation:float 8s linear infinite;
+.discount-code {
+    color: var(--primary-light);
+
+    font-weight: 800;
+
+    font-size: 1.3rem;
+
+    margin-top: 8px;
 }
-@keyframes float{
-  0% {transform:translateY(0);}
-  100% {transform:translateY(-100vh);}
+
+footer {
+    background: rgba(15,15,15,0.95);
+
+    text-align: center;
+
+    color: #ccc;
+
+    padding: 30px 20px;
 }
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: var(--primary);
+
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    main {
+        padding: 35px 15px 50px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .cart-item {
+        flex-wrap: wrap;
+    }
+
+    .cart-image {
+        width: 90px;
+        height: 85px;
+    }
+
+    .item-total {
+        min-width: auto;
+
+        margin-left: auto;
+    }
+
+    .quantity {
+        margin-left: auto;
+    }
+}
+
 </style>
 </head>
+
 <body>
 
-<h1>Tvůj košík</h1>
+<div class="flame-bg"></div>
 
-<div id="cart-container"></div>
+<nav class="navbar">
 
-<div id="total-display"></div>
+    <div class="logo">
+        MarťasDesign
+    </div>
 
-<button class="main-btn" id="checkout-btn">Dokončit objednávku</button>
+    <div class="nav-links">
+
+        <a
+            href="./galerie.html"
+            class="back-link"
+        >
+            ← Galerie
+        </a>
+
+        <div class="cart-icon">
+            🛒
+        </div>
+
+    </div>
+
+</nav>
+
+<main>
+
+    <h1>
+        Tvůj košík
+    </h1>
+
+    <div id="cart-container"></div>
+
+</main>
 
 <div id="form-modal">
-  <div id="form-content">
-    <button id="close-modal">&times;</button>
-    <h2>Odeslat objednávku</h2>
-    <form id="order-form">
-      <input type="text" placeholder="E-mail nebo kontakt" required>
-      <textarea placeholder="Poznámka k objednávce (nepovinné)"></textarea>
-      <input type="text" id="discount-code" placeholder="Slevový kód (např. MARTASDESIGN10)">
-      <button type="submit" class="main-btn">Odeslat objednávku</button>
-    </form>
-  </div>
+
+    <div id="form-content">
+
+        <button id="close-modal">
+            ×
+        </button>
+
+        <h2>
+            Odeslat objednávku
+        </h2>
+
+        <form id="order-form">
+
+            <input
+                type="text"
+                id="contact"
+                placeholder="E-mail nebo telefon"
+                required
+            >
+
+            <textarea
+                id="note"
+                placeholder="Poznámka k objednávce (nepovinné)"
+            ></textarea>
+
+            <input
+                type="text"
+                id="discount-code"
+                placeholder="Slevový kód"
+            >
+
+            <button
+                type="submit"
+                class="main-button"
+            >
+                Odeslat objednávku
+            </button>
+
+        </form>
+
+    </div>
+
 </div>
 
 <div id="thankyou">
-  <h2>🎉 Děkujeme za Vaši objednávku!</h2>
-  <p>Na další nákup máte 10 % slevu s kódem:</p>
-  <p style="font-weight:700; color:var(--primary); font-size:1.3rem;">MARTASDESIGN10</p>
+
+    <h2>
+        🎉 Děkujeme za Vaši objednávku!
+    </h2>
+
+    <p>
+        Objednávka byla připravena.
+    </p>
+
+    <p>
+        Na další nákup máte 10 % slevu s kódem:
+    </p>
+
+    <div class="discount-code">
+        MARTASDESIGN10
+    </div>
+
 </div>
 
-<button id="back-btn" onclick="window.location.href='index.html'">← Zpět</button>
+<footer>
 
-<!-- Footer stejný jako index -->
-<div class="footer">
-  <div class="footer-container">
-    <div class="footer-logo">
-      <h2>MarťasDesign</h2>
-    </div>
-    <div class="footer-info">
-      <p>Kontakt: <a href="mailto:info@martasdesign.cz">info@martasdesign.cz</a></p>
-      <p>Telefon: +420 123 456 789</p>
-      <p>Sledujte nás na sociálních sítích:</p>
-      <div class="footer-socials">
-        <a href="#"><img src="img/ico-facebook.png" alt="Facebook"></a>
-        <a href="#"><img src="img/ico-instagram.png" alt="Instagram"></a>
-        <a href="#"><img src="img/ico-twitter.png" alt="Twitter"></a>
-      </div>
-    </div>
-  </div>
-</div>
+    <p>
+        © 2025 MarťasDesign BETA Version 0.4
+    </p>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <p>
+        Navrženo s ❤️
+    </p>
+
+</footer>
+
 <script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [
-  {id:1,name:"Tričko MarťasDesign",price:499},
-  {id:2,name:"Koberec MarťasDesign",price:899}
-];
-let discountActive=false;
 
-function calculateTotal(){
-  let total=0;
-  cart.forEach(item => total+=parseFloat(item.price));
-  return discountActive ? Math.round(total*0.9) : total;
+const STORAGE_KEY = "martasdesignCart";
+
+let cart =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    ) || [];
+
+let discountActive = false;
+
+
+function saveCart() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(cart)
+    );
+
 }
 
-function renderCart(){
-  const container=document.getElementById("cart-container");
-  container.innerHTML="";
-  if(cart.length===0){
-    container.innerHTML='<p style="font-size:1.2rem;">Košík je prázdný.</p>';
-    document.getElementById("checkout-btn").style.display="none";
-    document.getElementById("total-display").style.display="none";
-    return;
-  }
-  document.getElementById("checkout-btn").style.display="inline-block";
-  document.getElementById("total-display").style.display="block";
-  let total=calculateTotal();
-  document.getElementById("total-display").innerHTML = discountActive ? 
-    `<span style="text-decoration:line-through;">Celkem: ${cart.reduce((a,b)=>a+parseFloat(b.price),0)} Kč</span> <span style="color:var(--primary)">Po slevě: ${total} Kč</span>` :
-    `Celkem: ${total} Kč`;
 
-  cart.forEach((item,index)=>{
-    const div=document.createElement("div");
-    div.className="cart-item";
-    div.innerHTML=`<span>${item.name}</span> <button onclick="removeItem(${index})">Odebrat</button>`;
-    container.appendChild(div);
-  });
+function getTotalBeforeDiscount() {
+
+    return cart.reduce(
+        (total, item) => {
+
+            return total +
+                (Number(item.price) *
+                Number(item.quantity));
+
+        },
+        0
+    );
+
 }
 
-function removeItem(index){
-  cart.splice(index,1);
-  localStorage.setItem("cart",JSON.stringify(cart));
-  renderCart();
+
+function getTotal() {
+
+    const total =
+        getTotalBeforeDiscount();
+
+    if (discountActive) {
+
+        return Math.round(total * 0.9);
+
+    }
+
+    return total;
+
 }
 
-document.getElementById("checkout-btn").addEventListener("click",()=>document.getElementById("form-modal").style.display="flex");
-document.getElementById("close-modal").addEventListener("click",()=>document.getElementById("form-modal").style.display="none");
 
-document.getElementById("order-form").addEventListener("submit",(e)=>{
-  e.preventDefault();
-  const code = document.getElementById("discount-code").value.trim().toUpperCase();
-  discountActive = (code==="MARTASDESIGN10");
-  cart=[]; localStorage.removeItem("cart");
-  renderCart();
-  document.getElementById("form-modal").style.display="none";
-  document.getElementById("thankyou").style.display="block";
+function renderCart() {
 
-  const duration = 2*1000;
-  const end = Date.now()+duration;
-  (function frame(){
-    confetti({particleCount:4,startVelocity:30,spread:360,ticks:60,origin:{x:Math.random(),y:Math.random()-0.2}});
-    if(Date.now()<end) requestAnimationFrame(frame);
-  })();
-});
+    const container =
+        document.getElementById(
+            "cart-container"
+        );
 
-// floating particles
-for(let i=0;i<50;i++){
-  const p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"%";
-  p.style.animationDuration=5+Math.random()*5+"s";
-  p.style.opacity=Math.random();
-  p.style.width=2+Math.random()*4+"px";
-  p.style.height=p.style.width;
-  document.body.appendChild(p);
+    container.innerHTML = "";
+
+
+    if (!cart.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-cart">
+
+                <span class="empty-icon">
+                    🛒
+                </span>
+
+                <p>
+                    Košík je prázdný.
+                </p>
+
+                <div class="buttons">
+
+                    <a
+                        href="./galerie.html"
+                        class="main-button"
+                    >
+                        Zobrazit galerii
+                    </a>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    cart.forEach((item, index) => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "cart-item";
+
+
+        const quantity =
+            Number(item.quantity) || 1;
+
+        const price =
+            Number(item.price) || 0;
+
+        const itemTotal =
+            price * quantity;
+
+
+        div.innerHTML = `
+
+            <img
+                src="${item.image || ''}"
+                alt="${item.name}"
+                class="cart-image"
+            >
+
+            <div class="cart-info">
+
+                <h3>
+                    ${item.name}
+                </h3>
+
+                <div class="cart-category">
+                    ${item.category || ""}
+                </div>
+
+                <div class="cart-price">
+                    ${price.toLocaleString("cs-CZ")} Kč / ks
+                </div>
+
+            </div>
+
+            <div class="quantity">
+
+                <button
+                    data-action="minus"
+                    data-index="${index}"
+                >
+                    −
+                </button>
+
+                <span class="quantity-number">
+                    ${quantity}
+                </span>
+
+                <button
+                    data-action="plus"
+                    data-index="${index}"
+                >
+                    +
+                </button>
+
+            </div>
+
+            <div class="item-total">
+                ${itemTotal.toLocaleString("cs-CZ")} Kč
+            </div>
+
+            <button
+                class="remove-button"
+                data-action="remove"
+                data-index="${index}"
+            >
+                Odebrat
+            </button>
+
+        `;
+
+        container.appendChild(div);
+
+    });
+
+
+    const summary =
+        document.createElement("div");
+
+    summary.className =
+        "cart-summary";
+
+
+    const beforeDiscount =
+        getTotalBeforeDiscount();
+
+    const total =
+        getTotal();
+
+
+    summary.innerHTML = `
+
+        <div class="summary-row">
+
+            <span>
+                Počet produktů
+            </span>
+
+            <span>
+                ${cart.reduce(
+                    (sum, item) =>
+                        sum + Number(item.quantity),
+                    0
+                )}
+            </span>
+
+        </div>
+
+        <div class="summary-row">
+
+            <span>
+                Cena před slevou
+            </span>
+
+            <span>
+                ${beforeDiscount.toLocaleString("cs-CZ")} Kč
+            </span>
+
+        </div>
+
+        ${
+            discountActive
+            ?
+            `
+            <div class="summary-row">
+
+                <span>
+                    Sleva 10 %
+                </span>
+
+                <span>
+                    -${Math.round(
+                        beforeDiscount * 0.1
+                    ).toLocaleString("cs-CZ")} Kč
+                </span>
+
+            </div>
+            `
+            :
+            ""
+        }
+
+        <div class="summary-total">
+
+            <span>
+                Celkem
+            </span>
+
+            <span>
+                ${total.toLocaleString("cs-CZ")} Kč
+            </span>
+
+        </div>
+
+        <div class="buttons">
+
+            <a
+                href="./galerie.html"
+                class="main-button secondary-button"
+            >
+                Pokračovat v nákupu
+            </a>
+
+            <button
+                id="checkout-button"
+                class="main-button"
+            >
+                Dokončit objednávku
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(summary);
+
+
+    document
+        .querySelectorAll("[data-action]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const index =
+                        Number(
+                            this.dataset.index
+                        );
+
+                    const action =
+                        this.dataset.action;
+
+
+                    if (action === "plus") {
+
+                        cart[index].quantity += 1;
+
+                    }
+
+
+                    if (action === "minus") {
+
+                        cart[index].quantity -= 1;
+
+
+                        if (
+                            cart[index].quantity <= 0
+                        ) {
+
+                            cart.splice(index, 1);
+
+                        }
+
+                    }
+
+
+                    if (action === "remove") {
+
+                        cart.splice(index, 1);
+
+                    }
+
+
+                    saveCart();
+
+                    renderCart();
+
+                }
+            );
+
+        });
+
+
+    const checkoutButton =
+        document.getElementById(
+            "checkout-button"
+        );
+
+
+    if (checkoutButton) {
+
+        checkoutButton.addEventListener(
+            "click",
+            function() {
+
+                document.getElementById(
+                    "form-modal"
+                ).style.display = "flex";
+
+            }
+        );
+
+    }
+
 }
+
+
+document
+    .getElementById("close-modal")
+    .addEventListener(
+        "click",
+        function() {
+
+            document.getElementById(
+                "form-modal"
+            ).style.display = "none";
+
+        }
+    );
+
+
+document
+    .getElementById("form-modal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                this.style.display = "none";
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("order-form")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const code =
+                document
+                    .getElementById(
+                        "discount-code"
+                    )
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+
+            discountActive =
+                code === "MARTASDESIGN10";
+
+
+            const contact =
+                document
+                    .getElementById(
+                        "contact"
+                    )
+                    .value
+                    .trim();
+
+
+            if (!contact) {
+
+                return;
+
+            }
+
+
+            cart = [];
+
+            saveCart();
+
+
+            document.getElementById(
+                "form-modal"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "thankyou"
+            ).style.display = "block";
+
+
+            renderCart();
+
+        }
+    );
+
 
 renderCart();
+
 </script>
+
 </body>
 </html>
